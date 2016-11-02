@@ -1,15 +1,19 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataProcess {
 	
 	public int[] perAllNumA;			//整数数组存放左侧每一个条目对应的菜的总数目
 	public int[] panelNumA;				//左侧每一个条目对应的中间区域分页总数
 	public boolean haveRecL = false;	//判断是否需要刷新左边列表
+	public boolean haveRecM = false;	//判断是否需要刷新中间面板
+	public ArrayList<Double> pointPer;	//存放要更改的每一道菜的数据
 	public ArrayList<String> recLl;		//左侧列表需要刷新的更新数据
 	public int kindNum;					//左侧条目的数量
-	
+	public Map<String, Map<String, ArrayList<String>>> map = new HashMap<String, Map<String,ArrayList<String>>>();
 
 	public DataProcess() {
 		
@@ -31,7 +35,7 @@ public class DataProcess {
 		
 	}
 	
-	//*************以下方法用于将客户端从数据段获取的数据非配个各个面板，使各个面板完成数据更新
+	//*************以下方法用于将客户端从数据段获取的数据非配个各个面板，使各个面板完成数据更新*************************************
 	public int[] getPerAllNumA() {
 		return perAllNumA;
 	}
@@ -72,5 +76,6 @@ public class DataProcess {
 		this.kindNum = kindNum;
 	}
 
+	//**********************************************************************************************************
 	
 }

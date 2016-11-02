@@ -10,43 +10,31 @@ public class MyPanelMidKindArray extends JPanel{
 
 	MyPanelMidArray[] MPMA;				//中间面板数组
 	public int kindNum;					//左侧条目的数量
-	
+	int everyKOL[];						//左侧每个条目对应的菜的数目
 	
 
 	public MyPanelMidKindArray() {
-		kindNum = 1;
-		MPMA = new MyPanelMidArray[kindNum];
+		
 		init();
 	}
 
 	public void init() {
 		
+		kindNum = 1;
+		MPMA = new MyPanelMidArray[kindNum];
+		everyKOL = new int[10];
+		setBackground(Color.CYAN);
 		for(int i = 0; i < kindNum; i++){
-			MPMA[i] = new MyPanelMidArray();
+			MPMA[i] = new MyPanelMidArray(everyKOL[i]);
 		}
 		MPMA[0].setBackground(Color.cyan);
 		restLayouMidArr(MPMA[0], this);
 		updateUI();
 	}
 	
-	public void restLayouMidArr(JPanel src, JPanel rel){							//点击切换页面按钮，要重新布局,src要添加到rel面板中
-	
-		//********设计布局方式**********
-		GridBagLayout gbLayout = new GridBagLayout();
-		this.setLayout(gbLayout);
-		GridBagConstraints s = new GridBagConstraints();
-		s.fill = GridBagConstraints.BOTH;
-		//***************************
-		
-		s.gridwidth = 1;
-		s.gridheight = 1;
-		s.weightx = 1;
-		s.weighty = 1;
-		gbLayout.setConstraints(src, s);
+	public void restLayouMidArr(JPanel src, JPanel rel){							//点击左侧按钮切换页面，要重新布局,src要添加到rel面板中
 		
 		rel.add(src);
-		
-		
 	}
 	
 	public int getKindNum() {

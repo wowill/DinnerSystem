@@ -19,6 +19,7 @@ public class MyPanelLeft extends JPanel{
 	public ArrayList<String> recLL;		//接收服务端的
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
+	public JPanel spcePanel;			//空白面板用于填充
 	
 	public MyPanelLeft() {
 		
@@ -31,7 +32,7 @@ public class MyPanelLeft extends JPanel{
 		gbLayout = new GridBagLayout();
 		setLayout(gbLayout);
 		s = new GridBagConstraints();
-		
+		s.fill = GridBagConstraints.BOTH;
 		//****************************************
 
 		haveRecL = true;			//暂时将判断条件设为true
@@ -50,6 +51,7 @@ public class MyPanelLeft extends JPanel{
 	public void dataReceive(){			//从服务端获得左边列表的数据
 		
 		recLL = new ArrayList<>();
+		spcePanel = new JPanel();
 		
 		for(int i = 0; i < 10; i++){
 			
@@ -69,10 +71,21 @@ public class MyPanelLeft extends JPanel{
 			s.ipadx = 10;
 			s.ipady = 10;
 			s.weightx = 1;
+			s.weighty = 0;
 			s.gridwidth = 1;
 			s.gridheight = 1;
 			add(btnA[i], s);
 		}
+		s.fill = GridBagConstraints.BOTH;
+		s.gridx = 0;
+		s.gridy = recLL.size();
+		s.ipadx = 10;
+		s.ipady = 10;
+		s.weightx = 1;
+		s.weighty = 0;
+		s.gridwidth = 0;
+		s.gridheight = 10;
+		add(spcePanel, s);
 	}
 	
 	public void flushdata(){			//刷新左侧列表数据

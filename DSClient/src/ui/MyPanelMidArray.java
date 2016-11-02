@@ -8,10 +8,11 @@ import javax.swing.JPanel;
 
 public class MyPanelMidArray extends JPanel{
 	
-	public int panelNum;			//中间区域每一种的面板数目
+	public int panelNum;			//中间区域每一个条目含有几页MPM
 	MyPanelMid[] MPM;				//中间区域的的面板数组		
 	
-	public MyPanelMidArray() {
+	public MyPanelMidArray(int panelNum) {
+		this.panelNum = panelNum;
 		panelNum  = 1;
 		MPM = new MyPanelMid[panelNum];
 		init();
@@ -37,10 +38,12 @@ public class MyPanelMidArray extends JPanel{
 		s.fill = GridBagConstraints.BOTH;
 		//***************************
 		
-		s.gridwidth = 1;
-		s.gridheight = 1;
-		s.weightx = 1;
-		s.weighty = 1;
+//		s.gridwidth = 1;
+//		s.gridheight = 1;
+//		s.weightx = 0;
+//		s.weighty = 0;
+//		s.gridx = 0;
+//		s.gridy = 0;
 		gbLayout.setConstraints(src, s);
 		
 		rel.add(src);

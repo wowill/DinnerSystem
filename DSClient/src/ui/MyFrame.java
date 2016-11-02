@@ -15,7 +15,7 @@ public class MyFrame extends JFrame{
 	int FRAME_WIDTH = 900;
 	int FRAME_HEIGHT = 700;
 	
-	int LP_WIDTH = 100;
+	int LP_WIDTH = 80;
 	int MPMA_WIDTH = 660;
 	int MPMA_HEIGHT = 600;
 	int MPMB_WIDTH = 660;
@@ -84,32 +84,36 @@ public class MyFrame extends JFrame{
 		s.gridheight = 2;
 //		s.weightx = 0;
 //		s.gridheight = 0;
+//		s.weighty = 0;
+//		s.weightx = 0;
 		add(MPL, s);
 		gbLayout.setConstraints(MPL, s);
 		// *************************************
 		
 		// ************设置中间区域布局***************
 		s.fill = GridBagConstraints.BOTH;
-		s.ipadx = MPMA_WIDTH;
-		s.ipady = MPMA_HEIGHT;
+//		s.ipadx = MPMA_WIDTH;
+//		s.ipady = MPMA_HEIGHT;
 		s.gridx = 1;
 		s.gridy = 0;
 		s.gridheight = 1;
-		s.gridwidth = 1;
-		s.weightx = 1;
+		s.gridwidth = 0;
+		s.weightx = 0.5;
+		s.weighty = 0.95;
 		add(MPMKA, s);
 		gbLayout.setConstraints(MPMKA, s);
 		// *************************************
 		
 		// ************设置中下区域布局***************
 		s.fill = GridBagConstraints.HORIZONTAL;
-		s.ipadx = MPMB_WIDTH;
-		s.ipady = MPMB_HEIGHT;
+//		s.ipadx = MPMB_WIDTH;
+//		s.ipady = MPMB_HEIGHT;
 		s.gridx = 1;
 		s.gridy = 1;
 		s.gridheight = 1;
 		s.gridwidth = 1;
-		
+		s.weightx = 0;
+		s.weighty = 0.05;
 		add(MPMB, s);
 		gbLayout.setConstraints(MPMB, s);
 		// *************************************

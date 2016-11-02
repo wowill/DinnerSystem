@@ -49,7 +49,7 @@ public class MyFrame extends JFrame{
 		int h = rect.height;
 		this.setBounds((w - FRAME_WIDTH) / 2, (h - FRAME_HEIGHT) / 2, FRAME_WIDTH, FRAME_HEIGHT);
 		//**************************************
-		setTitle("µã²Í¿Í»§¶Ë");
+		setTitle("Hava an Dinner");
 		try {
 			this.setIconImage(ImageIO.read(this.getClass().getResource("/image/dinner.png")));
 		} catch (IOException e) {

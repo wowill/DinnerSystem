@@ -6,25 +6,26 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-public class MyPanelMidArray extends JPanel{
+public class MyPanelMidKindArray extends JPanel{
+
+	MyPanelMidArray[] MPMA;				//中间面板数组
+	public int kindNum;					//左侧条目的数量
 	
-	public int panelNum;			//中间区域每一种的面板数目
-	MyPanelMid[] MPM;				//中间区域的的面板数组		
 	
-	public MyPanelMidArray() {
-		panelNum  = 1;
-		MPM = new MyPanelMid[panelNum];
+
+	public MyPanelMidKindArray() {
+		kindNum = 1;
+		MPMA = new MyPanelMidArray[kindNum];
 		init();
 	}
 
-	public  void init() {
+	public void init() {
 		
-		for(int i = 0; i < panelNum; i++){
-			
-			MPM[i] = new MyPanelMid();
+		for(int i = 0; i < kindNum; i++){
+			MPMA[i] = new MyPanelMidArray();
 		}
-		MPM[0].setBackground(Color.ORANGE);
-		restLayouMidArr(MPM[0], this);
+		MPMA[0].setBackground(Color.cyan);
+		restLayouMidArr(MPMA[0], this);
 		updateUI();
 	}
 	
@@ -44,14 +45,15 @@ public class MyPanelMidArray extends JPanel{
 		gbLayout.setConstraints(src, s);
 		
 		rel.add(src);
+		
+		
 	}
 	
-	public int getPanelNum() {
-		return panelNum;
+	public int getKindNum() {
+		return kindNum;
 	}
 
-	public void setPanelNum(int panelNum) {
-		this.panelNum = panelNum;
+	public void setKindNum(int kindNum) {
+		this.kindNum = kindNum;
 	}
-	
 }

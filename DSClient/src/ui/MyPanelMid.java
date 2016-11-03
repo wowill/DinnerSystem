@@ -27,7 +27,7 @@ public class MyPanelMid extends JPanel{
 
 	public void init() {
 		
-		setBackground(Color.PINK);
+		setBackground(Color.WHITE);
 		//********设计布局方式**********
 		gbLayout = new GridBagLayout();
 		setLayout(gbLayout);
@@ -46,7 +46,7 @@ public class MyPanelMid extends JPanel{
 	
 	public void restLayouMidArr(JPanel src, JPanel rel, int i){							//点击切换页面按钮，要重新布局,src要添加到rel面板中
 		
-		s.ipadx = 5;
+		s.ipadx = 15;
 		s.ipady = 5;
 		s.gridx = i % 3;
 		s.gridy = i / 3;

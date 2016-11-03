@@ -34,7 +34,7 @@ public class MyPanelMidArray extends JPanel{
 			
 			MPM[i] = new MyPanelMid(evePaneNum[i]);
 		}
-		MPM[0].setBackground(Color.ORANGE);
+		MPM[0].setBackground(Color.WHITE);
 		restLayouMidArr(MPM[0], this);
 		updateUI();
 	}

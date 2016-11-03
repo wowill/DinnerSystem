@@ -22,7 +22,7 @@ public class MyPanelMidBottom extends JPanel{
 
 	private void init() {
 		// TODO Auto-generated method stub
-		this.setBackground(Color.GREEN);
+		this.setBackground(Color.WHITE);
 		mackPanel();
 	}
 	public void mackPanel(){

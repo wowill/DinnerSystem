@@ -5,10 +5,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MyPanelLeft extends JPanel{
@@ -22,12 +25,14 @@ public class MyPanelLeft extends JPanel{
 	public MyPanelMidKindArray midC;	//盛放中间面板的面板容器
 	public MyPanelMidBottom midB;		//盛放下方面板的面板容器
 	public int selNo;					//被选中的条目编号
+	public ConfirmPanel confimP;				//确认购买面板
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
 	
 	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb) {
 		this.midC = mpmka;
 		this.midB = mpmb;
+		confimP = new ConfirmPanel();
 		init();
 		
 	}
@@ -35,7 +40,8 @@ public class MyPanelLeft extends JPanel{
 	public void init() {
 			
 		selNo = 0;
-		
+		confimP.setBackground(new Color(150, 20, 20));
+		confimP.confLab.setForeground(Color.WHITE);
 		//************设置布局方式*****************
 		gbLayout = new GridBagLayout();
 		setLayout(gbLayout);
@@ -47,6 +53,7 @@ public class MyPanelLeft extends JPanel{
 		checkFlushL();
 		setBackground(Color.WHITE);
 		initSelected();
+		addCPAL();
 	}
 	
 	public void checkFlushL(){
@@ -85,16 +92,28 @@ public class MyPanelLeft extends JPanel{
 			s.gridheight = 1;
 			add(Lip[i], s);
 		}
-//		s.fill = GridBagConstraints.BOTH;
-//		s.gridx = 0;
-//		s.gridy = recLL.size();
-//		s.ipadx = 10;
-//		s.ipady = 10;
-//		s.weightx = 1;
-//		s.weighty = 0;
-//		s.gridwidth = 0;
-//		s.gridheight = 10;
-//		add(spcePanel, s);
+		s.fill = GridBagConstraints.HORIZONTAL;
+		s.gridx = 0;
+		s.gridy = recLL.size();
+		s.ipadx = 10;
+		s.ipady = 210;
+		s.weightx = 1;
+		s.weighty = 0;
+		s.gridwidth = 1;
+		s.gridheight = 1;
+		spcePanel.setBackground(Color.WHITE);
+		add(spcePanel, s);
+		
+		s.fill = GridBagConstraints.HORIZONTAL;
+		s.gridx = 0;
+		s.gridy = recLL.size()+1;
+		s.ipadx = 10;
+		s.ipady = 10;
+		s.weightx = 1;
+		s.weighty = 0;
+		s.gridwidth = 1;
+		s.gridheight = 1;
+		add(confimP, s);
 	}
 	
 	public void flushdata(){			//刷新左侧列表数据
@@ -128,4 +147,56 @@ public class MyPanelLeft extends JPanel{
 		Lip[0].lab.setForeground(Color.WHITE);
 		
 	}
+	public void addCPAL(){
+		confimP.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				confimP.setBackground(new Color(150, 0, 20));
+				confimP.confLab.setForeground(Color.WHITE);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				confimP.setBackground(new Color(220, 0, 0));
+				confimP.confLab.setForeground(Color.WHITE);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				confimP.setBackground(new Color(220, 0, 0));
+				confimP.confLab.setForeground(Color.WHITE);
+				JOptionPane.showConfirmDialog(null, "请确认是否购买！");
+			}
+		});
+	}
+}
+
+class ConfirmPanel extends JPanel{
+	
+	JLabel confLab;
+	public ConfirmPanel() {
+		
+		confLab = new JLabel("确认购买");
+		confLab.setFont(new Font("微软雅黑", 1, 15));
+		this.add(confLab);
+	}
+	
+	
+	
 }

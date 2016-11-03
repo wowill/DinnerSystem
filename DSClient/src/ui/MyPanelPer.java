@@ -38,7 +38,7 @@ public class MyPanelPer extends JPanel{
 		addNum = new JButton("+");
 		showNum = new JButton("0");
 		p = new JPanel();
-		
+		p.setBackground(Color.WHITE);
 		try {
 			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource("/image/test1.png")));
 			imgLab.setIcon(img);
@@ -67,7 +67,7 @@ public class MyPanelPer extends JPanel{
 		this.add(p, s);
 		
 		
-		setBackground(Color.BLUE);
+		setBackground(Color.WHITE);
 	}
 
 	public void setLayout(){				//设置布局方式

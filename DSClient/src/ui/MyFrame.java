@@ -133,7 +133,7 @@ public class MyFrame extends JFrame{
 				// TODO Auto-generated method stub
 				MyPanelMidArray tempP = MPMKA.MPMA[MPMKA.curLabNo];
 				
-				if(tempP.indexArr < tempP.panelNum)
+				if(tempP.indexArr+1 < tempP.panelNum)
 				{
 					System.out.println(MPMKA.curLabNo+"  ||  "+tempP.indexArr + "   " +tempP.panelNum);
 					tempP.indexArr++;

@@ -4,10 +4,13 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import data.DataProcess;
 
@@ -32,12 +35,13 @@ public class MyFrame extends JFrame{
 	public MyFrame() {
 		
 		DP = new DataProcess();
-		MPL = new MyPanelLeft();
 		MPMB = new MyPanelMidBottom();
 		MPMKA = new MyPanelMidKindArray();
-		
+		MPL = new MyPanelLeft(MPMKA, MPMB);
 		init();
-		
+		initBottomIndex();
+		AddBtnNextListener();
+		AddBtnFrontListener();
 	}
 
 	public void init() {
@@ -49,6 +53,7 @@ public class MyFrame extends JFrame{
 		int h = rect.height;
 		this.setBounds((w - FRAME_WIDTH) / 2, (h - FRAME_HEIGHT) / 2, FRAME_WIDTH, FRAME_HEIGHT);
 		//**************************************
+//		setResizable(false);
 		setTitle("Hava an Dinner");
 		try {
 			this.setIconImage(ImageIO.read(this.getClass().getResource("/image/dinner.png")));
@@ -118,6 +123,73 @@ public class MyFrame extends JFrame{
 		gbLayout.setConstraints(MPMB, s);
 		// *************************************
 		
+	}
+	
+	public void AddBtnNextListener(){							//为下一个按钮添加事件
+		MPMB.nextBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				MyPanelMidArray tempP = MPMKA.MPMA[MPMKA.curLabNo];
+				
+				if(tempP.indexArr < tempP.panelNum)
+				{
+					System.out.println(MPMKA.curLabNo+"  ||  "+tempP.indexArr + "   " +tempP.panelNum);
+					tempP.indexArr++;
+					tempP.removeAll();
+					MPMKA.removeAll();
+					tempP.restLayouMidArr(tempP.MPM[tempP.indexArr], tempP);
+					MPMKA.restLayouMidArr(MPMKA.curLabNo, MPMKA);
+					tempP.updateUI();
+					MPMKA.updateUI();
+					MPMB.setAllPageNum(tempP.getPanelNum());
+					MPMB.setCurPage(tempP.indexArr+1);
+					MPMB.setLabelText();
+					MPMB.updateUI();
+				}
+				else
+					System.out.println("这是最后一页");
+				
+			}
+		});
+	}
+	
+
+	public void AddBtnFrontListener(){							//为上一个按钮添加事件
+		MPMB.frontBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				MyPanelMidArray tempP = MPMKA.MPMA[MPMKA.getCurLabNo()];
+				if(tempP.indexArr-1 >= 0)
+				{
+					tempP.indexArr--;
+					tempP.removeAll();
+					MPMKA.removeAll();
+					tempP.restLayouMidArr(tempP.MPM[tempP.indexArr], tempP);
+					MPMKA.restLayouMidArr(MPMKA.curLabNo, MPMKA);
+					tempP.updateUI();
+					MPMKA.updateUI();
+					MPMB.setAllPageNum(tempP.getPanelNum());
+					MPMB.setCurPage(tempP.indexArr+1);
+					MPMB.setLabelText();
+					MPMB.updateUI();
+				}
+				else
+					System.out.println("这是第一页");
+				
+			}
+		});
+	}
+	
+	public void initBottomIndex(){			//初始化底部面板的页码标签
+		
+		MPMB.setCurPage(1);
+		MPMB.setAllPageNum(MPMKA.MPMA[0].panelNum);
+		MPMB.setLabelText();
+		MPMB.updateUI();
 	}
 	
 }

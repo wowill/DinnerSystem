@@ -8,9 +8,10 @@ import javax.swing.JPanel;
 
 public class MyPanelMidKindArray extends JPanel{
 
-	MyPanelMidArray[] MPMA;				//中间面板数组
+	public MyPanelMidArray[] MPMA;		//中间面板数组
 	public int kindNum;					//左侧条目的数量
 	int everyKOL[];						//左侧每个条目对应的菜的数目
+	public int curLabNo;				//当前选中左侧列表的序号
 	
 
 	public MyPanelMidKindArray() {
@@ -19,22 +20,28 @@ public class MyPanelMidKindArray extends JPanel{
 	}
 
 	public void init() {
+		kindNum = 8;
+		//*************模拟初始化 everyKOL[],真实数据传入再做修改
+		everyKOL = new int[kindNum];
+		for(int i = 0; i < kindNum; i++){
+			everyKOL[i] = (int) (i+1+(Math.random()*20));
+		}
+		//****************
 		
-		kindNum = 1;
 		MPMA = new MyPanelMidArray[kindNum];
-		everyKOL = new int[10];
 		setBackground(Color.CYAN);
 		for(int i = 0; i < kindNum; i++){
 			MPMA[i] = new MyPanelMidArray(everyKOL[i]);
 		}
 		MPMA[0].setBackground(Color.cyan);
-		restLayouMidArr(MPMA[0], this);
+		restLayouMidArr(0, this);
 		updateUI();
 	}
 	
-	public void restLayouMidArr(JPanel src, JPanel rel){							//点击左侧按钮切换页面，要重新布局,src要添加到rel面板中
+	public void restLayouMidArr(int index, JPanel rel){							//点击左侧按钮切换页面，要重新布局,src要添加到rel面板中
 		
-		rel.add(src);
+		rel.add(MPMA[index]);
+		
 	}
 	
 	public int getKindNum() {
@@ -44,4 +51,22 @@ public class MyPanelMidKindArray extends JPanel{
 	public void setKindNum(int kindNum) {
 		this.kindNum = kindNum;
 	}
+	
+	public MyPanelMidArray[] getMPMA() {
+		return MPMA;
+	}
+
+	public void setMPMA(MyPanelMidArray[] mPMA) {
+		MPMA = mPMA;
+	}
+	
+	public int getCurLabNo() {
+		return curLabNo;
+	}
+
+	public void setCurLabNo(int curLabNo) {
+		this.curLabNo = curLabNo;
+	}
+
+	
 }

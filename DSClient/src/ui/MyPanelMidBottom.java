@@ -14,6 +14,7 @@ public class MyPanelMidBottom extends JPanel{
 	private int allPageNum;				//页码总数
 	private int curPage;				//当前页码
 	
+	
 	public MyPanelMidBottom()
 	{
 		init();

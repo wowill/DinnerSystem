@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -18,14 +19,15 @@ public class MyPanelMid extends JPanel{
 	GridBagLayout gbLayout;		//设计布局方式
 	GridBagConstraints s;		//设计布局方式
 	
-	public MyPanelMid() {
-		perAllNum = 9;
+	public MyPanelMid(int perAllNum) {
+		this.perAllNum = perAllNum;
 		MPP = new MyPanelPer[perAllNum];
 		init();
 	}
 
 	public void init() {
 		
+		setBackground(Color.PINK);
 		//********设计布局方式**********
 		gbLayout = new GridBagLayout();
 		setLayout(gbLayout);
@@ -50,8 +52,14 @@ public class MyPanelMid extends JPanel{
 		s.gridy = i / 3;
 		s.gridwidth = 1;
 		s.gridheight = 1;
-//		s.weightx = 1;
-//		s.weighty = 1;
+		s.weightx = 1;
+		s.weighty = 1;
+		if(i % 3 == 2){
+			s.weightx = 0;
+		}
+		if(i >= 5 && i <= 8){
+			s.weighty = 0;
+		}
 		gbLayout.setConstraints(src, s);
 		
 		rel.add(src);

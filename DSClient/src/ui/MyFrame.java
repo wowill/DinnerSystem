@@ -18,7 +18,7 @@ public class MyFrame extends JFrame{
 	int FRAME_WIDTH = 900;
 	int FRAME_HEIGHT = 700;
 	
-	int LP_WIDTH = 80;
+	int LP_WIDTH = 10;
 	int MPMA_WIDTH = 660;
 	int MPMA_HEIGHT = 600;
 	int MPMB_WIDTH = 660;

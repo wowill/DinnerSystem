@@ -7,8 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +28,8 @@ public class MyPanelLeft extends JPanel{
 	public MyPanelMidKindArray midC;	//盛放中间面板的面板容器
 	public MyPanelMidBottom midB;		//盛放下方面板的面板容器
 	public int selNo;					//被选中的条目编号
-	public ConfirmPanel confimP;				//确认购买面板
+	public ConfirmPanel confimP;		//确认购买面板
+	public LeftTop ltp;					//左上角logo面板
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
 	
@@ -33,6 +37,7 @@ public class MyPanelLeft extends JPanel{
 		this.midC = mpmka;
 		this.midB = mpmb;
 		confimP = new ConfirmPanel();
+		ltp = new LeftTop();
 		init();
 		
 	}
@@ -74,6 +79,18 @@ public class MyPanelLeft extends JPanel{
 			recLL.add("测试菜单 "+(i+1));
 		}
 
+		s.fill = GridBagConstraints.NORTH;
+		s.gridx = 0;
+		s.gridy = 0;
+		s.ipadx = 0;
+		s.ipady = 0;
+		s.weightx = 0;
+		s.weighty = 0;
+		s.gridwidth = 1;
+		s.gridheight = 1;
+		ltp.setBackground(Color.WHITE);
+		add(ltp, s);
+		
 		Lip = new LeftItemPanel[recLL.size()];
 		
 		for(int i = 0; i < recLL.size(); i++){
@@ -83,7 +100,7 @@ public class MyPanelLeft extends JPanel{
 			Lip[i].setForeground(new Color(50, 50, 50));
 			s.fill = GridBagConstraints.HORIZONTAL;
 			s.gridx = 0;
-			s.gridy = i;
+			s.gridy = i+1;
 			s.ipadx = 10;
 			s.ipady = 10;
 			s.weightx = 1;
@@ -94,9 +111,9 @@ public class MyPanelLeft extends JPanel{
 		}
 		s.fill = GridBagConstraints.HORIZONTAL;
 		s.gridx = 0;
-		s.gridy = recLL.size();
+		s.gridy = recLL.size()+1;
 		s.ipadx = 10;
-		s.ipady = 140;
+		s.ipady = 220;
 		s.weightx = 1;
 		s.weighty = 0;
 		s.gridwidth = 1;
@@ -106,7 +123,7 @@ public class MyPanelLeft extends JPanel{
 		
 		s.fill = GridBagConstraints.HORIZONTAL;
 		s.gridx = 0;
-		s.gridy = recLL.size()+1;
+		s.gridy = recLL.size()+2;
 		s.ipadx = 10;
 		s.ipady = 10;
 		s.weightx = 1;
@@ -198,6 +215,25 @@ class ConfirmPanel extends JPanel{
 		this.add(confLab);
 	}
 	
+}
+
+class LeftTop extends JPanel{
 	
-	
+	JLabel imgLab;
+	public LeftTop() {
+		
+		init();
+	}
+	public void init() {
+		
+		imgLab = new JLabel();
+		try {
+			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource("/image/leftTop.png")));
+			imgLab.setIcon(img);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		add(imgLab);
+	}
 }

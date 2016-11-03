@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MyPanelPer extends JPanel{
 
@@ -73,9 +74,11 @@ class PerBottom extends JPanel{
 	public JLabel subNum;				//减少按钮
 	public JLabel addNum;				//增加按钮
 	public JLabel soldNum;				//已售标签
-	public JButton showNum;				//显示数量标签
+	public JLabel leaveNum;				//剩余标签
+	public JTextField showNum;			//显示数量标签
 	public int purches;					//已购买的数量
 	public int sold;					//已售数量
+	public int leave;					//剩余数量
 	public double price;				//售卖价格
 	
 	public PerBottom() {
@@ -89,11 +92,13 @@ class PerBottom extends JPanel{
 		priceLab = new JLabel("19.22");
 		subNum = new JLabel();
 		addNum = new JLabel();
-		showNum = new JButton("0");
+		showNum = new JTextField(2);
 		soldNum = new JLabel();
+		leaveNum = new JLabel();
 		setBackground(Color.WHITE);
 		purches = 0;
 		sold = 0;
+		leave = 10;
 		price = 19.22;
 		
 		try {
@@ -105,12 +110,16 @@ class PerBottom extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		showNum.setContentAreaFilled(false);
-		showNum.setEnabled(false);
+		showNum.setText("0");
+		
 		
 		soldNum.setFont(new Font("微软雅黑", 0, 10));
 		soldNum.setForeground(new Color(200, 10, 0));
-		soldNum.setText("已售："+sold);
+		soldNum.setText(""+sold);
+		
+		leaveNum.setFont(new Font("微软雅黑", 0, 10));
+		leaveNum.setForeground(new Color(200, 10, 0));
+		leaveNum.setText(leave+"/");
 		
 		priceLab.setText("￥"+price); 
 		priceLab.setForeground(new Color(200, 10, 0));
@@ -119,7 +128,44 @@ class PerBottom extends JPanel{
 		add(subNum);
 		add(showNum);
 		add(addNum);
+		add(leaveNum);
 		add(soldNum);
+	}
+	
+	public void goAddNum(){				//直接修改库存量
+		
+		leaveNum.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	public void addAddAL(){				//为添加标签添加事件

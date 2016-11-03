@@ -96,7 +96,7 @@ public class MyPanelLeft extends JPanel{
 		s.gridx = 0;
 		s.gridy = recLL.size();
 		s.ipadx = 10;
-		s.ipady = 210;
+		s.ipady = 140;
 		s.weightx = 1;
 		s.weighty = 0;
 		s.gridwidth = 1;
@@ -182,6 +182,7 @@ public class MyPanelLeft extends JPanel{
 				confimP.setBackground(new Color(220, 0, 0));
 				confimP.confLab.setForeground(Color.WHITE);
 				JOptionPane.showConfirmDialog(null, "«Î»∑»œ «∑Òπ∫¬Ú£°");
+				
 			}
 		});
 	}

@@ -13,7 +13,6 @@ public class DataProcess {
 	public ArrayList<Double> pointPer;	//存放要更改的每一道菜的数据
 	public ArrayList<String> recLl;		//左侧列表需要刷新的更新数据
 	public int kindNum;					//左侧条目的数量
-	public Map<String, Map<String, ArrayList<String>>> map = new HashMap<String, Map<String,ArrayList<String>>>();
 
 	public DataProcess() {
 		//http://blog.csdn.net/ns_code/article/details/14105457

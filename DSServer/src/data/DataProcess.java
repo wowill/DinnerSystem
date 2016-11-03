@@ -13,15 +13,49 @@ public class DataProcess {
 	public ArrayList<Double> pointPer;	//存放要更改的每一道菜的数据
 	public ArrayList<String> recLl;		//左侧列表需要刷新的更新数据
 	public int kindNum;					//左侧条目的数量
-
+	
 	public DataProcess() {
-		//http://blog.csdn.net/ns_code/article/details/14105457
+			
 		init();
 	}
 
-	public void init() {
+	public void init() {				//将所有的面板数据初始化
 		
+		//***********左侧列表数据初始化******
+		PCV.AllItemLeft = 8;
+		PCV.leftItemString = new String[8];
+		for(int i = 0; i < PCV.AllItemLeft; i++){
+			
+			PCV.leftItemString[i] = "测试菜单 "+(i+1);
+		}
 		
+		//***********************************
+		
+		//*************初始化每一个条目对应的中间面板数据*************
+		
+		PCV.perDetails = new String[PCV.AllItemLeft];
+		String str = "";
+		
+		for(int i = 0; i < PCV.AllItemLeft; i++){
+			
+			int randX = (int)(Math.random()*30+1);		//随机生成每个条目对应的菜的数目
+			str += i + " " + randX + " "; 
+			for(int j = 0; j < randX; j++){
+				
+				for(int k = 0; k < 3; k++){
+					
+					String price = (int)(Math.random()*50+5)+"."+(int)(Math.random()*9)+""+(int)(Math.random()*9);
+					String sold = (int)(Math.random()*100+5) + "";
+					String leave = (int)(Math.random()*100+20) + "";
+					str += price+" "+sold+" "+leave+" ";
+				}
+				String imgPath = "/image/000"+(int)(Math.random()*8+1)+".png";
+				str += imgPath+" ";
+			}
+			PCV.perDetails[i] = str;
+			str = "";
+		}
+		//**********************************************************
 	}
 	
 	public void recData(){				//从服务端接收数据

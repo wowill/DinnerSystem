@@ -4,6 +4,7 @@ go
 USE DinnerDB;
 go
 
+
 CREATE TABLE LeftItem(
 id int primary key,
 name varchar(50),
@@ -64,4 +65,12 @@ insert into ItemToDetails values
 (28,'²Ë3-13', 12.99, 60, 20, '/image/0003.png', 3),
 (29,'²Ë3-14', 43.00, 50, 30, '/image/0004.png', 3),
 (30,'²Ë3-15', 5.30, 80, 30, '/image/0005.png', 3)
+go
 
+insert into ItemToDetails values
+(31,'²Ë4-1', 43.00, 50, 80, '/image/0004.png', 4),
+(32,'²Ë5-1', 12.99, 60, 20, '/image/0003.png', 5),
+(33,'²Ë6-1', 10.05, 50, 30, '/image/0001.png', 6),
+(34,'²Ë7-1', 43.00, 50, 80, '/image/0004.png', 7),
+(35,'²Ë8-1', 9.99, 50, 30, '/image/0002.png', 8)
+go

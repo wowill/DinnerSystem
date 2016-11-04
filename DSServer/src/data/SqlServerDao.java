@@ -54,7 +54,7 @@ public class SqlServerDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		close();
 	}
 	
 	public void update(String sql){				//修改数据
@@ -68,6 +68,7 @@ public class SqlServerDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		close();
 		
 	}
 	
@@ -82,6 +83,7 @@ public class SqlServerDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		close();
 	}
 	
 	public ArrayList<String> select(String sql, int[] a){				//查询数据
@@ -96,17 +98,16 @@ public class SqlServerDao {
 				for(int i = 0; i < a.length; i++){
 					st += rs.getString(a[i])+" ";
 				}
-				st.trim();
+				st = st.trim();
 				list.add(st);
 			}
 			System.out.println("slect OK ! ");
-//			for(int i = 0; i < list.size(); i++){
-//				System.out.println(list.get(i));
-//			}
+
 		} catch (SQLException e) {
 		
 			e.printStackTrace();
 		}
+		close();
 		return list;
 		
 	}
@@ -127,7 +128,7 @@ public class SqlServerDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("Close OK!");
 		
 	}
 	

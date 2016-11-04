@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -23,18 +24,37 @@ public class MyPanelPer extends JPanel{
 	public PerBottom p;					//容器panel
 	GridBagLayout gbLayout;
 	GridBagConstraints s;
-	public String imgPath;
-	public MyPanelPer(String imgPath) {
+	public String imgPath;				//图片所在路径
+	public int purches;					//已购买的数量
+	public int sold;					//已售数量
+	public int leave;					//剩余数量
+	public double price;				//售卖价格
+	public String perName;				//每一道菜的名字
+	
+	public MyPanelPer(ArrayList<String> list, int perIndex) {
 		
-		this.imgPath = imgPath;
+		//************初始化数据********************
+		String str = list.get(perIndex);
+		String sa[] = str.split(" ");
+		
+		this.perName = sa[0];
+		this.price = Double.parseDouble(sa[1]);
+		this.leave = Integer.parseInt(sa[2]);
+		this.sold = Integer.parseInt(sa[3]);
+		this.imgPath = sa[4];
+		
+		//*****************************************
+		
 		init();
 	}
 	
-	public void init() {			//初始化每一道菜的面板
+	public void init() {			//初始化每一道菜的面板界面
 		
 		setLayout();
 		imgLab = new JLabel();
-		p = new PerBottom();
+		
+		p = new PerBottom(price, leave, sold);
+		
 		setBackground(Color.WHITE);
 		try {
 			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource(imgPath)));
@@ -80,9 +100,13 @@ class PerBottom extends JPanel{
 	public int sold;					//已售数量
 	public int leave;					//剩余数量
 	public double price;				//售卖价格
+	public String perName;				//每一道菜的名字
 	
-	public PerBottom() {
+	public PerBottom(double price, int leave, int sold) {
 		
+		this.price = price;
+		this.leave = leave;
+		this.sold = sold;
 		init();
 		addSubAL();
 		addAddAL();
@@ -96,10 +120,6 @@ class PerBottom extends JPanel{
 		soldNum = new JLabel();
 		leaveNum = new JLabel();
 		setBackground(Color.WHITE);
-		purches = 0;
-		sold = 0;
-		leave = 10;
-		price = 19.22;
 		
 		try {
 			ImageIcon imgSub = new ImageIcon(ImageIO.read(this.getClass().getResource("/image/sub.png")));

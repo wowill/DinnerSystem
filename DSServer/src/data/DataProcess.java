@@ -15,6 +15,8 @@ public class DataProcess {
 	public int kindNum;					//左侧条目的数量
 	public SqlServerDao DAO;			//数据库工具类
 	public int[] toSelect;				//查询指定列数的数组
+	
+	
 	public DataProcess() {
 			
 		init();
@@ -40,46 +42,44 @@ public class DataProcess {
 		
 		//*************初始化每一个条目对应的中间面板数据*************
 		
+		PCV.sendSB = new StringBuilder();
+		
 		toSelect = new int[5];
 		for(int i = 0; i < 5; i++){
-			toSelect[i] = i+1;
+			toSelect[i] = i+2;
 		}
 		
 		PCV.perDetails = new ArrayList<>();
-		PCV.perDetList = new ArrayList<>();
+		PCV.perDetList = new ArrayList<ArrayList<String>>();
+		PCV.leftItemOfDN = new ArrayList<>();
 		
 		String str = "";
 		
 		for(int i = 0; i < PCV.AllItemLeft; i++){
 			
 			ArrayList<String> list;
-			sql = "selec * from ItemToDetails where ItemID = " + (i+1);
+			sql = "select * from ItemToDetails where ItemID = " + (i+1);
 			list = DAO.select(sql, toSelect);
 			PCV.leftItemOfDN.add(list.size());
 			int randX = list.size();		//每个题目对应菜的数目，从数据库获取
 			str += i + " " + randX + " "; 
 			for(int j = 0; j < randX; j++){
 				
-				str += list.get(i)+" ";
+				str += list.get(j)+" ";
+				
 			}
-			str.trim();
+			str = str.trim();
+			
+			PCV.sendSB.append(str + System.getProperty("line.separator"));
 			PCV.perDetails.add(str);
+			PCV.perDetList.add(list);
 			str = "";
 		}
+		 System.out.println(PCV.sendSB.toString());
 		//**********************************************************
 	}
 	
-	public void recData(){				//从服务端接收数据
-		
-		
-	}
-	
-	public void dividRD(){				//对接收的数据进行分类,分别为，左侧列表数据，中间面板数据
-		
-		
-	}
-	
-	//*************以下方法用于将客户端从数据段获取的数据非配个各个面板，使各个面板完成数据更新*************************************
+	//*************以下方法用于将从客户端返回的数据非配个各个面板，使各个面板完成数据更新*************************************
 	public int[] getPerAllNumA() {
 		return perAllNumA;
 	}

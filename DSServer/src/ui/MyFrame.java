@@ -57,7 +57,7 @@ public class MyFrame extends JFrame{
 		this.setBounds((w - FRAME_WIDTH) / 2, (h - FRAME_HEIGHT) / 2, FRAME_WIDTH, FRAME_HEIGHT);
 		//**************************************
 //		setResizable(false);
-		setTitle("Hava an Dinner");
+		setTitle("Ordering   ·þÎñ¶Ë");
 		try {
 			this.setIconImage(ImageIO.read(this.getClass().getResource("/image/dinner.png")));
 		} catch (IOException e) {

@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -57,10 +58,10 @@ public class MyPanelPer extends JPanel{
 		
 		setBackground(Color.WHITE);
 		try {
-			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource(imgPath)));
+			ImageIcon img = new ImageIcon(ImageIO.read( new File(imgPath)));
 			imgLab.setIcon(img);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

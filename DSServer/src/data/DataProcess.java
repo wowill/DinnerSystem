@@ -19,7 +19,9 @@ public class DataProcess {
 	
 	
 	public DataProcess() {
-			
+		
+		initImgFolderName();
+		createFolder(PCV.imgFolder);
 		init();
 	}
 
@@ -101,47 +103,18 @@ public class DataProcess {
 		//**********************************************************
 	}
 	
-	//*************以下方法用于将从客户端返回的数据非配个各个面板，使各个面板完成数据更新*************************************
-	public int[] getPerAllNumA() {
-		return perAllNumA;
+	public void initImgFolderName(){					//初始化图片默认存放文件夹路径
+		
+		PCV.imgFolder = "c:/OrdingImages";
 	}
-
-	public void setPerAllNumA(int[] perAllNumA) {
-		this.perAllNumA = perAllNumA;
+	
+	public void createFolder(String fname){				//创建文件夹
+		
+		File file = new File(fname);
+		if(!file.exists()){
+			file.mkdirs();
+		} 
 	}
-
-	public int[] getPanelNumA() {
-		return panelNumA;
-	}
-
-	public void setPanelNumA(int[] panelNumA) {
-		this.panelNumA = panelNumA;
-	}
-
-	public boolean isHaveRecL() {
-		return haveRecL;
-	}
-
-	public void setHaveRecL(boolean haveRecL) {
-		this.haveRecL = haveRecL;
-	}
-
-	public ArrayList<String> getRecLl() {
-		return recLl;
-	}
-
-	public void setRecLl(ArrayList<String> recLl) {
-		this.recLl = recLl;
-	}
-
-	public int getKindNum() {
-		return kindNum;
-	}
-
-	public void setKindNum(int kindNum) {
-		this.kindNum = kindNum;
-	}
-
-	//**********************************************************************************************************
+	
 	
 }

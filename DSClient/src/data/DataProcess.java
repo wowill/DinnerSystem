@@ -1,5 +1,6 @@
 package data;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,63 +24,58 @@ public class DataProcess {
 
 	public void init() {				//将所有的面板数据初始化
 		
-		//***********实例化数据库工具类*************
-		
-		
-		//*****************************************
-		
-		//***********左侧列表数据初始化******
-		
-		
-		//***********************************
-		
-		//*************初始化每一个条目对应的中间面板数据*************
-		
-		
-		//**********************************************************
+		dataToDiv();
 	}
 	
-	//*************以下方法用于将从客户端返回的数据非配个各个面板，使各个面板完成数据更新*************************************
-	public int[] getPerAllNumA() {
-		return perAllNumA;
+	
+	public void dataToDiv(){			//把从服务端接收来的字符串数据分配给此客户端
+		
+		String s[] = PCV.strPerDetails.split(System.getProperty("line.separator"));
+		
+		//********存放左侧列表的名字****************
+		String sl[] = s[0].split(" ");
+		PCV.AllItemLeft = sl.length;
+		PCV.leftItemString = new ArrayList<>();
+		for(int i = 0; i < PCV.AllItemLeft; i++){
+			
+			PCV.leftItemString.add(sl[i]);
+		}
+		
+		//**************************************
+		
+		
+		//**************存放中间面板的数据*************
+		PCV.perDetList = new ArrayList<ArrayList<String>>();
+		PCV.leftItemOfDN = new ArrayList<>();
+		PCV.imgPath = new ArrayList<>();
+		
+		ArrayList<String> list = new ArrayList<>();			//用来临时存放左边列表每个条目对应的所有信息
+		
+		for(int i = 1; i < s.length; i++){
+			
+			String sm[] = s[i].split(" ");
+			String stm = "";
+			PCV.leftItemOfDN.add(Integer.parseInt(sm[1]));
+			for(int j = 2; j < sm.length; j += 5){
+				stm = "";
+				stm += sm[(j+0-2)]+" ";
+				stm += sm[(j+1-2)]+" ";
+				stm += sm[(j+2-2)]+" ";
+				stm += sm[(j+3-2)]+" ";
+				stm += sm[(j+4-2)]+" ";
+				stm = stm.trim();
+				list.add(stm);
+				PCV.imgPath.add(sm[(j+4-2)]);
+			}
+			PCV.perDetList.add(list);
+			
+			list.clear();
+		}
+		
+		//********************************************
+		
 	}
-
-	public void setPerAllNumA(int[] perAllNumA) {
-		this.perAllNumA = perAllNumA;
-	}
-
-	public int[] getPanelNumA() {
-		return panelNumA;
-	}
-
-	public void setPanelNumA(int[] panelNumA) {
-		this.panelNumA = panelNumA;
-	}
-
-	public boolean isHaveRecL() {
-		return haveRecL;
-	}
-
-	public void setHaveRecL(boolean haveRecL) {
-		this.haveRecL = haveRecL;
-	}
-
-	public ArrayList<String> getRecLl() {
-		return recLl;
-	}
-
-	public void setRecLl(ArrayList<String> recLl) {
-		this.recLl = recLl;
-	}
-
-	public int getKindNum() {
-		return kindNum;
-	}
-
-	public void setKindNum(int kindNum) {
-		this.kindNum = kindNum;
-	}
-
-	//**********************************************************************************************************
+	
+	
 	
 }

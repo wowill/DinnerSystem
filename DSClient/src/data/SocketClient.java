@@ -36,10 +36,10 @@ public class SocketClient {
 			int fileIndex = 0;		
 			//************************************
 			
-			PCV.leftItemString = new ArrayList<>();
+			
         	PCV.perDetails = new ArrayList<>();
-        	PCV.leftItemOfDN = new ArrayList<>();
-        	PCV.perDetList = new ArrayList<ArrayList<String>>();
+        	
+        	
         	
 	        while(flag){  
 	
@@ -68,7 +68,7 @@ public class SocketClient {
 	            	//**************从服务端接收图片数据******************
 	            	if(!f1){
 
-		            	FileOutputStream fos = new FileOutputStream("server.bmp");
+		            	FileOutputStream fos = new FileOutputStream("server.png");
 		        		byte[] bt = new byte[1024];
 		        		int len = 0;
 		        		//往字节流里写图片数据

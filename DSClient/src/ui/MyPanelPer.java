@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -15,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MyPanelPer extends JPanel{
 
@@ -22,21 +24,40 @@ public class MyPanelPer extends JPanel{
 	public PerBottom p;					//容器panel
 	GridBagLayout gbLayout;
 	GridBagConstraints s;
+	public String imgPath;				//图片所在路径
+	public int purches;					//已购买的数量
+	public int sold;					//已售数量
+	public int leave;					//剩余数量
+	public double price;				//售卖价格
+	public String perName;				//每一道菜的名字
 	
-	public MyPanelPer() {
+	public MyPanelPer(ArrayList<String> list, int perIndex) {
+		
+		//************初始化数据********************
+		String str = list.get(perIndex);
+		String sa[] = str.split(" ");
+		
+		this.perName = sa[0];
+		this.price = Double.parseDouble(sa[1]);
+		this.leave = Integer.parseInt(sa[2]);
+		this.sold = Integer.parseInt(sa[3]);
+		this.imgPath = sa[4];
+		
+		//*****************************************
 		
 		init();
 	}
 	
-	public void init() {			//初始化每一道菜的面板
+	public void init() {			//初始化每一道菜的面板界面
 		
 		setLayout();
 		imgLab = new JLabel();
-		p = new PerBottom();
+		
+		p = new PerBottom(price, leave, sold);
+		
 		setBackground(Color.WHITE);
 		try {
-			int randX = (int)(Math.random()*8+1);
-			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource("/image/000"+randX+".png")));
+			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource(imgPath)));
 			imgLab.setIcon(img);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -73,13 +94,19 @@ class PerBottom extends JPanel{
 	public JLabel subNum;				//减少按钮
 	public JLabel addNum;				//增加按钮
 	public JLabel soldNum;				//已售标签
-	public JButton showNum;				//显示数量标签
+	public JLabel leaveNum;				//剩余标签
+	public JTextField showNum;			//显示数量标签
 	public int purches;					//已购买的数量
 	public int sold;					//已售数量
+	public int leave;					//剩余数量
 	public double price;				//售卖价格
+	public String perName;				//每一道菜的名字
 	
-	public PerBottom() {
+	public PerBottom(double price, int leave, int sold) {
 		
+		this.price = price;
+		this.leave = leave;
+		this.sold = sold;
 		init();
 		addSubAL();
 		addAddAL();
@@ -89,12 +116,10 @@ class PerBottom extends JPanel{
 		priceLab = new JLabel("19.22");
 		subNum = new JLabel();
 		addNum = new JLabel();
-		showNum = new JButton("0");
+		showNum = new JTextField(2);
 		soldNum = new JLabel();
+		leaveNum = new JLabel();
 		setBackground(Color.WHITE);
-		purches = 0;
-		sold = 0;
-		price = 19.22;
 		
 		try {
 			ImageIcon imgSub = new ImageIcon(ImageIO.read(this.getClass().getResource("/image/sub.png")));
@@ -105,12 +130,16 @@ class PerBottom extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		showNum.setContentAreaFilled(false);
-		showNum.setEnabled(false);
+		showNum.setText("0");
+		
 		
 		soldNum.setFont(new Font("微软雅黑", 0, 10));
 		soldNum.setForeground(new Color(200, 10, 0));
-		soldNum.setText("已售："+sold);
+		soldNum.setText(""+sold);
+		
+		leaveNum.setFont(new Font("微软雅黑", 0, 10));
+		leaveNum.setForeground(new Color(200, 10, 0));
+		leaveNum.setText(leave+"/");
 		
 		priceLab.setText("￥"+price); 
 		priceLab.setForeground(new Color(200, 10, 0));
@@ -119,7 +148,44 @@ class PerBottom extends JPanel{
 		add(subNum);
 		add(showNum);
 		add(addNum);
+		add(leaveNum);
 		add(soldNum);
+	}
+	
+	public void goAddNum(){				//直接修改库存量
+		
+		leaveNum.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	public void addAddAL(){				//为添加标签添加事件

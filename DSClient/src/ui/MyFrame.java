@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import data.DataProcess;
 
+
 public class MyFrame extends JFrame{
 	int FRAME_WIDTH = 900;
 	int FRAME_HEIGHT = 700;
@@ -28,7 +29,7 @@ public class MyFrame extends JFrame{
 	MyPanelLeft MPL;
 	MyPanelMidBottom MPMB;
 	MyPanelMidKindArray MPMKA;
-	
+//	ServerSocketProcess server;
 	
 	
 	
@@ -42,6 +43,7 @@ public class MyFrame extends JFrame{
 		initBottomIndex();
 		AddBtnNextListener();
 		AddBtnFrontListener();
+//		server = new ServerSocketProcess();
 	}
 
 	public void init() {

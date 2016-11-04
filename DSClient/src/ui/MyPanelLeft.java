@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import data.PCV;
+
 
 public class MyPanelLeft extends JPanel{
 
@@ -36,8 +40,7 @@ public class MyPanelLeft extends JPanel{
 	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb) {
 		this.midC = mpmka;
 		this.midB = mpmb;
-		confimP = new ConfirmPanel();
-		ltp = new LeftTop();
+		
 		init();
 		
 	}
@@ -45,6 +48,8 @@ public class MyPanelLeft extends JPanel{
 	public void init() {
 			
 		selNo = 0;
+		confimP = new ConfirmPanel();
+		ltp = new LeftTop();
 		confimP.setBackground(new Color(150, 20, 20));
 		confimP.confLab.setForeground(Color.WHITE);
 		//************设置布局方式*****************
@@ -69,16 +74,12 @@ public class MyPanelLeft extends JPanel{
 		}
 	}
 	
-	public void dataReceive(){			//从服务端获得左边列表的数据
+	
+	public void dataReceive(){			//把从数据库获得左边列表的数据，更新到界面上
 		
-		recLL = new ArrayList<>();
 		spcePanel = new JPanel();
+		recLL = PCV.leftItemString;
 		
-		for(int i = 0; i < 8; i++){
-			
-			recLL.add("测试菜单 "+(i+1));
-		}
-
 		s.fill = GridBagConstraints.NORTH;
 		s.gridx = 0;
 		s.gridy = 0;
@@ -198,8 +199,11 @@ public class MyPanelLeft extends JPanel{
 				// TODO Auto-generated method stub
 				confimP.setBackground(new Color(220, 0, 0));
 				confimP.confLab.setForeground(Color.WHITE);
-				JOptionPane.showConfirmDialog(null, "请确认是否购买！");
+				int n = JOptionPane.showConfirmDialog(null, "请确认是否更新数据！");
 				
+				if(n == 0){
+					
+				}
 			}
 		});
 	}
@@ -210,7 +214,7 @@ class ConfirmPanel extends JPanel{
 	JLabel confLab;
 	public ConfirmPanel() {
 		
-		confLab = new JLabel("确认购买");
+		confLab = new JLabel("确认更新");
 		confLab.setFont(new Font("微软雅黑", 1, 15));
 		this.add(confLab);
 	}
@@ -235,5 +239,40 @@ class LeftTop extends JPanel{
 			e.printStackTrace();
 		}
 		add(imgLab);
+	}
+	public void addLogoAL(){			//为左上角添加点击事件
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 }

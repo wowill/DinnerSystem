@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import data.PCV;
+
 public class MyPanelMidKindArray extends JPanel{
 
 	public MyPanelMidArray[] MPMA;		//中间面板数组
@@ -20,18 +22,18 @@ public class MyPanelMidKindArray extends JPanel{
 	}
 
 	public void init() {
-		kindNum = 8;
+		kindNum = PCV.AllItemLeft;
 		//*************模拟初始化 everyKOL[],真实数据传入再做修改
 		everyKOL = new int[kindNum];
 		for(int i = 0; i < kindNum; i++){
-			everyKOL[i] = (int) (i+1+(Math.random()*20));
+			everyKOL[i] = PCV.leftItemOfDN.get(i);
 		}
 		//****************
 		
 		MPMA = new MyPanelMidArray[kindNum];
 		setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
-			MPMA[i] = new MyPanelMidArray(everyKOL[i]);
+			MPMA[i] = new MyPanelMidArray(everyKOL[i], i);
 		}
 //		MPMA[0].setBackground(Color.WHITE);
 		restLayouMidArr(0, this);

@@ -8,6 +8,8 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data.PCV;
+
 public class MyPanelMid extends JPanel{
 
 	int MPP_HEIGHT = 190;		//每一道菜对应的panel的高
@@ -36,6 +38,9 @@ public class MyPanelMid extends JPanel{
 		
 		
 		for(int i = 0; i < perAllNum; i++){
+			
+			String imgPath = "";
+			imgPath = PCV.perDetails.
 			
 			MPP[i] = new MyPanelPer();
 			restLayouMidArr(MPP[i], this, i);

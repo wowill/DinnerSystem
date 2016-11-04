@@ -46,6 +46,8 @@ public class DataProcess {
 		}
 		
 		PCV.perDetails = new ArrayList<>();
+		PCV.perDetList = new ArrayList<>();
+		
 		String str = "";
 		
 		for(int i = 0; i < PCV.AllItemLeft; i++){

@@ -23,9 +23,10 @@ public class MyPanelPer extends JPanel{
 	public PerBottom p;					//ÈÝÆ÷panel
 	GridBagLayout gbLayout;
 	GridBagConstraints s;
-	
-	public MyPanelPer() {
+	public String imgPath;
+	public MyPanelPer(String imgPath) {
 		
+		this.imgPath = imgPath;
 		init();
 	}
 	
@@ -36,8 +37,7 @@ public class MyPanelPer extends JPanel{
 		p = new PerBottom();
 		setBackground(Color.WHITE);
 		try {
-			int randX = (int)(Math.random()*8+1);
-			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource("/image/000"+randX+".png")));
+			ImageIcon img = new ImageIcon(ImageIO.read(this.getClass().getResource(imgPath)));
 			imgLab.setIcon(img);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -12,6 +12,6 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static ArrayList<String> perDetails;				//每一个条目对应的所有的信息
 	public static ArrayList<ImageIcon> imgIcon;				//每一个条目对应一个图片信息
 	public static ArrayList<Integer> leftItemOfDN;			//左边列表每一个条目对应的菜的数量
-	
+	public static ArrayList<ArrayList<String>> perDetList;	//左边列表每一个条目对应的信息用列表存储
 	
 }

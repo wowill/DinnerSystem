@@ -2,8 +2,10 @@ package data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SqlServerDao {
 	
@@ -13,6 +15,7 @@ public class SqlServerDao {
 	private String pass = "123456";
 	private Connection conn = null;
 	private Statement stmt = null;
+	private ResultSet rs = null;
 	
 	public SqlServerDao() {
 		
@@ -27,10 +30,13 @@ public class SqlServerDao {
 	public void createConn(){			//建立与数据库的连接
 		
 		try {
+			createConn();
+			
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(url, user, pass);
 			stmt = conn.createStatement();
 			
+			System.out.println("数据库连接成功！");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,6 +46,8 @@ public class SqlServerDao {
 	public void insert(String sql){				//插入数据
 		
 		try {
+			createConn();
+			
 			stmt.execute(sql);
 			System.out.println("插入成功！");
 			
@@ -50,23 +58,66 @@ public class SqlServerDao {
 		
 	}
 	
-	public void update(){				//修改数据
+	public void update(String sql){				//修改数据
+		
+		createConn();
+		try {
+			stmt.execute(sql);
+			
+			System.out.println("Update OK !");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void delete(){				//删除数据
+	public void delete(String sql){				//删除数据
 		
+		createConn();
+		try {
+			stmt.execute(sql);
+			
+			System.out.println("delete OK !");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void select(){				//查询数据
+	public void select(String sql){				//查询数据
+		
+		createConn();
+		ArrayList<String> list = new ArrayList<>();
+		try {
+			rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				
+				list.add(rs.getString(1)+" ... "+rs.getString(2));
+			}
+			System.out.println("slect OK ! ");
+			for(int i = 0; i < list.size(); i++){
+				System.out.println(list.get(i));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
 	public void close(){				//关闭资源
 		
 		try {
-			stmt.close();
-			conn.close();
+			if(rs != null){
+				rs.close();
+			}
+			if(stmt != null){
+				stmt.close();
+			}
+			if(conn != null){
+				conn.close();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

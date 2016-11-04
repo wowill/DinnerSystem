@@ -1,6 +1,7 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -30,27 +31,56 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			PrintStream out = new PrintStream(client.getOutputStream());
 			BufferedReader buf = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			boolean flag = true;
+			
+			//**********临时变量区****************
+			
+			boolean f1 = true;			
+			int fileIndex = 0;		
+			//************************************
+			
 			while(flag){
 				
 				String str = buf.readLine();
-				if(str != null || str != ""){
+				if(str.equals("end")){
 					
 					flag = false;
 				}
-				else if(str.equals("openInit")){			//如果是客户端打开的时候，服务端负责刷新客户端的数据
+				else{										//如果是客户端打开的时候，服务端负责刷新客户端的数据
 					
 					//**********发送字符串数据*********
-					
-					
+					if(f1){
+						
+						out.println(PCV.sendSB.toString());
+						f1 = false;
+						
+
+						continue;
+					}
 					//********************************
 					
 					//**********发送图片数据*********
 					
+					if(!f1 && fileIndex < PCV.fileList.size()){
+						
+						FileInputStream fis = new FileInputStream(PCV.fileList.get(fileIndex));
+						fileIndex++;
+						
+						byte[] bt = new byte[1024];
+						int len = 0;
+						
+						while ((len = fis.read(bt)) != -1)
+						{
+							out.write(bt,0,len);
+						}
+					}
 					
 					//********************************
 					
+					if(!f1 && fileIndex == PCV.fileList.size()){
+						break;
+					}
 					
-					out.print(PCV.sendSB.toString());
+//					out.print(PCV.sendSB.toString());
 				}
 			}
 			

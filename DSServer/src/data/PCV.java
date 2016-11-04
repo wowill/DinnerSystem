@@ -1,5 +1,6 @@
 package data;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -14,5 +15,5 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static ArrayList<Integer> leftItemOfDN;			//左边列表每一个条目对应的菜的数量
 	public static ArrayList<ArrayList<String>> perDetList;	//左边列表每一个条目对应的信息用列表存储
 	public static StringBuilder sendSB;						//发送给客户端的封装好的字符串数据
-	
+	public static ArrayList<File> fileList;					//存储要发送给客户端的图片数据
 }

@@ -1,5 +1,6 @@
 package data;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,8 @@ public class DataProcess {
 
 	public void init() {				//将所有的面板数据初始化
 		
+		PCV.sendSB = new StringBuilder();
+		
 		//***********实例化数据库工具类*************
 		DAO = new SqlServerDao();
 		
@@ -37,12 +40,22 @@ public class DataProcess {
 		
 		PCV.AllItemLeft = PCV.leftItemString.size();
 
+		//********左侧列表条目封装到StringBuilder里*****
+		
+		String sTT = "";
+		for(int i = 0; i < PCV.AllItemLeft; i++){
+			sTT += PCV.leftItemString.get(i)+" ";
+		}
+		sTT = sTT.trim()+ System.getProperty("line.separator");
+		PCV.sendSB.append(sTT);
+		//*********************************************
+		
 		
 		//***********************************
 		
 		//*************初始化每一个条目对应的中间面板数据*************
 		
-		PCV.sendSB = new StringBuilder();
+		
 		
 		toSelect = new int[5];
 		for(int i = 0; i < 5; i++){
@@ -52,6 +65,7 @@ public class DataProcess {
 		PCV.perDetails = new ArrayList<>();
 		PCV.perDetList = new ArrayList<ArrayList<String>>();
 		PCV.leftItemOfDN = new ArrayList<>();
+		PCV.fileList = new ArrayList<>();
 		
 		String str = "";
 		
@@ -61,11 +75,18 @@ public class DataProcess {
 			sql = "select * from ItemToDetails where ItemID = " + (i+1);
 			list = DAO.select(sql, toSelect);
 			PCV.leftItemOfDN.add(list.size());
-			int randX = list.size();		//每个题目对应菜的数目，从数据库获取
+			int randX = list.size();		//每个条目对应菜的数目，从数据库获取
 			str += i + " " + randX + " "; 
 			for(int j = 0; j < randX; j++){
 				
+				String sa[] = list.get(j).split(" ");
+				
 				str += list.get(j)+" ";
+				if(!PCV.fileList.contains(sa[4])){
+					
+					PCV.fileList.add(new File(""+this.getClass().getResource(sa[4])));
+				} 
+				
 				
 			}
 			str = str.trim();
@@ -76,6 +97,7 @@ public class DataProcess {
 			str = "";
 		}
 		 System.out.println(PCV.sendSB.toString());
+		 
 		//**********************************************************
 	}
 	

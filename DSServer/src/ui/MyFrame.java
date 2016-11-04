@@ -48,6 +48,7 @@ public class MyFrame extends JFrame{
 
 	public void init() {
 		
+		System.out.println(this.getClass());
 		//************´°¿Ú¾ÓÖÐ*******************
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle rect = ge.getMaximumWindowBounds();

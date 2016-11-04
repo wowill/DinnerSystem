@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import data.PCV;
 import data.ServerSocketProcess;
 
 public class MyPanelLeft extends JPanel{
@@ -74,16 +75,12 @@ public class MyPanelLeft extends JPanel{
 		}
 	}
 	
-	public void dataReceive(){			//从服务端获得左边列表的数据
+	
+	public void dataReceive(){			//把从数据库获得左边列表的数据，更新到界面上
 		
-		recLL = new ArrayList<>();
 		spcePanel = new JPanel();
+		recLL = PCV.leftItemString;
 		
-		for(int i = 0; i < 8; i++){
-			
-			recLL.add("测试菜单 "+(i+1));
-		}
-
 		s.fill = GridBagConstraints.NORTH;
 		s.gridx = 0;
 		s.gridy = 0;

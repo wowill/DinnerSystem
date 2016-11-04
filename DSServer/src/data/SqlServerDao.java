@@ -30,7 +30,6 @@ public class SqlServerDao {
 	public void createConn(){			//建立与数据库的连接
 		
 		try {
-			createConn();
 			
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(url, user, pass);
@@ -85,7 +84,7 @@ public class SqlServerDao {
 		}
 	}
 	
-	public void select(String sql){				//查询数据
+	public ArrayList<String> select(String sql, int[] a){				//查询数据
 		
 		createConn();
 		ArrayList<String> list = new ArrayList<>();
@@ -93,16 +92,22 @@ public class SqlServerDao {
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				
-				list.add(rs.getString(1)+" ... "+rs.getString(2));
+				String st = "";
+				for(int i = 0; i < a.length; i++){
+					st += rs.getString(a[i])+" ";
+				}
+				st.trim();
+				list.add(st);
 			}
 			System.out.println("slect OK ! ");
-			for(int i = 0; i < list.size(); i++){
-				System.out.println(list.get(i));
-			}
+//			for(int i = 0; i < list.size(); i++){
+//				System.out.println(list.get(i));
+//			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
+		return list;
 		
 	}
 	

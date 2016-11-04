@@ -13,7 +13,8 @@ public class DataProcess {
 	public ArrayList<Double> pointPer;	//存放要更改的每一道菜的数据
 	public ArrayList<String> recLl;		//左侧列表需要刷新的更新数据
 	public int kindNum;					//左侧条目的数量
-	
+	public SqlServerDao DAO;			//数据库工具类
+	public int[] toSelect;				//查询指定列数的数组
 	public DataProcess() {
 			
 		init();
@@ -21,38 +22,46 @@ public class DataProcess {
 
 	public void init() {				//将所有的面板数据初始化
 		
+		//***********实例化数据库工具类*************
+		DAO = new SqlServerDao();
+		
+		//*****************************************
+		
 		//***********左侧列表数据初始化******
-		PCV.AllItemLeft = 8;
-		PCV.leftItemString = new String[8];
-		for(int i = 0; i < PCV.AllItemLeft; i++){
-			
-			PCV.leftItemString[i] = "测试菜单 "+(i+1);
-		}
+		toSelect = new int[1];
+		toSelect[0] = 2;
+		String sql = "select * from LeftItem";
+		PCV.leftItemString = DAO.select(sql, toSelect);
+		
+		PCV.AllItemLeft = PCV.leftItemString.size();
+
 		
 		//***********************************
 		
 		//*************初始化每一个条目对应的中间面板数据*************
 		
-		PCV.perDetails = new String[PCV.AllItemLeft];
+		toSelect = new int[5];
+		for(int i = 0; i < 5; i++){
+			toSelect[i] = i+1;
+		}
+		
+		PCV.perDetails = new ArrayList<>();
 		String str = "";
 		
 		for(int i = 0; i < PCV.AllItemLeft; i++){
 			
-			int randX = (int)(Math.random()*30+1);		//随机生成每个条目对应的菜的数目
+			ArrayList<String> list;
+			sql = "selec * from ItemToDetails where ItemID = " + (i+1);
+			list = DAO.select(sql, toSelect);
+			PCV.leftItemOfDN.add(list.size());
+			int randX = list.size();		//每个题目对应菜的数目，从数据库获取
 			str += i + " " + randX + " "; 
 			for(int j = 0; j < randX; j++){
 				
-				for(int k = 0; k < 3; k++){
-					
-					String price = (int)(Math.random()*50+5)+"."+(int)(Math.random()*9)+""+(int)(Math.random()*9);
-					String sold = (int)(Math.random()*100+5) + "";
-					String leave = (int)(Math.random()*100+20) + "";
-					str += price+" "+sold+" "+leave+" ";
-				}
-				String imgPath = "/image/000"+(int)(Math.random()*8+1)+".png";
-				str += imgPath+" ";
+				str += list.get(i)+" ";
 			}
-			PCV.perDetails[i] = str;
+			str.trim();
+			PCV.perDetails.add(str);
 			str = "";
 		}
 		//**********************************************************

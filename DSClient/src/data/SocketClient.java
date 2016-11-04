@@ -1,12 +1,15 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 
 public class SocketClient {
 
@@ -24,7 +27,20 @@ public class SocketClient {
 
 	        PrintStream out = new PrintStream(client.getOutputStream());  
 	        BufferedReader buf =  new BufferedReader(new InputStreamReader(client.getInputStream()));  
+	        InputStream in = client.getInputStream();
 	        boolean flag = true;  
+	        
+	        //**********临时变量区****************
+			
+			boolean f1 = true;			
+			int fileIndex = 0;		
+			//************************************
+			
+			PCV.leftItemString = new ArrayList<>();
+        	PCV.perDetails = new ArrayList<>();
+        	PCV.leftItemOfDN = new ArrayList<>();
+        	PCV.perDetList = new ArrayList<ArrayList<String>>();
+        	
 	        while(flag){  
 	
 	            String str = "";
@@ -32,10 +48,40 @@ public class SocketClient {
 //	            out.println(str);  
 	            if("end".equals(str)){  
 	                flag = false;  
-	            }else{  
-	            	//从服务端接受数据
-                    String echo = buf.readLine();  
-                    System.out.println(echo);  
+	                
+	                out.print("end");
+	            }
+	            else{
+	            	
+//                    String echo = buf.readLine();  
+	            	//**************从服务端接收字符串数据****************
+	            	if(f1){
+	            		PCV.strPerDetails = buf.readLine();
+	            		f1 = false;
+	            		System.out.println("客户端接收成功:PCV.strPerDetails"+PCV.strPerDetails);
+	            		out.println("goon");
+	            	}
+	            	
+	            	//**************************************************
+	            	
+	            	
+	            	//**************从服务端接收图片数据******************
+	            	if(!f1){
+
+		            	FileOutputStream fos = new FileOutputStream("server.bmp");
+		        		byte[] bt = new byte[1024];
+		        		int len = 0;
+		        		//往字节流里写图片数据
+		        		while ((len = in.read(bt)) != -1)
+		        		{
+		        			fos.write(bt,0,len);
+		        		}
+		        		
+		        		out.println("goon");
+	            	}
+	            	
+	            	
+	            	//**************************************************
                     
 	            }  
 	        }  
@@ -44,6 +90,11 @@ public class SocketClient {
 	            
 	            client.close(); 
 	        }  
+	        if(buf != null){
+	        	
+	        	buf.close();
+	        }
+	        
         } catch (SocketException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

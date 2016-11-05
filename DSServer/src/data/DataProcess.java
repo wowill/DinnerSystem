@@ -105,7 +105,7 @@ public class DataProcess {
 	
 	public void initImgFolderName(){					//初始化图片默认存放文件夹路径
 		
-		PCV.imgFolder = "c:/OrdingImages";
+		PCV.imgFolder = "c:/OrderingImages";
 	}
 	
 	public void createFolder(String fname){				//创建文件夹

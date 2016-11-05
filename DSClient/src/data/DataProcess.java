@@ -28,12 +28,12 @@ public class DataProcess {
 
 	public void init() {				//将所有的面板数据初始化
 		
-		dataToDiv();
+		
 	}
 	
 	public void initImgFolderName(){					//初始化图片默认存放文件夹路径
 		
-		PCV.imgFolder = "c:/OrderingImages";
+		PCV.imgFolder = "c:/OrderingClient";
 	}
 	
 	public void createFolder(String fname){				//创建文件夹
@@ -69,7 +69,7 @@ public class DataProcess {
 	
 	public void dataToDiv(){			//把从服务端接收来的字符串数据分配给此客户端
 		
-		String s[] = PCV.strPerDetails.split(System.getProperty("line.separator"));
+		String s[] = PCV.strPerDetails.split(",");
 		
 		//********存放左侧列表的名字****************
 		String sl[] = s[0].split(" ");
@@ -81,10 +81,10 @@ public class DataProcess {
 			
 		}
 		
-		//**************************************
+		//******************************************
 		
 		
-		//**************存放中间面板的数据*************
+		//**************存放中间面板的数据******************
 		PCV.perDetList = new ArrayList<ArrayList<String>>();
 		PCV.leftItemOfDN = new ArrayList<>();
 		PCV.imgPath = new ArrayList<>();
@@ -98,14 +98,17 @@ public class DataProcess {
 			PCV.leftItemOfDN.add(Integer.parseInt(sm[1]));
 			for(int j = 2; j < sm.length; j += 5){
 				stm = "";
-				stm += sm[(j+0-2)]+" ";
-				stm += sm[(j+1-2)]+" ";
-				stm += sm[(j+2-2)]+" ";
-				stm += sm[(j+3-2)]+" ";
-				stm += sm[(j+4-2)]+" ";
+				stm += sm[(j+0)]+" ";
+				stm += sm[(j+1)]+" ";
+				stm += sm[(j+2)]+" ";
+				stm += sm[(j+3)]+" ";
+				stm += sm[(j+4)]+" ";
 				stm = stm.trim();
 				list.add(stm);
-				PCV.imgPath.add(sm[(j+4-2)]);
+				if(uniquePath(sm[(j+4)])){
+					PCV.imgPath.add(spTocp(sm[(j+4)]) );
+				}
+				
 			}
 			PCV.perDetList.add(list);
 			
@@ -118,6 +121,23 @@ public class DataProcess {
 		
 	}
 	
+	public String spTocp(String name){			//把服务端传输来的图片路径转换成客户端的的路径
+		
+		return  name.replace(name.split("/")[1], "OrderingClient");
+		
+		
+	}
 	
+	public boolean uniquePath(String name){
+		
+		name = name.split("/")[2];
+//		System.out.println("name "+name );
+		for(int i = 0; i < PCV.imgPath.size(); i++){
+			if(PCV.imgPath.get(i).split("/")[2].equals(name)){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 }

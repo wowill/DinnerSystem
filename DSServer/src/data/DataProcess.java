@@ -48,7 +48,8 @@ public class DataProcess {
 		for(int i = 0; i < PCV.AllItemLeft; i++){
 			sTT += PCV.leftItemString.get(i)+" ";
 		}
-		sTT = sTT.trim()+ System.getProperty("line.separator");
+		sTT = sTT.trim();
+		sTT += sTT + ",";
 		PCV.sendSB.append(sTT);
 		//*********************************************
 		
@@ -84,19 +85,22 @@ public class DataProcess {
 				String sa[] = list.get(j).split(" ");
 				
 				str += list.get(j)+" ";
-				if(!PCV.fileList.contains(sa[4])){
+				if(uniqueList(sa[4])){
 					
-					PCV.fileList.add(new File(""+this.getClass().getResource(sa[4])));
+					PCV.fileList.add(new File(sa[4]));
 				} 
 				
 				
 			}
 			str = str.trim();
 			
-			PCV.sendSB.append(str + System.getProperty("line.separator"));
+			PCV.sendSB.append(str + ",");
 			PCV.perDetails.add(str);
 			PCV.perDetList.add(list);
 			str = "";
+		}
+		for(int i = 0; i < PCV.fileList.size(); i++){
+			System.out.println(PCV.fileList.get(i));
 		}
 		 System.out.println(PCV.sendSB.toString());
 		 
@@ -116,5 +120,17 @@ public class DataProcess {
 		} 
 	}
 	
-	
+	public boolean uniqueList(String name){							//ArrayList列表去重
+		
+		name = name.replace("/", "\\");
+		for(int i = 0; i < PCV.fileList.size(); i++){
+			
+			String fileName = PCV.fileList.get(i).toString();
+			System.out.println("Path:"+fileName);
+			if(name.equals(fileName)){
+				return false;
+			}
+		}
+		return true;
+	}
 }

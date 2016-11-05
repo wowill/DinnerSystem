@@ -15,4 +15,5 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static ArrayList<ArrayList<String>> perDetList;	//左边列表每一个条目对应的信息用列表存储
 	public static String strPerDetails;						//每一个条目对应的所有的信息,字符串存储
 	public static ArrayList<String> imgPath;				//每张图片的路径
+	public static String imgFolder;							//图片默认存放文件夹路径
 }

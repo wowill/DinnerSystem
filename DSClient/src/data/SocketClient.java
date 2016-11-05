@@ -68,7 +68,7 @@ public class SocketClient {
 	            	//**************从服务端接收图片数据******************
 	            	if(!f1){
 
-		            	FileOutputStream fos = new FileOutputStream("server.png");
+		            	FileOutputStream fos = new FileOutputStream(PCV.imgPath.get(fileIndex));
 		        		byte[] bt = new byte[1024];
 		        		int len = 0;
 		        		//往字节流里写图片数据
@@ -78,6 +78,7 @@ public class SocketClient {
 		        		}
 		        		
 		        		out.println("goon");
+		        		fileIndex++;
 	            	}
 	            	
 	            	

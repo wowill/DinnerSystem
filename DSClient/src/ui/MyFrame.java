@@ -7,12 +7,14 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.nio.channels.SocketChannel;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.DataProcess;
+import data.SocketClient;
 
 
 public class MyFrame extends JFrame{
@@ -29,10 +31,13 @@ public class MyFrame extends JFrame{
 	MyPanelLeft MPL;
 	MyPanelMidBottom MPMB;
 	MyPanelMidKindArray MPMKA;
-//	ServerSocketProcess server;
+	SocketClient client;
 	
 	
 	public MyFrame() {
+		
+		
+		client = new SocketClient();
 		
 		DP = new DataProcess();
 		MPMB = new MyPanelMidBottom();

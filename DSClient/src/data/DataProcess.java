@@ -1,6 +1,8 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,9 @@ public class DataProcess {
 	
 	
 	public DataProcess() {
-			
+
+		initImgFolderName();
+		createFolder(PCV.imgFolder);
 		init();
 	}
 
@@ -27,6 +31,41 @@ public class DataProcess {
 		dataToDiv();
 	}
 	
+	public void initImgFolderName(){					//初始化图片默认存放文件夹路径
+		
+		PCV.imgFolder = "c:/OrderingImages";
+	}
+	
+	public void createFolder(String fname){				//创建文件夹
+		
+		File file = new File(fname);
+		if(!file.exists()){
+			file.mkdirs();
+		} 
+	}
+	
+	public void createNewFiles(String name){			//事先为每个图片创建空白文件
+		
+		File file = new File(name);
+		if(!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public void newFileFPath(){				//根据从服务端传来的图片路径创建空白图片文件
+		
+		for(int i = 0; i < PCV.imgPath.size(); i++){
+			
+			createNewFiles(PCV.imgPath.get(i));
+		}
+		System.out.println("空白图片创建成功!");
+	}
 	
 	public void dataToDiv(){			//把从服务端接收来的字符串数据分配给此客户端
 		
@@ -39,6 +78,7 @@ public class DataProcess {
 		for(int i = 0; i < PCV.AllItemLeft; i++){
 			
 			PCV.leftItemString.add(sl[i]);
+			
 		}
 		
 		//**************************************
@@ -71,6 +111,8 @@ public class DataProcess {
 			
 			list.clear();
 		}
+		
+		newFileFPath();			 //根据传来的图片路径创建空白图片
 		
 		//********************************************
 		

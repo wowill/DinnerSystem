@@ -49,7 +49,7 @@ public class DataProcess {
 			sTT += PCV.leftItemString.get(i)+" ";
 		}
 		sTT = sTT.trim();
-		sTT += sTT + ",";
+		sTT = sTT + ",";
 		PCV.sendSB.append(sTT);
 		//*********************************************
 		

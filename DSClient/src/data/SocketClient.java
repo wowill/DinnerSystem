@@ -2,6 +2,7 @@ package data;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,8 +35,7 @@ public class SocketClient {
 
 			InputStream is = client.getInputStream();
 			OutputStream os = client.getOutputStream();
-	        PrintStream out = new PrintStream(os);  
-	        BufferedReader buf =  new BufferedReader(new InputStreamReader(is));  
+			DataOutputStream dos = new DataOutputStream(os);
 	        DataInputStream dis = new DataInputStream(is);
 	        boolean flag = true;  
 	        
@@ -50,11 +50,11 @@ public class SocketClient {
         	PCV.perDetails = new ArrayList<>();
         	
         	
-        	out.println("String");				//客户端发送给服务端接收字符串数据的提示消息
+        	dos.writeUTF("String");				//客户端发送给服务端接收字符串数据的提示消息
         	
         	//**************从服务端接收字符串数据****************
         	
-    		PCV.strPerDetails = buf.readLine();
+    		PCV.strPerDetails = dis.readUTF();
     		System.out.println("客户端接收成功:PCV.strPerDetails"+PCV.strPerDetails);
     		System.out.println("字符串数据接收成功");
 
@@ -77,19 +77,33 @@ public class SocketClient {
     			FileOutputStream fos = new FileOutputStream(new File(PCV.imgPath.get(i)));
     			byte[] bt = new byte[1024];
         		int len = 0;
-        		while ((len = dis.read(bt)) > 0)			
+        		int k = 0;
+        		long picLeng = dis.readLong();
+        		System.out.println(picLeng + "*****************");
+        		while (picLeng > 0
+                        && (len = dis.read(bt, 0,
+                        picLeng < bt.length ? (int) picLeng
+                                : bt.length)) != -1)			
         		{
-        			if(new String(bt, 0, len).contains("next")){
+        			k++;
+        			if((new String(bt, 0, len)).contains("IEND")){
+        				System.out.println("keb "+len);
         				System.out.println("next+++++++****************************"+ new String(bt, 0, len));
+        				fos.write(bt,0,len);			
+        				picLeng -= len;
+        				System.out.println("len " + len+"          ||           " +picLeng);
         				fos.flush();
         				fos.close();
         				break;
         			}
-    				System.out.println("len " + len);
-    				fos.write(bt,0,len);			//把接收的字节流写入图片
-    				fos.flush();
     				
+    				fos.write(bt,0,len);			
+    				picLeng -= len;
+    				System.out.println("len " + len+"          ||           " +picLeng);
         		}
+        		
+        		System.out.println();
+        		fos.flush();
     		}
     			
         		
@@ -100,9 +114,9 @@ public class SocketClient {
 	            
 	            client.close(); 
 	        }  
-	        if(buf != null){
+	        if(dos != null){
 	        	
-	        	buf.close();
+	        	dos.close();
 	        }
 	        if(dis != null){
 	        	dis.close();

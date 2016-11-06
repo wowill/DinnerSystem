@@ -55,8 +55,8 @@ public class SocketClient {
         	//**************从服务端接收字符串数据****************
         	
     		PCV.strPerDetails = dis.readUTF();
-    		System.out.println("客户端接收成功:PCV.strPerDetails"+PCV.strPerDetails);
-    		System.out.println("字符串数据接收成功");
+//    		System.out.println("客户端接收成功:PCV.strPerDetails"+PCV.strPerDetails);
+//    		System.out.println("字符串数据接收成功");
 
         	//**************************************************
         	
@@ -79,7 +79,7 @@ public class SocketClient {
         		int len = 0;
         		int k = 0;
         		long picLeng = dis.readLong();
-        		System.out.println(picLeng + "*****************");
+//        		System.out.println(picLeng + "*****************");
         		while (picLeng > 0
                         && (len = dis.read(bt, 0,
                         picLeng < bt.length ? (int) picLeng
@@ -87,11 +87,11 @@ public class SocketClient {
         		{
         			k++;
         			if((new String(bt, 0, len)).contains("IEND")){
-        				System.out.println("keb "+len);
-        				System.out.println("next+++++++****************************"+ new String(bt, 0, len));
+//        				System.out.println("keb "+len);
+//        				System.out.println("next+++++++****************************"+ new String(bt, 0, len));
         				fos.write(bt,0,len);			
         				picLeng -= len;
-        				System.out.println("len " + len+"          ||           " +picLeng);
+//        				System.out.println("len " + len+"          ||           " +picLeng);
         				fos.flush();
         				fos.close();
         				break;
@@ -99,7 +99,7 @@ public class SocketClient {
     				
     				fos.write(bt,0,len);			
     				picLeng -= len;
-    				System.out.println("len " + len+"          ||           " +picLeng);
+//    				System.out.println("len " + len+"          ||           " +picLeng);
         		}
         		
         		System.out.println();

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,6 +74,7 @@ public class DataProcess {
 		
 		//********存放左侧列表的名字****************
 		String sl[] = s[0].split(" ");
+		System.out.println(Arrays.toString(sl));
 		PCV.AllItemLeft = sl.length;
 		PCV.leftItemString = new ArrayList<>();
 		for(int i = 0; i < PCV.AllItemLeft; i++){
@@ -110,6 +112,7 @@ public class DataProcess {
 				}
 				
 			}
+			System.out.println("list :"+list.toString());
 			PCV.perDetList.add(list);
 			
 			list.clear();

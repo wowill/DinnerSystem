@@ -1,6 +1,9 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +34,8 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 		try {
 			InputStream is = client.getInputStream();
 			OutputStream os = client.getOutputStream();
-			PrintStream out = new PrintStream(os);
-			BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+			DataOutputStream dos = new DataOutputStream(os);
+			DataInputStream dis = new DataInputStream(is);
 			boolean flag = true;
 			
 			//**********临时变量区****************
@@ -42,10 +45,10 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			//************************************
 			
 			//**********发送字符串数据*********
-			String str = buf.readLine();
+			String str = dis.readUTF();
 			if(str.equals("String")){
 				System.out.println("服务端接收到传授字符串数据提示："+str);
-				out.println(PCV.sendSB.toString());
+				dos.writeUTF(PCV.sendSB.toString());
 				System.out.println("字符串数据发送成功");
 			}
 			//********************************
@@ -59,25 +62,37 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			
 				byte[] bt = new byte[1024];
 				int len = 0;
+				int k = 0;
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				int picLeng = 0;
 				
-				while((len = fis.read(bt)) != -1)
+				while((len = fis.read(bt,0,bt.length)) != -1)
 				{
-					out.write(bt,0,len);
-					out.flush();
+					k++;
+					bos.write(bt,0,len);
+					bos.flush();
+					picLeng += len;
+					
 				}
-			
-				fis.close();
-				out.write("next".getBytes());
-				out.flush();
+				
+				bos.flush();
+				dos.writeLong(picLeng);
+				dos.write(bos.toByteArray(), 0, picLeng);
+				System.out.println("picLeng "+picLeng);
+				System.out.println("进行了 "+k);
+//				dos.write("mext_picture".getBytes(),0,"mext_picture".getBytes().length);
+//				System.out.println("mext_picture".getBytes());
+				dos.flush();
+				dos.flush();
 			}
 			
 			//********************************
 			
-			if(out != null){
-				out.close();
+			if(dos != null){
+				dos.close();
 			}
-			if(buf != null){
-				buf.close();
+			if(dis != null){
+				dis.close();
 			}
 			if(client != null){
 				client.close();

@@ -24,7 +24,7 @@ public class MyPanelMid extends JPanel{
 	public int curLabNo;		//当前选中左侧列表的序号
 	
 	public MyPanelMid(int perAllNum, int curLabNo) {
-		
+		System.out.println("cyr" + curLabNo);
 		this.curLabNo = curLabNo;
 		this.perAllNum = perAllNum;
 		MPP = new MyPanelPer[perAllNum];
@@ -41,15 +41,14 @@ public class MyPanelMid extends JPanel{
 		//***************************
 		
 		//***********将每个列表对应条目的每个菜的信息存到一个list***********
-		ArrayList<String> list;
-		list = PCV.perDetList.get(curLabNo);
-		
+		ArrayList<String> listm = new ArrayList<>();
+		listm.addAll( PCV.perDetList.get(curLabNo));
 		//****************************************************************
 		
 		
 		for(int i = 0; i < perAllNum; i++){
 			
-			MPP[i] = new MyPanelPer(list, i);
+			MPP[i] = new MyPanelPer(listm, i, curLabNo);
 			restLayouMidArr(MPP[i], this, i);
 		}
 		

@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.PCV;
+import data.SocketClient;
 
 
 public class MyPanelLeft extends JPanel{
@@ -36,11 +38,12 @@ public class MyPanelLeft extends JPanel{
 	public LeftTop ltp;					//左上角logo面板
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
+	SocketClient client;				//主要用于发送数据
 	
-	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb) {
+	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, SocketClient client) {
 		this.midC = mpmka;
 		this.midB = mpmb;
-		
+		this.client = client;
 		init();
 		
 	}
@@ -199,13 +202,19 @@ public class MyPanelLeft extends JPanel{
 				// TODO Auto-generated method stub
 				confimP.setBackground(new Color(220, 0, 0));
 				confimP.confLab.setForeground(Color.WHITE);
-				int n = JOptionPane.showConfirmDialog(null, "请确认是否更新数据！");
+				int n = JOptionPane.showConfirmDialog(null, PCV.buyList.toString());
 				
 				if(n == 0){
-					
+					client.updataData();
 				}
 			}
 		});
+	}
+	
+	public void flushAP(){				//从服务端接收完数据，需要重新刷新整个界面
+		
+		
+		
 	}
 }
 

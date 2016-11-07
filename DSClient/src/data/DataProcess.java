@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +76,6 @@ public class DataProcess {
 		
 		//********存放左侧列表的名字****************
 		String sl[] = s[0].split(" ");
-		System.out.println(Arrays.toString(sl));
 		PCV.AllItemLeft = sl.length;
 		PCV.leftItemString = new ArrayList<>();
 		for(int i = 0; i < PCV.AllItemLeft; i++){
@@ -91,10 +92,10 @@ public class DataProcess {
 		PCV.leftItemOfDN = new ArrayList<>();
 		PCV.imgPath = new ArrayList<>();
 		
-		ArrayList<String> list = new ArrayList<>();			//用来临时存放左边列表每个条目对应的所有信息
+		ArrayList<String> list1 = new ArrayList<>();			//用来临时存放左边列表每个条目对应的所有信息
 		
 		for(int i = 1; i < s.length; i++){
-			
+			list1.clear();
 			String sm[] = s[i].split(" ");
 			String stm = "";
 			PCV.leftItemOfDN.add(Integer.parseInt(sm[1]));
@@ -106,22 +107,26 @@ public class DataProcess {
 				stm += sm[(j+3)]+" ";
 				stm += sm[(j+4)]+" ";
 				stm = stm.trim();
-				list.add(stm);
+				list1.add(stm);
 				if(uniquePath(sm[(j+4)])){
 					PCV.imgPath.add(spTocp(sm[(j+4)]) );
 				}
 				
 			}
-			System.out.println("list :"+list.toString());
-			PCV.perDetList.add(list);
+			ArrayList<String> slist = new ArrayList<>();
+			slist.addAll(list1);
+			PCV.perDetList.add(slist);
+			System.out.println("list DP :"+PCV.perDetList.get(i-1).toString() +"     size :"+PCV.perDetList.get(i-1).size());
 			
-			list.clear();
 		}
+		
 		
 		newFileFPath();			 //根据传来的图片路径创建空白图片
 		
 		//********************************************
-		
+		PCV.initB = true;
+		System.out.println("jieshu :　"+PCV.perDetList.size());
+		System.out.println(PCV.perDetList.get(0));
 	}
 	
 	public String spTocp(String name){			//把服务端传输来的图片路径转换成客户端的的路径

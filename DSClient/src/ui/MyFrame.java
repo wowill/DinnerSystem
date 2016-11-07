@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.channels.SocketChannel;
 
 import javax.imageio.ImageIO;
@@ -27,22 +28,19 @@ public class MyFrame extends JFrame{
 	int MPMB_WIDTH = 660;
 	int MPMB_HEIGHT = 50;
 	
-	DataProcess DP;
+	
 	MyPanelLeft MPL;
 	MyPanelMidBottom MPMB;
 	MyPanelMidKindArray MPMKA;
 	SocketClient client;
-	
-	
+	DataProcess DP;
 	public MyFrame() {
 		
-		
 		client = new SocketClient();
-		
-		DP = new DataProcess();
+		DP = client.retDP();
 		MPMB = new MyPanelMidBottom();
 		MPMKA = new MyPanelMidKindArray();
-		MPL = new MyPanelLeft(MPMKA, MPMB);
+		MPL = new MyPanelLeft(MPMKA, MPMB, client);
 		init();
 		initBottomIndex();
 		AddBtnNextListener();

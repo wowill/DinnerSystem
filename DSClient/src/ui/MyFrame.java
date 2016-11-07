@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.DataProcess;
+import data.PCV;
 import data.SocketClient;
 
 
@@ -151,6 +152,9 @@ public class MyFrame extends JFrame{
 					MPMB.setCurPage(tempP.indexArr+1);
 					MPMB.setLabelText();
 					MPMB.updateUI();
+					
+					PCV.curMPNo = tempP.indexArr;
+//					PCV.curLabNo = M
 				}
 				else
 					System.out.println("这是最后一页");

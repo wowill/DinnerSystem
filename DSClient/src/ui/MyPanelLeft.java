@@ -69,6 +69,7 @@ public class MyPanelLeft extends JPanel{
 		setBackground(Color.WHITE);
 		initSelected();
 		addCPAL();
+		addLogoAL();
 	}
 	
 	public void checkFlushL(){
@@ -189,7 +190,13 @@ public class MyPanelLeft extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
+				confimP.setBackground(new Color(220, 0, 0));
+				confimP.confLab.setForeground(Color.WHITE);
+				int n = JOptionPane.showConfirmDialog(null, formatBuyMes(),"购物清单",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE);
 				
+				if(n == 0){
+					afterFlushAP();						//重新刷新整个界面
+				}
 			}
 			
 			@Override
@@ -204,23 +211,47 @@ public class MyPanelLeft extends JPanel{
 				// TODO Auto-generated method stub
 				confimP.setBackground(new Color(220, 0, 0));
 				confimP.confLab.setForeground(Color.WHITE);
+				confimP.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				confimP.setBackground(new Color(220, 0, 0));
-				confimP.confLab.setForeground(Color.WHITE);
-				int n = JOptionPane.showConfirmDialog(null, PCV.buyList.toString());
 				
-				if(n == 0){
-					flushAP();						//重新刷新整个界面
-				}
 			}
 		});
 	}
 	
-	public void flushAP(){				//重新刷新整个界面的各个组件
+	public String formatBuyMes(){				//重新设置显示结算的信息
+		
+		double sum = 0;
+		StringBuilder sb = new StringBuilder();
+		sb.append("已购商品"+"    "+"商品单价"+"    "+"购买数量"+PCV.SPLINE);
+
+		for(int i = 0; i < PCV.buyList.size(); i++){
+			String[] st = PCV.buyList.get(i).split(" ");
+			int lId = Integer.parseInt(st[0]);			//对应左侧列表编号
+			int pId = Integer.parseInt(st[1]);			//对应中间面板第几道菜
+			int pNum = Integer.parseInt(st[2]);			//购买每道菜的数量
+			
+			String[] stt = PCV.perDetList.get(lId).get(pId).split(" ");
+			String perName = stt[0];
+			double perPrice = Double.parseDouble(stt[1]);
+			
+			
+			int lenP = 5-(perPrice+"").length()+6;
+			System.out.println(lenP);
+			sb.append(perName+"        "+"￥"+String.format("%-"+lenP+".2f", perPrice) + "" + String.format("%16d", pNum)+PCV.SPLINE);
+			
+			sum += pNum * perPrice;
+		}
+		sb.append("总计金额："+"                "+"￥"+String.format("%.2f", sum)+PCV.SPLINE);
+		return sb.toString();
+		
+	}
+	
+	
+	public void afterFlushAP(){				//发送后刷新，重新刷新整个界面的各个组件
 		
 		client.updataData();			//发送并接收返回数据
 		//*********更新左侧列表面板********
@@ -234,14 +265,64 @@ public class MyPanelLeft extends JPanel{
 		midC.removeAll();
 		midC.reInit(PCV.curLabNo);
 		midC.MPMA[PCV.curLabNo].restLayoutMAOI(PCV.curMPNo);		//重新设置选中的中间面板	
-	
+		
 		//*******************************
-		frame.repaint();
+//		frame.repaint();
 	}
 	
-	public void flushAPS(int curLabNo, int curMPNo){				//刷新整个界面的各个组件，并制定刷新后显示的是左侧的那个列表条目和中间显示的是哪个面板
+	public void flushAPS(){					//刷新整个界面的各个组件
 		
+		//*********更新左侧列表面板********
+		this.removeAll();
+		this.dataReceive();
+		this.restSelect();
+		this.updateUI();
+		//********************************
 		
+		//**********更新中间面板**********
+		midC.removeAll();
+		midC.reInit(PCV.curLabNo);
+		midC.MPMA[PCV.curLabNo].restLayoutMAOI(PCV.curMPNo);		//重新设置选中的中间面板	
+		
+		//*******************************
+//		frame.repaint();
+	}
+	
+public void addLogoAL(){			//为左上角添加点击事件
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ltp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				flushAPS();
+				System.out.println("刷新一次");
+			}
+		});
 	}
 }
 
@@ -278,39 +359,5 @@ class LeftTop extends JPanel{
 		}
 		add(imgLab);
 	}
-	public void addLogoAL(){			//为左上角添加点击事件
-		
-		addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}
+	
 }

@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -220,7 +221,7 @@ class PerBottom extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				addNum.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
@@ -259,7 +260,7 @@ class PerBottom extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				subNum.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override

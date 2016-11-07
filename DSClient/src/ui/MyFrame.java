@@ -41,12 +41,12 @@ public class MyFrame extends JFrame{
 		DP = client.retDP();
 		MPMB = new MyPanelMidBottom();
 		MPMKA = new MyPanelMidKindArray();
-		MPL = new MyPanelLeft(MPMKA, MPMB, client);
+		MPL = new MyPanelLeft(MPMKA, MPMB, client, this);
 		init();
 		initBottomIndex();
 		AddBtnNextListener();
 		AddBtnFrontListener();
-//		server = new ServerSocketProcess();
+		
 	}
 
 	public void init() {
@@ -154,7 +154,7 @@ public class MyFrame extends JFrame{
 					MPMB.updateUI();
 					
 					PCV.curMPNo = tempP.indexArr;
-//					PCV.curLabNo = M
+					PCV.curLabNo = MPMKA.curLabNo;
 				}
 				else
 					System.out.println("这是最后一页");
@@ -184,6 +184,9 @@ public class MyFrame extends JFrame{
 					MPMB.setCurPage(tempP.indexArr+1);
 					MPMB.setLabelText();
 					MPMB.updateUI();
+					
+					PCV.curMPNo = tempP.indexArr;
+					PCV.curLabNo = MPMKA.curLabNo;
 				}
 				else
 					System.out.println("这是第一页");

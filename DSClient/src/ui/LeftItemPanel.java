@@ -10,15 +10,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data.PCV;
+
 public class LeftItemPanel extends JPanel{
 	
 	public JLabel lab;					//左列表的每一个条目			
 	public String labName;				//条目的名字
-	public int labNo;					//当前面板的序号
+	public int labNo;					//当前左侧列表条目的序号
 	public MyPanelMidKindArray midC;	//盛放中间面板的面板容器
 	public MyPanelMidBottom midB;		//盛放下方面板的面板容器
 	public MyPanelLeft mpl;				//左侧列表
-	public boolean flag;		//判断当前条目是否被选中
+	public boolean flag;				//判断当前条目是否被选中
 	
 	public LeftItemPanel(String name, int labNo, MyPanelMidKindArray midC, MyPanelMidBottom midB, MyPanelLeft mpl) {
 		
@@ -63,8 +65,7 @@ public class LeftItemPanel extends JPanel{
 				// TODO Auto-generated method stub
 				setBackground(new Color(50, 50, 50));
 				lab.setForeground(Color.WHITE);
-				
-				
+					
 			}
 			
 			@Override
@@ -77,6 +78,10 @@ public class LeftItemPanel extends JPanel{
 				setBackground(new Color(50, 50, 50));
 				lab.setForeground(Color.WHITE);
 				mpl.selNo = labNo;
+				
+				//*****确定当前选中的左侧列表条目的编号*****
+				PCV.curLabNo = labNo;
+				//****************************************
 			}
 		});
 	}

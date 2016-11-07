@@ -39,11 +39,13 @@ public class MyPanelLeft extends JPanel{
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
 	SocketClient client;				//主要用于发送数据
+	MyFrame	frame;						//主要用来刷新整个窗口
 	
-	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, SocketClient client) {
+	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, SocketClient client, MyFrame frame) {
 		this.midC = mpmka;
 		this.midB = mpmb;
 		this.client = client;
+		this.frame = frame;
 		init();
 		
 	}
@@ -51,7 +53,7 @@ public class MyPanelLeft extends JPanel{
 	public void init() {
 			
 		selNo = 0;
-		confimP = new ConfirmPanel();
+		confimP = new ConfirmPanel(this);
 		ltp = new LeftTop();
 		confimP.setBackground(new Color(150, 20, 20));
 		confimP.confLab.setForeground(Color.WHITE);
@@ -168,6 +170,13 @@ public class MyPanelLeft extends JPanel{
 		Lip[0].lab.setForeground(Color.WHITE);
 		
 	}
+	
+	public void restSelect(){			//刷新后重新选定原先被选中的左侧列表条目
+		
+		Lip[PCV.curLabNo].setBackground(new Color(50, 50, 50));
+		Lip[PCV.curLabNo].lab.setForeground(Color.WHITE);
+	}
+	
 	public void addCPAL(){
 		confimP.addMouseListener(new MouseListener() {
 			
@@ -205,14 +214,32 @@ public class MyPanelLeft extends JPanel{
 				int n = JOptionPane.showConfirmDialog(null, PCV.buyList.toString());
 				
 				if(n == 0){
-					client.updataData();
+					flushAP();						//重新刷新整个界面
 				}
 			}
 		});
 	}
 	
-	public void flushAP(){				//从服务端接收完数据，需要重新刷新整个界面
+	public void flushAP(){				//重新刷新整个界面的各个组件
 		
+		client.updataData();			//发送并接收返回数据
+		//*********更新左侧列表面板********
+		this.removeAll();
+		this.dataReceive();
+		this.restSelect();
+		this.updateUI();
+		//********************************
+		
+		//**********更新中间面板**********
+		midC.removeAll();
+		midC.reInit(PCV.curLabNo);
+		midC.MPMA[PCV.curLabNo].restLayoutMAOI(PCV.curMPNo);		//重新设置选中的中间面板	
+	
+		//*******************************
+		frame.repaint();
+	}
+	
+	public void flushAPS(int curLabNo, int curMPNo){				//刷新整个界面的各个组件，并制定刷新后显示的是左侧的那个列表条目和中间显示的是哪个面板
 		
 		
 	}
@@ -221,8 +248,10 @@ public class MyPanelLeft extends JPanel{
 class ConfirmPanel extends JPanel{
 	
 	JLabel confLab;
-	public ConfirmPanel() {
+	MyPanelLeft mpl;
+	public ConfirmPanel(MyPanelLeft mpl) {
 		
+		this.mpl = mpl;
 		confLab = new JLabel("确认更新");
 		confLab.setFont(new Font("微软雅黑", 1, 15));
 		this.add(confLab);

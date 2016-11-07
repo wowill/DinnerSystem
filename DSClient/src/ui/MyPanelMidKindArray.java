@@ -38,13 +38,34 @@ public class MyPanelMidKindArray extends JPanel{
 		}
 //		MPMA[0].setBackground(Color.WHITE);
 		restLayouMidArr(0, this);
-		updateUI();
+		
 	}
+	
+	
 	
 	public void restLayouMidArr(int index, JPanel rel){							//点击左侧按钮切换页面，要重新布局,src要添加到rel面板中
 		
 		rel.add(MPMA[index]);
+		updateUI();
+	}
+	
+	public void reInit(int curLabNo) {
+		kindNum = PCV.AllItemLeft;
+		//*************模拟初始化 everyKOL[],真实数据传入再做修改
+		everyKOL = new int[kindNum];
+		System.out.println(kindNum);
+		for(int i = 0; i < kindNum; i++){
+			everyKOL[i] = PCV.leftItemOfDN.get(i);
+		}
+		//****************
 		
+		MPMA = new MyPanelMidArray[kindNum];
+		setBackground(Color.WHITE);
+		for(int i = 0; i < kindNum; i++){
+			MPMA[i] = new MyPanelMidArray(everyKOL[i], i);
+		}
+//		MPMA[0].setBackground(Color.WHITE);
+		restLayouMidArr(curLabNo, this);
 	}
 	
 	public int getKindNum() {

@@ -24,7 +24,7 @@ public class MyPanelMid extends JPanel{
 	public int curLabNo;		//当前选中左侧列表的序号
 	
 	public MyPanelMid(int perAllNum, int curLabNo) {
-		System.out.println("cyr" + curLabNo);
+//		System.out.println("cyr" + curLabNo);
 		this.curLabNo = curLabNo;
 		this.perAllNum = perAllNum;
 		MPP = new MyPanelPer[perAllNum];

@@ -78,3 +78,5 @@ insert into ItemToDetails values
 (34,'²Ë7-1', 43.00, 50, 80, 'c:/OrderingImages/0004.png',4, 7),
 (35,'²Ë8-1', 9.99, 50, 30, 'c:/OrderingImages/0002.png', 5, 8)
 go
+
+select * from ItemToDetails

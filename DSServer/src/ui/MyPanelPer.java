@@ -209,7 +209,9 @@ class PerBottom extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				purches++;
+				showNum.setText(purches+"");
+				updateList(curLabNo,perIndex,purches);
 			}
 			
 			@Override
@@ -228,9 +230,7 @@ class PerBottom extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
-				purches++;
-				showNum.setText(purches+"");
-				updateList(curLabNo,perIndex,purches);
+				
 			}
 		});
 	}
@@ -248,7 +248,12 @@ class PerBottom extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(purches > 0){
+					purches--;
+					showNum.setText(purches+"");					
+					updateList(curLabNo, perIndex,purches);
+
+				}
 			}
 			
 			@Override
@@ -266,12 +271,7 @@ class PerBottom extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(purches > 0){
-					purches--;
-					showNum.setText(purches+"");					
-					updateList(curLabNo, perIndex,purches);
-
-				}
+				
 				
 			}
 		});

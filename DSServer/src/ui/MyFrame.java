@@ -49,7 +49,7 @@ public class MyFrame extends JFrame{
 
 	public void init() {
 		
-		System.out.println(this.getClass());
+//		System.out.println(this.getClass());
 		//************´°¿Ú¾ÓÖÐ*******************
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle rect = ge.getMaximumWindowBounds();
@@ -139,7 +139,7 @@ public class MyFrame extends JFrame{
 				
 				if(tempP.indexArr+1 < tempP.panelNum)
 				{
-					System.out.println(MPMKA.curLabNo+"  ||  "+tempP.indexArr + "   " +tempP.panelNum);
+//					System.out.println(MPMKA.curLabNo+"  ||  "+tempP.indexArr + "   " +tempP.panelNum);
 					tempP.indexArr++;
 					tempP.removeAll();
 					MPMKA.removeAll();

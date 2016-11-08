@@ -99,10 +99,10 @@ public class DataProcess {
 			PCV.perDetList.add(list);
 			str = "";
 		}
-		for(int i = 0; i < PCV.fileList.size(); i++){
-			System.out.println(PCV.fileList.get(i));
-		}
-		 System.out.println(PCV.sendSB.toString());
+//		for(int i = 0; i < PCV.fileList.size(); i++){
+//			System.out.println(PCV.fileList.get(i));
+//		}
+//		 System.out.println(PCV.sendSB.toString());
 		 
 		//**********************************************************
 	}
@@ -126,7 +126,7 @@ public class DataProcess {
 		for(int i = 0; i < PCV.fileList.size(); i++){
 			
 			String fileName = PCV.fileList.get(i).toString();
-			System.out.println("Path:"+fileName);
+//			System.out.println("Path:"+fileName);
 			if(name.equals(fileName)){
 				return false;
 			}

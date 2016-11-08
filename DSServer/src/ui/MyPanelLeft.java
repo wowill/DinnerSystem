@@ -194,7 +194,6 @@ public class MyPanelLeft extends JPanel{
 				int n = JOptionPane.showConfirmDialog(null, formatBuyMes(),"购物清单",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE);
 				
 				if(n == 0){
-					
 					DP.DAO.cAndSUP(buyLTS(), 0);
 					afterFlushAP();						//重新刷新整个界面
 				}
@@ -252,7 +251,7 @@ public class MyPanelLeft extends JPanel{
 			
 			
 			int lenP = 5-(perPrice+"").length()+6;
-			System.out.println(lenP);
+//			System.out.println(lenP);
 			sb.append(perName+"        "+"￥"+String.format("%-"+lenP+".2f", perPrice) + "" + String.format("%16d", pNum)+PCV.SPLINE);
 			
 			sum += pNum;

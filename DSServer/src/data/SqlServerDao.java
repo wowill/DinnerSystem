@@ -81,10 +81,11 @@ public class SqlServerDao {
 		int so[] = new int[sa.length];
 		for(int i = 0; i < sa.length; i++){
 			String sp[] = sa[i].split(" ");
-			String lId = sp[0];
-			String pId = sp[1];
-			String pNum = sp[2];
-			sql = "select * from ItemToDetails where perID = "+pId+" and ItemID = " + lId;
+			int lId = Integer.parseInt(sp[0]);
+			int pId = Integer.parseInt(sp[1]);
+			int pNum = Integer.parseInt(sp[2]);
+			sql = "select * from ItemToDetails where perID = "+(pId+1)+" and ItemID = " + (lId+1);
+			
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				
@@ -108,12 +109,14 @@ public class SqlServerDao {
 //			PCV.commitStat = "T";
 			for(int i = 0; i < sa.length; i++){
 				String sp[] = sa[i].split(" ");
-				String lId = sp[0];
-				String pId = sp[1];
+				int lId = Integer.parseInt(sp[0]);
+				int pId = Integer.parseInt(sp[1]);
 				int pNum = Integer.parseInt(sp[2]);
 				
-				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", set sold = "+ (so[i] + pNum)+" where perID = "+pId+" and ItemID = " + lId;
+				sql = "update ItemToDetails set leave = "+ (la[i] + pNum) + " where perID = "+(pId+1)+" and ItemID = " + (lId+1);
+				System.out.println(sql);
 				stmt.execute(sql);
+				System.out.println("服务端添加补给成功！");
 			}
 		}
 		
@@ -128,10 +131,10 @@ public class SqlServerDao {
 		int so[] = new int[sa.length];
 		for(int i = 0; i < sa.length; i++){
 			String sp[] = sa[i].split(" ");
-			String lId = sp[0];
-			String pId = sp[1];
-			String pNum = sp[2];
-			sql = "select * from ItemToDetails where perID = "+pId+" and ItemID = " + lId;
+			int lId = Integer.parseInt(sp[0]);
+			int pId = Integer.parseInt(sp[1]);
+			int pNum = Integer.parseInt(sp[2]);
+			sql = "select * from ItemToDetails where perID = "+(pId+1)+" and ItemID = " + (lId+1);
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				
@@ -139,7 +142,7 @@ public class SqlServerDao {
 				int soldNum = Integer.parseInt(rs.getString(5));
 				la[i] = leaveNum;
 				so[i] = soldNum;
-				if(leaveNum < Integer.parseInt(pNum)){
+				if(leaveNum < pNum){
 					PCV.commitStat = "F";
 					flag = true;
 					break;
@@ -155,11 +158,11 @@ public class SqlServerDao {
 			PCV.commitStat = "T";
 			for(int i = 0; i < sa.length; i++){
 				String sp[] = sa[i].split(" ");
-				String lId = sp[0];
-				String pId = sp[1];
+				int lId = Integer.parseInt(sp[0]);
+				int pId = Integer.parseInt(sp[1]);
 				int pNum = Integer.parseInt(sp[2]);
 				
-				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", set sold = "+ (so[i] + pNum)+" where perID = "+pId+" and ItemID = " + lId;
+				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", sold = "+ (so[i] + pNum)+" where perID = "+(pId+1)+" and ItemID = " + (lId+1);
 				stmt.execute(sql);
 			}
 		}

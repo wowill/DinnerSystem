@@ -48,7 +48,13 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
+				System.out.println(midC.MPMA[labNo].itemAllNum+"   ||    "+Arrays.toString(midC.MPMA[labNo].evePaneNum));
 				
+				changeMidPanel();
+				restIndexBottom();
+				setBackground(new Color(50, 50, 50));
+				lab.setForeground(Color.WHITE);
+				mpl.selNo = labNo;
 			}
 			
 			@Override
@@ -70,13 +76,7 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println(midC.MPMA[labNo].itemAllNum+"   ||    "+Arrays.toString(midC.MPMA[labNo].evePaneNum));
 				
-				changeMidPanel();
-				restIndexBottom();
-				setBackground(new Color(50, 50, 50));
-				lab.setForeground(Color.WHITE);
-				mpl.selNo = labNo;
 			}
 		});
 	}

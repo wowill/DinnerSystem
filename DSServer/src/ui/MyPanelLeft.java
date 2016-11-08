@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -18,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import data.DataProcess;
 import data.PCV;
 import data.ServerSocketProcess;
 
@@ -36,12 +38,13 @@ public class MyPanelLeft extends JPanel{
 	public LeftTop ltp;					//左上角logo面板
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
-	public ServerSocketProcess server;	//服务端接受和返回数据的处理类
+	public DataProcess DP;				//用来重新设置补给后的数据
 	
-	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb) {
+	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, DataProcess DP) {
+		
 		this.midC = mpmka;
 		this.midB = mpmb;
-		
+		this.DP = DP;
 		init();
 		
 	}
@@ -49,7 +52,7 @@ public class MyPanelLeft extends JPanel{
 	public void init() {
 			
 		selNo = 0;
-		confimP = new ConfirmPanel();
+		confimP = new ConfirmPanel(this);
 		ltp = new LeftTop();
 		confimP.setBackground(new Color(150, 20, 20));
 		confimP.confLab.setForeground(Color.WHITE);
@@ -65,6 +68,7 @@ public class MyPanelLeft extends JPanel{
 		setBackground(Color.WHITE);
 		initSelected();
 		addCPAL();
+		addLogoAL();
 	}
 	
 	public void checkFlushL(){
@@ -166,6 +170,13 @@ public class MyPanelLeft extends JPanel{
 		Lip[0].lab.setForeground(Color.WHITE);
 		
 	}
+	
+	public void restSelect(){			//刷新后重新选定原先被选中的左侧列表条目
+		
+		Lip[PCV.curLabNo].setBackground(new Color(50, 50, 50));
+		Lip[PCV.curLabNo].lab.setForeground(Color.WHITE);
+	}
+	
 	public void addCPAL(){
 		confimP.addMouseListener(new MouseListener() {
 			
@@ -178,7 +189,15 @@ public class MyPanelLeft extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
+				confimP.setBackground(new Color(220, 0, 0));
+				confimP.confLab.setForeground(Color.WHITE);
+				int n = JOptionPane.showConfirmDialog(null, formatBuyMes(),"购物清单",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE);
 				
+				if(n == 0){
+					
+					DP.DAO.cAndSUP(buyLTS(), 0);
+					afterFlushAP();						//重新刷新整个界面
+				}
 			}
 			
 			@Override
@@ -193,18 +212,138 @@ public class MyPanelLeft extends JPanel{
 				// TODO Auto-generated method stub
 				confimP.setBackground(new Color(220, 0, 0));
 				confimP.confLab.setForeground(Color.WHITE);
+				confimP.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				confimP.setBackground(new Color(220, 0, 0));
-				confimP.confLab.setForeground(Color.WHITE);
-				int n = JOptionPane.showConfirmDialog(null, "请确认是否更新数据！");
 				
-				if(n == 0){
-					server = new ServerSocketProcess();
-				}
+			}
+		});
+	}
+	
+	public String buyLTS(){			//服务端补给的列表转换成字符串
+		
+		String str = "";
+		for(int i = 0; i < PCV.buyList.size(); i++){
+			
+			str += PCV.buyList.get(i).trim() + ",";
+		}
+		return str;
+	}
+	
+	public String formatBuyMes(){				//重新设置显示结算的信息
+		
+		double sum = 0;
+		PCV.sendStrFC = "";
+		StringBuilder sb = new StringBuilder();
+		sb.append("补给商品"+"    "+"商品单价"+"    "+"补给数量"+PCV.SPLINE);
+
+		for(int i = 0; i < PCV.buyList.size(); i++){
+			String[] st = PCV.buyList.get(i).split(" ");
+			int lId = Integer.parseInt(st[0]);			//对应左侧列表编号
+			int pId = Integer.parseInt(st[1]);			//对应中间面板第几道菜
+			int pNum = Integer.parseInt(st[2]);			//购买每道菜的数量
+			
+			String[] stt = PCV.perDetList.get(lId).get(pId).split(" ");
+			String perName = stt[0];
+			double perPrice = Double.parseDouble(stt[1]);
+			
+			
+			int lenP = 5-(perPrice+"").length()+6;
+			System.out.println(lenP);
+			sb.append(perName+"        "+"￥"+String.format("%-"+lenP+".2f", perPrice) + "" + String.format("%16d", pNum)+PCV.SPLINE);
+			
+			sum += pNum;
+			PCV.sendStrFC += PCV.buyList.get(i).trim() + ",";
+		}
+		sb.append("合计数量："+"                           "+""+String.format("%.0f", sum)+PCV.SPLINE);
+		PCV.sendStrFC = PCV.sendStrFC.trim();
+		return sb.toString();
+		
+	}
+	
+	
+	public void afterFlushAP(){				//发送后刷新，重新刷新整个界面的各个组件
+		
+		DP.init();
+		//*********更新左侧列表面板********
+		this.removeAll();
+		this.dataReceive();
+		this.restSelect();
+		this.updateUI();
+		//********************************
+		
+		//**********更新中间面板**********
+		midC.removeAll();
+		midC.reInit(PCV.curLabNo);
+		midC.MPMA[PCV.curLabNo].restLayoutMAOI(PCV.curMPNo);		//重新设置选中的中间面板	
+		
+		//*******************************
+		
+		PCV.buyList = new ArrayList<>();
+//		frame.repaint();
+	}
+	
+	public void flushAPS(){					//刷新整个界面的各个组件
+		
+		DP.init();
+		//*********更新左侧列表面板********
+		this.removeAll();
+		this.dataReceive();
+		this.restSelect();
+		this.updateUI();
+		//********************************
+		
+		//**********更新中间面板**********
+		midC.removeAll();
+		midC.reInit(PCV.curLabNo);
+		midC.MPMA[PCV.curLabNo].restLayoutMAOI(0);		//点击坐上logo刷新，重新设置选中的中间面板	
+		
+		//*******************************
+		
+		midB.setCurPage(1);
+		midB.setLabelText();
+		midB.updateUI();
+		
+		PCV.buyList = new ArrayList<>();
+//		frame.repaint();
+	}
+	
+public void addLogoAL(){			//为左上角添加点击事件
+		
+		addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				flushAPS();
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				ltp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				flushAPS();
+				System.out.println("刷新一次");
 			}
 		});
 	}
@@ -213,8 +352,10 @@ public class MyPanelLeft extends JPanel{
 class ConfirmPanel extends JPanel{
 	
 	JLabel confLab;
-	public ConfirmPanel() {
+	MyPanelLeft mpl;
+	public ConfirmPanel(MyPanelLeft mpl) {
 		
+		this.mpl = mpl;
 		confLab = new JLabel("确认更新");
 		confLab.setFont(new Font("微软雅黑", 1, 15));
 		this.add(confLab);
@@ -241,39 +382,5 @@ class LeftTop extends JPanel{
 		}
 		add(imgLab);
 	}
-	public void addLogoAL(){			//为左上角添加点击事件
-		
-		addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}
+	
 }

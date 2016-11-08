@@ -3,13 +3,23 @@ package data;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLData;
+
+import ui.MyPanelLeft;
+import ui.MyPanelMidBottom;
+import ui.MyPanelMidKindArray;
 
 public class ServerSocketProcess {
 
 	public ServerSocket server;
 	public Socket client;
-	public ServerSocketProcess() {
+	public DataProcess DP;
+	public MyPanelLeft mpl;
+	
+	public ServerSocketProcess(MyPanelLeft mpl,DataProcess DP) {
 		
+		this.mpl = mpl;
+		this.DP = DP;
 		init();
 	}
 
@@ -23,7 +33,7 @@ public class ServerSocketProcess {
 				
 				client = server.accept();
 				System.out.println("与客户端连接成功！");
-				new Thread(new ServerSocketThread(client)).start();
+				new Thread(new ServerSocketThread(mpl,client, DP)).start();
 				
 			}
 			

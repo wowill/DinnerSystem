@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import data.DataProcess;
+import data.PCV;
 import data.ServerSocketProcess;
 
 public class MyFrame extends JFrame{
@@ -38,12 +39,12 @@ public class MyFrame extends JFrame{
 		DP = new DataProcess();
 		MPMB = new MyPanelMidBottom();
 		MPMKA = new MyPanelMidKindArray();
-		MPL = new MyPanelLeft(MPMKA, MPMB);
+		MPL = new MyPanelLeft(MPMKA, MPMB, DP);
 		init();
 		initBottomIndex();
 		AddBtnNextListener();
 		AddBtnFrontListener();
-		server = new ServerSocketProcess();
+		server = new ServerSocketProcess(MPL, DP);
 	}
 
 	public void init() {
@@ -150,6 +151,9 @@ public class MyFrame extends JFrame{
 					MPMB.setCurPage(tempP.indexArr+1);
 					MPMB.setLabelText();
 					MPMB.updateUI();
+					
+					PCV.curMPNo = tempP.indexArr;
+					PCV.curLabNo = MPMKA.curLabNo;
 				}
 				else
 					System.out.println("这是最后一页");
@@ -179,6 +183,9 @@ public class MyFrame extends JFrame{
 					MPMB.setCurPage(tempP.indexArr+1);
 					MPMB.setLabelText();
 					MPMB.updateUI();
+					
+					PCV.curMPNo = tempP.indexArr;
+					PCV.curLabNo = MPMKA.curLabNo;
 				}
 				else
 					System.out.println("这是第一页");

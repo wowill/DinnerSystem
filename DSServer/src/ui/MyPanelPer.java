@@ -1,13 +1,13 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import data.PCV;
 
 public class MyPanelPer extends JPanel{
 
@@ -31,13 +33,17 @@ public class MyPanelPer extends JPanel{
 	public int leave;					//剩余数量
 	public double price;				//售卖价格
 	public String perName;				//每一道菜的名字
+	public int curLabNo;				//当前条目编号
+	public int perIndex;				//当前菜的编号
 	
-	public MyPanelPer(ArrayList<String> list, int perIndex) {
+	public MyPanelPer(ArrayList<String> list, int perIndex, int curLabNo) {
 		
 		//************初始化数据********************
 		String str = list.get(perIndex);
 		String sa[] = str.split(" ");
 		
+		this.perIndex = perIndex;
+		this.curLabNo = curLabNo;
 		this.perName = sa[0];
 		this.price = Double.parseDouble(sa[1]);
 		this.leave = Integer.parseInt(sa[2]);
@@ -54,16 +60,13 @@ public class MyPanelPer extends JPanel{
 		setLayout();
 		imgLab = new JLabel();
 		
-		p = new PerBottom(price, leave, sold);
+		p = new PerBottom(price, leave, sold, curLabNo, perIndex);
 		
 		setBackground(Color.WHITE);
-		try {
-			ImageIcon img = new ImageIcon(ImageIO.read( new File(imgPath)));
+	
+			ImageIcon img = new ImageIcon(imgPath);
 			imgLab.setIcon(img);
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
+	
 		
 		s.gridx = 0;
 		s.gridy = 0;
@@ -102,19 +105,23 @@ class PerBottom extends JPanel{
 	public int leave;					//剩余数量
 	public double price;				//售卖价格
 	public String perName;				//每一道菜的名字
+	public int curLabNo;				//当前条目编号
+	public int perIndex;				//当前菜的编号
 	
-	public PerBottom(double price, int leave, int sold) {
+	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex) {
 		
+		this.perIndex = perIndex;
 		this.price = price;
 		this.leave = leave;
 		this.sold = sold;
+		this.curLabNo = curLabNo;
 		init();
 		addSubAL();
 		addAddAL();
 	}
 
 	public void init() {
-		priceLab = new JLabel("19.22");
+		priceLab = new JLabel();
 		subNum = new JLabel();
 		addNum = new JLabel();
 		showNum = new JTextField(2);
@@ -132,7 +139,7 @@ class PerBottom extends JPanel{
 			e.printStackTrace();
 		}
 		showNum.setText("0");
-		
+		showNum.setEditable(false);
 		
 		soldNum.setFont(new Font("微软雅黑", 0, 10));
 		soldNum.setForeground(new Color(200, 10, 0));
@@ -214,7 +221,7 @@ class PerBottom extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				addNum.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
@@ -223,6 +230,7 @@ class PerBottom extends JPanel{
 				
 				purches++;
 				showNum.setText(purches+"");
+				updateList(curLabNo,perIndex,purches);
 			}
 		});
 	}
@@ -252,7 +260,7 @@ class PerBottom extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				subNum.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
@@ -260,10 +268,27 @@ class PerBottom extends JPanel{
 				// TODO Auto-generated method stub
 				if(purches > 0){
 					purches--;
-					showNum.setText(purches+"");
+					showNum.setText(purches+"");					
+					updateList(curLabNo, perIndex,purches);
+
 				}
 				
 			}
 		});
+	}
+	
+	public void updateList(int curLabNo,int perIndex, int purches){				//用来更新购物列表的方法
+		
+		boolean flag = false;
+		for(int i = 0; i < PCV.buyList.size(); i++){
+			if(PCV.buyList.get(i).contains(curLabNo+" "+perIndex+"")){
+				String s[] = PCV.buyList.get(i).split(" ");
+				PCV.buyList.set(i,s[0]+" "+s[1]+ " "+ purches);				
+				flag = true;
+			}
+		}
+		if(!flag){
+			PCV.buyList.add(curLabNo+" "+perIndex+" "+purches);
+		}
 	}
 }

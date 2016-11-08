@@ -12,12 +12,20 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 
+import ui.MyPanelLeft;
+import ui.MyPanelMidBottom;
+import ui.MyPanelMidKindArray;
+
 public class ServerSocketThread implements Runnable{			//服务端线程类
 
 	public Socket client;
+	public DataProcess DP;
+	public MyPanelLeft mpl;
 	
-	public ServerSocketThread(Socket client) {
+	public ServerSocketThread(MyPanelLeft mpl,Socket client,DataProcess DP) {
 		
+		this.mpl = mpl;
+		this.DP = DP;
 		this.client = client;
 		init();
 	}
@@ -43,50 +51,80 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			boolean f1 = true;			
 
 			//************************************
-			
-			//**********发送字符串数据*********
 			String str = dis.readUTF();
+			
+			//**********************用来进行客户端刷新和开始初始化运行的部分*************************
+			
 			if(str.equals("String")){
 				System.out.println("服务端接收到传授字符串数据提示："+str);
 				dos.writeUTF(PCV.sendSB.toString());
 				System.out.println("字符串数据发送成功");
-			}
-			//********************************
-			
-			//**********发送图片数据***********
-			
-			for(int i = 0; i < PCV.fileList.size(); i++){
-
-				System.out.println( "index "+i);
-				FileInputStream fis = new FileInputStream(PCV.fileList.get(i));
-			
-				byte[] bt = new byte[1024];
-				int len = 0;
-				int k = 0;
-				ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				int picLeng = 0;
 				
-				while((len = fis.read(bt,0,bt.length)) != -1)
-				{
-					k++;
-					bos.write(bt,0,len);
+				//**********发送图片数据***********
+				
+				for(int i = 0; i < PCV.fileList.size(); i++){
+					FileInputStream fis = new FileInputStream(PCV.fileList.get(i));
+					byte[] bt = new byte[1024];
+					int len = 0;
+					int k = 0;
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					int picLeng = 0;
+					while((len = fis.read(bt,0,bt.length)) != -1)
+					{
+						k++;
+						bos.write(bt,0,len);
+						bos.flush();
+						picLeng += len;
+					}
 					bos.flush();
-					picLeng += len;
-					
+					dos.writeLong(picLeng);
+					dos.write(bos.toByteArray(), 0, picLeng);
+					dos.flush();
+					dos.flush();
 				}
 				
-				bos.flush();
-				dos.writeLong(picLeng);
-				dos.write(bos.toByteArray(), 0, picLeng);
-				System.out.println("picLeng "+picLeng);
-				System.out.println("进行了 "+k);
-//				dos.write("mext_picture".getBytes(),0,"mext_picture".getBytes().length);
-//				System.out.println("mext_picture".getBytes());
-				dos.flush();
-				dos.flush();
+				//********************************
+				
+			}
+			//*********************************************************
+			else if(str.equals("UpdateData")){
+				System.out.println("服务端接收到传授字符串数据提示："+str);
+				String dataFC = dis.readUTF();
+				DP.DAO.cAndSUP(dataFC, 1);
+				
+				
+				if(PCV.commitStat.equals("T")){
+					DP.init();
+					mpl.afterFlushAP();
+					dos.writeUTF("T");
+					dos.writeUTF(PCV.sendSB.toString());
+					
+					for(int i = 0; i < PCV.fileList.size(); i++){
+						FileInputStream fis = new FileInputStream(PCV.fileList.get(i));
+						byte[] bt = new byte[1024];
+						int len = 0;
+						int k = 0;
+						ByteArrayOutputStream bos = new ByteArrayOutputStream();
+						int picLeng = 0;
+						while((len = fis.read(bt,0,bt.length)) != -1)
+						{
+							k++;
+							bos.write(bt,0,len);
+							bos.flush();
+							picLeng += len;
+						}
+						bos.flush();
+						dos.writeLong(picLeng);
+						dos.write(bos.toByteArray(), 0, picLeng);
+						dos.flush();
+						dos.flush();
+					}
+				}
+				else{
+					dos.writeUTF("F");
+				}
 			}
 			
-			//********************************
 			
 			if(dos != null){
 				dos.close();

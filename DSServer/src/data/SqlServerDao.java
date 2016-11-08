@@ -57,6 +57,116 @@ public class SqlServerDao {
 		close();
 	}
 	
+	synchronized public void cAndSUP(String data, int auth){			//处理客户端用户传来的修改数据请求
+		
+		try{
+			createConn();
+			if(auth == 1){
+				userUpdate(data);
+			}
+			else if(auth == 0){
+				serverUpdate(data);
+			}
+			
+		}catch(SQLException sqle){
+			sqle.getStackTrace();
+		}
+	}
+	
+	public void serverUpdate(String data) throws SQLException{
+		String sql = "";
+		boolean flag = false;
+		String sa[] = data.split(",");
+		int la[] = new int[sa.length];
+		int so[] = new int[sa.length];
+		for(int i = 0; i < sa.length; i++){
+			String sp[] = sa[i].split(" ");
+			String lId = sp[0];
+			String pId = sp[1];
+			String pNum = sp[2];
+			sql = "select * from ItemToDetails where perID = "+pId+" and ItemID = " + lId;
+			rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				
+				int leaveNum = Integer.parseInt(rs.getString(4));
+				int soldNum = Integer.parseInt(rs.getString(5));
+				la[i] = leaveNum;
+				so[i] = soldNum;
+//				if(leaveNum < Integer.parseInt(pNum)){
+//					PCV.commitStat = "F";
+//					flag = true;
+//					break;
+//				}
+				
+			}
+
+//			if(flag){
+//				break;
+//			}
+		}
+		if(!flag){
+//			PCV.commitStat = "T";
+			for(int i = 0; i < sa.length; i++){
+				String sp[] = sa[i].split(" ");
+				String lId = sp[0];
+				String pId = sp[1];
+				int pNum = Integer.parseInt(sp[2]);
+				
+				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", set sold = "+ (so[i] + pNum)+" where perID = "+pId+" and ItemID = " + lId;
+				stmt.execute(sql);
+			}
+		}
+		
+		close();
+	}
+	
+	public void userUpdate(String data) throws NumberFormatException, SQLException{
+		String sql = "";
+		boolean flag = false;
+		String sa[] = data.split(",");
+		int la[] = new int[sa.length];
+		int so[] = new int[sa.length];
+		for(int i = 0; i < sa.length; i++){
+			String sp[] = sa[i].split(" ");
+			String lId = sp[0];
+			String pId = sp[1];
+			String pNum = sp[2];
+			sql = "select * from ItemToDetails where perID = "+pId+" and ItemID = " + lId;
+			rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				
+				int leaveNum = Integer.parseInt(rs.getString(4));
+				int soldNum = Integer.parseInt(rs.getString(5));
+				la[i] = leaveNum;
+				so[i] = soldNum;
+				if(leaveNum < Integer.parseInt(pNum)){
+					PCV.commitStat = "F";
+					flag = true;
+					break;
+				}
+				
+			}
+
+			if(flag){
+				break;
+			}
+		}
+		if(!flag){
+			PCV.commitStat = "T";
+			for(int i = 0; i < sa.length; i++){
+				String sp[] = sa[i].split(" ");
+				String lId = sp[0];
+				String pId = sp[1];
+				int pNum = Integer.parseInt(sp[2]);
+				
+				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", set sold = "+ (so[i] + pNum)+" where perID = "+pId+" and ItemID = " + lId;
+				stmt.execute(sql);
+			}
+		}
+		
+		close();
+	}
+	
 	public void update(String sql){				//修改数据
 		
 		createConn();

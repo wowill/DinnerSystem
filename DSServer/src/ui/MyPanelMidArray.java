@@ -39,7 +39,7 @@ public class MyPanelMidArray extends JPanel{
 		}
 		MPM[0].setBackground(Color.WHITE);
 		restLayouMidArr(MPM[0], this);
-		updateUI();
+		
 	}
 	
 	public void initEve(){				//初始化每页存放的菜的数目的面板
@@ -66,26 +66,15 @@ public class MyPanelMidArray extends JPanel{
 	
 	public void restLayouMidArr(JPanel src, JPanel rel){							//点击切换页面按钮，要重新布局,src要添加到rel面板中
 	
-//		//********设计布局方式**********
-//		GridBagLayout gbLayout = new GridBagLayout();
-//		this.setLayout(gbLayout);
-//		GridBagConstraints s = new GridBagConstraints();
-//		s.fill = GridBagConstraints.BOTH;
-//		//***************************
-//		
-//		s.gridwidth = 1;
-//		s.gridheight = 1;
-//		s.weightx = 0;
-//		s.weighty = 0;
-//		s.gridx = 0;
-//		s.gridy = 0;
-//		gbLayout.setConstraints(src, s);
-//		
-//		rel.removeAll();
 		rel.add(src);
-//		rel.updateUI();
+		rel.updateUI();
 	}
 	
+	public void restLayoutMAOI(int index){									//重新选定左侧列表对应的中间面板数组的第几页
+		
+		this.add(MPM[index]);
+		this.updateUI();
+	}
 	public int getPanelNum() {
 		return panelNum;
 	}

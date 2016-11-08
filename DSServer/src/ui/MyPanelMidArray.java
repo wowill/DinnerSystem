@@ -19,11 +19,12 @@ public class MyPanelMidArray extends JPanel{
 	public MyPanelMidArray(int itemAllNum, int curLabNo) {
 		
 		this.curLabNo = curLabNo;
-		this.itemAllNum = itemAllNum;
+		this.itemAllNum = itemAllNum + 1;
 		this.panelNum = itemAllNum / 9;
-		if(itemAllNum - this.panelNum * 9 > 0){
+		if(this.itemAllNum - this.panelNum * 9 > 0){
 			this.panelNum += 1;
 		}
+		this.itemAllNum -= 1;
 		
 		this.evePaneNum = new int[panelNum];
 		MPM = new MyPanelMid[this.panelNum];

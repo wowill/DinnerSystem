@@ -22,6 +22,7 @@ public class MyPanelMid extends JPanel{
 	GridBagLayout gbLayout;		//设计布局方式
 	GridBagConstraints s;		//设计布局方式
 	public int curLabNo;		//当前选中左侧列表的序号
+	public MyPanelPerAdd MPPA;
 	
 	public MyPanelMid(int perAllNum, int curLabNo) {
 //		System.out.println("cyr" + curLabNo);
@@ -45,13 +46,17 @@ public class MyPanelMid extends JPanel{
 		listm.addAll( PCV.perDetList.get(curLabNo));
 		//****************************************************************
 		
-		
+
 		for(int i = 0; i < perAllNum; i++){
 			
 			MPP[i] = new MyPanelPer(listm, i, curLabNo);
 			restLayouMidArr(MPP[i], this, i);
 		}
 		
+		if(perAllNum < 9 && perAllNum >= 0){
+			MPPA = new MyPanelPerAdd();
+			restLayouMidArr(MPPA, this, perAllNum);
+		}
 	}
 	
 	

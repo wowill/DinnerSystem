@@ -73,10 +73,18 @@ go
 
 insert into ItemToDetails values
 (31,'²Ë4-1', 43.00, 50, 80, 'c:/OrderingImages/0004.png',1, 4),
-(32,'²Ë5-1', 12.99, 60, 20, 'c:/OrderingImages/0003.png',2, 5),
-(33,'²Ë6-1', 10.05, 50, 30, 'c:/OrderingImages/0001.png',3, 6),
-(34,'²Ë7-1', 43.00, 50, 80, 'c:/OrderingImages/0004.png',4, 7),
-(35,'²Ë8-1', 9.99, 50, 30, 'c:/OrderingImages/0002.png', 5, 8)
+(32,'²Ë5-1', 12.99, 60, 20, 'c:/OrderingImages/0003.png',1, 5),
+(33,'²Ë6-1', 10.05, 50, 30, 'c:/OrderingImages/0001.png',1, 6),
+(34,'²Ë7-1', 43.00, 50, 80, 'c:/OrderingImages/0004.png',1, 7),
+(35,'²Ë8-1', 9.99, 50, 30, 'c:/OrderingImages/0002.png', 1, 8),
+(36,'²Ë8-2', 19.99, 50, 30, 'c:/OrderingImages/0002.png', 2, 8),
+(37,'²Ë8-3', 6.50, 50, 30, 'c:/OrderingImages/0004.png', 3, 8),
+(38,'²Ë8-4', 9.99, 50, 30, 'c:/OrderingImages/0002.png', 4, 8),
+(39,'²Ë8-5', 9.99, 20, 30, 'c:/OrderingImages/0003.png', 5, 8),
+(40,'²Ë8-6', 19.99, 50, 80, 'c:/OrderingImages/0002.png', 6, 8),
+(41,'²Ë8-7', 5.50, 30, 30, 'c:/OrderingImages/0002.png', 7, 8),
+(42,'²Ë8-8', 9.99, 10, 30, 'c:/OrderingImages/0006.png', 8, 8),
+(43,'²Ë8-9', 9.99, 50, 10, 'c:/OrderingImages/0004.png', 9, 8)
 go
 
 select * from ItemToDetails

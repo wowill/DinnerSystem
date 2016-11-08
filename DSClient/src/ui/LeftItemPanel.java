@@ -50,7 +50,17 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
+				System.out.println(midC.MPMA[labNo].itemAllNum+"   ||    "+Arrays.toString(midC.MPMA[labNo].evePaneNum));
 				
+				changeMidPanel();
+				restIndexBottom();
+				setBackground(new Color(50, 50, 50));
+				lab.setForeground(Color.WHITE);
+				mpl.selNo = labNo;
+				
+				//*****确定当前选中的左侧列表条目的编号*****
+				PCV.curLabNo = labNo;
+				//****************************************
 			}
 			
 			@Override
@@ -71,17 +81,7 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println(midC.MPMA[labNo].itemAllNum+"   ||    "+Arrays.toString(midC.MPMA[labNo].evePaneNum));
 				
-				changeMidPanel();
-				restIndexBottom();
-				setBackground(new Color(50, 50, 50));
-				lab.setForeground(Color.WHITE);
-				mpl.selNo = labNo;
-				
-				//*****确定当前选中的左侧列表条目的编号*****
-				PCV.curLabNo = labNo;
-				//****************************************
 			}
 		});
 	}

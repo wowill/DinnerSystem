@@ -48,7 +48,14 @@ public class SocketClient {
 	        dos.writeUTF("UpdateData");				//客户端发送给服务端接收字符串数据的提示消息
         	dos.writeUTF(PCV.sendStrFC);
 	        
-        	recvData(dis, dos);					//用封装函数接收从服务端返回的字符串数据和图片数据
+        	PCV.recvStat = dis.readUTF();
+        	if(PCV.recvStat.equals("T")){
+        		recvData(dis, dos);					//用封装函数接收从服务端返回的字符串数据和图片数据
+        		int n = JOptionPane.showConfirmDialog(null, "小二正在上菜啦，请稍等...","提交成功",JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE);
+        	}
+        	else{
+        		int n = JOptionPane.showConfirmDialog(null, "货源不足！","提交失败",JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE);
+        	}
 	        
         	PCV.buyList = new ArrayList<>();
 	        
@@ -83,16 +90,9 @@ public class SocketClient {
         	
         	
         	dos.writeUTF("String");				//客户端发送给服务端接收字符串数据的提示消息
+        	recvData(dis, dos);					//用封装函数接收从服务端返回的字符串数据和图片数据
         	
-        	PCV.recvStat = dis.readUTF();
-        	if(PCV.recvStat.equals("T")){
-        		recvData(dis, dos);					//用封装函数接收从服务端返回的字符串数据和图片数据
-        		int n = JOptionPane.showConfirmDialog(null, "小二正在上菜啦，请稍等...","提交成功",JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE);
-        	}
-        	else{
-        		int n = JOptionPane.showConfirmDialog(null, "货源不足！","提交失败",JOptionPane.YES_OPTION,JOptionPane.INFORMATION_MESSAGE);
-        	}
-	        
+        	
 	        if(client != null){  
 	            
 	            client.close(); 

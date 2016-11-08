@@ -126,7 +126,7 @@ class PerBottom extends JPanel{
 		addNum = new JLabel();
 		showNum = new JTextField(2);
 		soldNum = new JLabel();
-		leaveNum = new JLabel();
+//		leaveNum = new JLabel();
 		setBackground(Color.WHITE);
 		
 		try {
@@ -143,11 +143,11 @@ class PerBottom extends JPanel{
 		
 		soldNum.setFont(new Font("Î¢ÈíÑÅºÚ", 0, 10));
 		soldNum.setForeground(new Color(200, 10, 0));
-		soldNum.setText(""+sold);
+		soldNum.setText("ÒÑÊÛ£º"+sold);
 		
-		leaveNum.setFont(new Font("Î¢ÈíÑÅºÚ", 0, 10));
-		leaveNum.setForeground(new Color(200, 10, 0));
-		leaveNum.setText(leave+"/");
+//		leaveNum.setFont(new Font("Î¢ÈíÑÅºÚ", 0, 10));
+//		leaveNum.setForeground(new Color(200, 10, 0));
+//		leaveNum.setText(leave+"/");
 		
 		priceLab.setText("£¤"+price); 
 		priceLab.setForeground(new Color(200, 10, 0));
@@ -156,7 +156,7 @@ class PerBottom extends JPanel{
 		add(subNum);
 		add(showNum);
 		add(addNum);
-		add(leaveNum);
+//		add(leaveNum);
 		add(soldNum);
 	}
 	
@@ -209,7 +209,9 @@ class PerBottom extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				purches++;
+				showNum.setText(purches+"");
+				updateList(curLabNo,perIndex,purches);
 			}
 			
 			@Override
@@ -228,9 +230,7 @@ class PerBottom extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
-				purches++;
-				showNum.setText(purches+"");
-				updateList(curLabNo,perIndex,purches);
+				
 			}
 		});
 	}
@@ -248,7 +248,12 @@ class PerBottom extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(purches > 0){
+					purches--;
+					showNum.setText(purches+"");					
+					updateList(curLabNo, perIndex,purches);
+
+				}
 			}
 			
 			@Override
@@ -266,12 +271,7 @@ class PerBottom extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(purches > 0){
-					purches--;
-					showNum.setText(purches+"");					
-					updateList(curLabNo, perIndex,purches);
-
-				}
+				
 				
 			}
 		});

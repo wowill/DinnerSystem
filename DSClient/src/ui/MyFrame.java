@@ -41,7 +41,7 @@ public class MyFrame extends JFrame{
 		DP = client.retDP();
 		MPMB = new MyPanelMidBottom();
 		MPMKA = new MyPanelMidKindArray();
-		MPL = new MyPanelLeft(MPMKA, MPMB, client, this);
+		MPL = new MyPanelLeft(MPMKA, MPMB, client);
 		init();
 		initBottomIndex();
 		AddBtnNextListener();

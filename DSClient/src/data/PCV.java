@@ -24,4 +24,6 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static int curLabNo = 0;									//当前左侧列表的编号
 	public static int curMPNo = 0;									//当前中间面板所在页码
 	public static String SPLINE = System.getProperty("line.separator");	//换行符
+	public static String sendStrFC;									//从客户端向服务端发送购物数据
+	public static String recvStat;									//用于存储接收信息的状态		
 }

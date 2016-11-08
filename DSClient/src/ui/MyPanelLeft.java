@@ -39,13 +39,11 @@ public class MyPanelLeft extends JPanel{
 	GridBagLayout gbLayout;				//设置布局方式
 	GridBagConstraints s;				//设置布局方式
 	SocketClient client;				//主要用于发送数据
-	MyFrame	frame;						//主要用来刷新整个窗口
 	
-	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, SocketClient client, MyFrame frame) {
+	public MyPanelLeft(MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, SocketClient client) {
 		this.midC = mpmka;
 		this.midB = mpmb;
 		this.client = client;
-		this.frame = frame;
 		init();
 		
 	}
@@ -225,6 +223,7 @@ public class MyPanelLeft extends JPanel{
 	public String formatBuyMes(){				//重新设置显示结算的信息
 		
 		double sum = 0;
+		PCV.sendStrFC = "";
 		StringBuilder sb = new StringBuilder();
 		sb.append("已购商品"+"    "+"商品单价"+"    "+"购买数量"+PCV.SPLINE);
 
@@ -244,8 +243,10 @@ public class MyPanelLeft extends JPanel{
 			sb.append(perName+"        "+"￥"+String.format("%-"+lenP+".2f", perPrice) + "" + String.format("%16d", pNum)+PCV.SPLINE);
 			
 			sum += pNum * perPrice;
+			PCV.sendStrFC += PCV.buyList.get(i).trim() + ",";
 		}
 		sb.append("总计金额："+"                "+"￥"+String.format("%.2f", sum)+PCV.SPLINE);
+		PCV.sendStrFC = PCV.sendStrFC.trim();
 		return sb.toString();
 		
 	}
@@ -272,6 +273,7 @@ public class MyPanelLeft extends JPanel{
 	
 	public void flushAPS(){					//刷新整个界面的各个组件
 		
+		client.init();						//向服务端发送请求，接收最新数据
 		//*********更新左侧列表面板********
 		this.removeAll();
 		this.dataReceive();
@@ -282,9 +284,13 @@ public class MyPanelLeft extends JPanel{
 		//**********更新中间面板**********
 		midC.removeAll();
 		midC.reInit(PCV.curLabNo);
-		midC.MPMA[PCV.curLabNo].restLayoutMAOI(PCV.curMPNo);		//重新设置选中的中间面板	
+		midC.MPMA[PCV.curLabNo].restLayoutMAOI(0);		//重新设置选中的中间面板	
 		
 		//*******************************
+		
+		midB.setCurPage(1);
+		midB.setLabelText();
+		midB.updateUI();
 //		frame.repaint();
 	}
 	
@@ -301,7 +307,7 @@ public void addLogoAL(){			//为左上角添加点击事件
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				flushAPS();
 			}
 			
 			@Override

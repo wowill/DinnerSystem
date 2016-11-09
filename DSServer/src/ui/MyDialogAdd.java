@@ -45,13 +45,14 @@ public class MyDialogAdd extends JDialog{
 	public JButton cancelBtn;		//取消按钮
 	public int curLabNo;			//当前商品对应左侧条目的编号
 	public int curPerNo;			//当前商品是第几个
-	public MyPanelMidKindArray midC;	//盛放中间面板的面板容器
-	public MyPanelMidBottom midB;		//盛放下方面板的面板容器
-	public DataProcess DP;				//用来重新设置补给后的数据
+	public MyPanelMidKindArray midC;//盛放中间面板的面板容器
+	public MyPanelMidBottom midB;	//盛放下方面板的面板容器
+	public DataProcess DP;			//用来重新设置补给后的数据
+	public int itemAllNum;			//左侧每一个条目对应的菜的总数目
 	
-	
-	public MyDialogAdd(int curLabNo, int curPerNo,MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, DataProcess DP) {
+	public MyDialogAdd(int curLabNo, int curPerNo,MyPanelMidKindArray mpmka, MyPanelMidBottom mpmb, DataProcess DP, int itemAllNum) {
 		
+		this.itemAllNum = itemAllNum;
 		this.curLabNo = curLabNo;
 		this.curPerNo = curPerNo;
 		this.midC = mpmka;
@@ -161,7 +162,7 @@ public class MyDialogAdd extends JDialog{
 				int leaveNum = Integer.parseInt(leaveField.getText());
 				String perName = perNameFiled.getText();
 				double price = Double.parseDouble(priceFiled.getText());
-				PCV.buyTotalList.add("'"+perName+"',"+" "+price+", "+leaveNum+", "+"0,"+" "+"'"+ imgFileP +"',"+" "+(curPerNo+1)+", "+(curLabNo+1));
+				PCV.buyTotalList.add("'"+perName+"',"+" "+price+", "+leaveNum+", "+"0,"+" "+"'"+ imgFileP +"',"+" "+(itemAllNum+1)+", "+(curLabNo+1));
 				DP.DAO.UOIMes();
 				flushMidCB();
 				closeDialogAL();
@@ -195,7 +196,7 @@ public class MyDialogAdd extends JDialog{
 		midC.removeAll();
 		midC.reInit(PCV.curLabNo);
 		midC.MPMA[PCV.curLabNo].restLayoutMAOI(0);		//点击坐上logo刷新，重新设置选中的中间面板	
-		
+		System.out.println(PCV.curLabNo);
 		//*******************************
 		
 		//*********更新下方面板***********

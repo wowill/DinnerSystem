@@ -3,9 +3,12 @@ package ui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,27 +17,32 @@ import data.PCV;
 
 public class MyPanelMid extends JPanel{
 
-	int MPP_HEIGHT = 190;		//每一道菜对应的panel的高
-	int MPP_WIDTH = 160;		//每一道菜对应的panel的宽
-	MyPanelPer[] MPP;			//每一道菜对应的panel
-	public int perAllNum;		//左侧每一个条目对应的菜的总数目
-	public int perItemLeave;	//左侧每一个条目对应的每一个菜的剩余剩余数量
-	public double perItemPrice;	//左侧每一个条目对应的没一个菜的价格
-	GridBagLayout gbLayout;		//设计布局方式
-	GridBagConstraints s;		//设计布局方式
-	public int curLabNo;		//当前选中左侧列表的序号
+	int MPP_HEIGHT = 190;			//每一道菜对应的panel的高
+	int MPP_WIDTH = 160;			//每一道菜对应的panel的宽
+	MyPanelPer[] MPP;				//每一道菜对应的panel
+	public int perAllNum;			//左侧每一个条目对应的菜的总数目
+	public int perItemLeave;		//左侧每一个条目对应的每一个菜的剩余剩余数量
+	public double perItemPrice;		//左侧每一个条目对应的没一个菜的价格
+	GridBagLayout gbLayout;			//设计布局方式
+	GridBagConstraints s;			//设计布局方式
+	public int curLabNo;			//当前选中左侧列表的序号
 	public MyPanelPerAdd MPPA;
 	public MyPanelMidBottom midB;
 	public DataProcess DP;
 	public MyPanelMidKindArray midC;
+	public JPanel spaP;				//空白面板
+	public JLabel blankLab;			//存放空白图片的标签
+	public int itemAllNum;			//左侧每一个条目对应的菜的总数目
 	
-	public MyPanelMid(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int perAllNum, int curLabNo) {
+	
+	public MyPanelMid(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int perAllNum, int curLabNo,int itemAllNum) {
 //		System.out.println("cyr" + curLabNo)
 		this.midC = midC;
 		this.midB = midB;
 		this.DP = DP;
 		this.curLabNo = curLabNo;
 		this.perAllNum = perAllNum;
+		this.itemAllNum = itemAllNum;
 		MPP = new MyPanelPer[perAllNum];
 		init();
 	}
@@ -61,11 +69,45 @@ public class MyPanelMid extends JPanel{
 		}
 		
 		if(perAllNum < 9 && perAllNum >= 0){
-			MPPA = new MyPanelPerAdd(midC,midB,DP,perAllNum, curLabNo);
-			restLayouMidArr(MPPA, this, perAllNum);
+			
+			
+			MPPA = new MyPanelPerAdd(midC,midB,DP,perAllNum, curLabNo,itemAllNum);
+			restLayouMidArr(MPPA,this,perAllNum);
+			if(perAllNum % 9 == 0){
+				addBlank();
+				restLayouMidArr(spaP,this,perAllNum+1);
+				addBlank();
+				restLayouMidArr(spaP,this,perAllNum+2);
+			}
+			if(perAllNum % 9 == 1){
+				addBlank();
+				restLayouMidArr(spaP,this,perAllNum+1);
+			}
+
 		}
 	}
-	
+	public void addBlank(){																//添加空白区域
+		spaP = new JPanel();
+		
+		blankLab = new JLabel();
+		try {
+			blankLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/blank.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		spaP.setSize(175, 160);
+		blankLab = new JLabel();
+		try {
+			blankLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/blank.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		spaP.add(blankLab);
+		spaP.setBackground(Color.WHITE);
+		this.add(spaP);
+	}
 	
 	public void restLayouMidArr(JPanel src, JPanel rel, int i){							//点击切换页面按钮，要重新布局,src要添加到rel面板中
 		
@@ -84,7 +126,6 @@ public class MyPanelMid extends JPanel{
 			s.weighty = 0;
 		}
 		gbLayout.setConstraints(src, s);
-		
 		rel.add(src);
 	}
 	

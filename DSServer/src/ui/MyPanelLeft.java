@@ -314,7 +314,7 @@ public class MyPanelLeft extends JPanel{
 	
 	public void addLogoAL(){			//为左上角添加点击事件
 		
-		addMouseListener(new MouseListener() {
+		ltp.addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -326,6 +326,7 @@ public class MyPanelLeft extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				flushAPS();
+				System.out.println("刷新一次");
 			}
 			
 			@Override
@@ -343,8 +344,7 @@ public class MyPanelLeft extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				flushAPS();
-				System.out.println("刷新一次");
+				
 			}
 		});
 	}

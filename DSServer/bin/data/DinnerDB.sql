@@ -88,5 +88,3 @@ insert into ItemToDetails (name,price,leave,sold,picture,perID,ItemID) values
 go
 
 select * from ItemToDetails
-
-delete 

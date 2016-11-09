@@ -24,9 +24,11 @@ public class MyPanelPerAdd extends JPanel{
 	public int curPerNum;
 	public int curLabNo;
 	public MyDialogAdd MDA;						//添加商品的详细信息的对话框
+	public int itemAllNum;						//左侧每一个条目对应的菜的总数目
 	
-	public MyPanelPerAdd(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int curPerNum, int curLabNo) {
+	public MyPanelPerAdd(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int curPerNum, int curLabNo, int itemAllNum) {
 		
+		this.itemAllNum = itemAllNum;
 		this.midC = midC; 
 		this.midB = midB;
 		this.DP = DP;
@@ -65,7 +67,7 @@ public class MyPanelPerAdd extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				MDA = new MyDialogAdd(curLabNo, curPerNum, midC, midB, DP);
+				MDA = new MyDialogAdd(curLabNo, curPerNum, midC, midB, DP,itemAllNum);
 				MDA.setVisible(true);
 			}
 			

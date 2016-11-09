@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data.PCV;
+
 public class LeftItemPanel extends JPanel{
 	
 	public JLabel lab;					//左列表的每一个条目			
@@ -55,6 +57,7 @@ public class LeftItemPanel extends JPanel{
 				setBackground(new Color(50, 50, 50));
 				lab.setForeground(Color.WHITE);
 				mpl.selNo = labNo;
+				PCV.curLabNo = labNo;
 			}
 			
 			@Override

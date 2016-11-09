@@ -64,7 +64,7 @@ public class MyPanelMid extends JPanel{
 		System.out.println("curLabNo:"+curLabNo+"    perAllNum :"+perAllNum);
 		for(int i = 0; i < perAllNum; i++){
 			
-			MPP[i] = new MyPanelPer(listm, i, curLabNo);
+			MPP[i] = new MyPanelPer(midC,midB,DP,listm, i, curLabNo);
 			restLayouMidArr(MPP[i], this, i);
 		}
 		

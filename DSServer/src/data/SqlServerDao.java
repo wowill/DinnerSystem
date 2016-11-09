@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class SqlServerDao {
 	
-	private String url = "jdbc:sqlserver://localhost:1433;DatabaseName=DinnerDB";
+	private String url = "jdbc:sqlserver://"+PCV.databaseAddr+":"+PCV.databasePort+";DatabaseName="+PCV.databaseName;
 	private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private String user = "sa";
-	private String pass = "123456";
+	private String user = PCV.databaseUserName;
+	private String pass = PCV.databasePassword;
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;

@@ -79,13 +79,14 @@ public class LeftItemPanel extends JPanel{
 				lab.setForeground(Color.WHITE);
 				mpl.selNo = labNo;
 				PCV.curLabNo = labNo;
+				mpl.flushColor();
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
 				mpl.flushColor();
+				
 			}
 			
 			@Override

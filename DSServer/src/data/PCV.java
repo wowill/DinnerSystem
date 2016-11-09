@@ -24,4 +24,9 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static String sendStrFC;										//服务端补给提示信息
 	public static ArrayList<String> buyList = new ArrayList<>();		//服务端的补给信息 , 格式"条目id 菜id 购买数量"
 	public static ArrayList<String> buyTotalList = new ArrayList<>();	//添加补给商品，包含图片的信息
+	public static String databaseAddr = "127.0.0.1";					//数据库的网络地址
+	public static String databasePort = "1433";							//服务端与数据库的连接端口
+	public static String databaseName = "DinnerDB";						//数据库的名字
+	public static String databaseUserName = "sa";						//数据库的登录用户名
+	public static String databasePassword = "123456";					//数据库的登录密码
 }

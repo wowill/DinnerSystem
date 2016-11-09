@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import data.DataProcess;
 import data.PCV;
 
 public class MyPanelPer extends JPanel{
@@ -27,6 +28,9 @@ public class MyPanelPer extends JPanel{
 	public PerBottom p;					//容器panel
 	GridBagLayout gbLayout;
 	GridBagConstraints s;
+	public MyPanelMidKindArray midC;
+	public MyPanelMidBottom midB;
+	public DataProcess DP;
 	public String imgPath;				//图片所在路径
 	public int purches;					//已购买的数量
 	public int sold;					//已售数量
@@ -35,13 +39,16 @@ public class MyPanelPer extends JPanel{
 	public String perName;				//每一道菜的名字
 	public int curLabNo;				//当前条目编号
 	public int perIndex;				//当前菜的编号
+	public MyDialogUOD MDO;				//修改或删除对话框
 	
-	public MyPanelPer(ArrayList<String> list, int perIndex, int curLabNo) {
+	public MyPanelPer(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,ArrayList<String> list, int perIndex, int curLabNo) {
 		
 		//************初始化数据********************
 		String str = list.get(perIndex);
 		String sa[] = str.split(" ");
-		
+		this.midC = midC; 
+		this.midB = midB;
+		this.DP = DP;
 		this.perIndex = perIndex;
 		this.curLabNo = curLabNo;
 		this.perName = sa[0];
@@ -105,7 +112,8 @@ public class MyPanelPer extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				MDO = new MyDialogUOD(curLabNo, perIndex, midC, midB, DP);
+				MDO.setVisible(true);
 			}
 			
 			@Override

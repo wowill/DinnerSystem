@@ -82,6 +82,7 @@ public class LeftItemPanel extends JPanel{
 				//*****确定当前选中的左侧列表条目的编号*****
 				PCV.curLabNo = labNo;
 				//****************************************
+				mpl.flushColor();
 			}
 			
 			@Override

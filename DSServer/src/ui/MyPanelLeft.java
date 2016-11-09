@@ -89,7 +89,7 @@ public class MyPanelLeft extends JPanel{
 		s.gridx = 0;
 		s.gridy = 0;
 		s.ipadx = 0;
-		s.ipady = 0;
+		s.ipady = 5;
 		s.weightx = 0;
 		s.weighty = 0;
 		s.gridwidth = 1;
@@ -103,7 +103,7 @@ public class MyPanelLeft extends JPanel{
 			
 			Lip[i] = new LeftItemPanel(recLL.get(i), i, midC, midB, this);
 			Lip[i].setBackground(new Color(255, 255, 255));
-			Lip[i].setForeground(new Color(50, 50, 50));
+			Lip[i].setForeground(new Color(50,50,50));
 			s.fill = GridBagConstraints.HORIZONTAL;
 			s.gridx = 0;
 			s.gridy = i+1;
@@ -157,7 +157,13 @@ public class MyPanelLeft extends JPanel{
 		for(int i = 0; i < recLL.size(); i++){
 			if(i != selNo){
 				Lip[i].setBackground(new Color(255, 255, 255));
-				Lip[i].lab.setForeground(new Color(50, 50, 50));
+				Lip[i].lab.setForeground(new Color(50,50,50));
+				try {
+					Lip[i].imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/black.png"))));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Lip[i].updateUI();
 			}
 			
@@ -166,14 +172,14 @@ public class MyPanelLeft extends JPanel{
 	
 	public void initSelected(){			//初始化默认选中的左侧列表的条目
 
-		Lip[0].setBackground(new Color(50, 50, 50));
+		Lip[0].setBackground(new Color(176,190,197));
 		Lip[0].lab.setForeground(Color.WHITE);
 		
 	}
 	
 	public void restSelect(){			//刷新后重新选定原先被选中的左侧列表条目
 		
-		Lip[PCV.curLabNo].setBackground(new Color(50, 50, 50));
+		Lip[PCV.curLabNo].setBackground(new Color(176,190,197));
 		Lip[PCV.curLabNo].lab.setForeground(Color.WHITE);
 	}
 	

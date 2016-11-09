@@ -53,6 +53,7 @@ public class MyPanelPer extends JPanel{
 		//*****************************************
 		
 		init();
+		addUODActionL();
 	}
 	
 	public void init() {			//初始化每一道菜的面板界面
@@ -89,6 +90,42 @@ public class MyPanelPer extends JPanel{
 		gbLayout = new GridBagLayout();
 		s = new GridBagConstraints();
 		this.setLayout(gbLayout);
+	}
+	
+	public void addUODActionL(){		//为图片标签添加点击事件
+		
+		imgLab.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				imgLab.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 }
@@ -248,12 +285,9 @@ class PerBottom extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(purches > 0){
 					purches--;
 					showNum.setText(purches+"");					
 					updateList(curLabNo, perIndex,purches);
-
-				}
 			}
 			
 			@Override

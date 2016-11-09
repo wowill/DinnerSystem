@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +23,9 @@ public class LeftItemPanel extends JPanel{
 	public MyPanelMidKindArray midC;	//盛放中间面板的面板容器
 	public MyPanelMidBottom midB;		//盛放下方面板的面板容器
 	public MyPanelLeft mpl;				//左侧列表
-	public boolean flag;		//判断当前条目是否被选中
+	public boolean flag;				//判断当前条目是否被选中
+	public JLabel imgLab;				//存放图片的标签
+	public JLabel sp;					//空白面板
 	
 	public LeftItemPanel(String name, int labNo, MyPanelMidKindArray midC, MyPanelMidBottom midB, MyPanelLeft mpl) {
 		
@@ -37,7 +42,18 @@ public class LeftItemPanel extends JPanel{
 		flag = false;
 		lab = new JLabel(labName);
 		lab.setFont(new Font("微软雅黑", 1, 14));
+		imgLab = new JLabel();
+		sp = new JLabel();
+		sp.setText("     ");
+		try {
+			imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/black.png"))));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
+		this.add(imgLab);
+		this.add(sp);
 		this.add(lab);
 		this.addMouseListener(new MouseListener() {
 			
@@ -50,11 +66,16 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println(midC.MPMA[labNo].itemAllNum+"   ||    "+Arrays.toString(midC.MPMA[labNo].evePaneNum));
-				
+//				System.out.println(midC.MPMA[labNo].itemAllNum+"   ||    "+Arrays.toString(midC.MPMA[labNo].evePaneNum));
+				try {
+					imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/white.png"))));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+				 	e1.printStackTrace();
+				}
 				changeMidPanel();
 				restIndexBottom();
-				setBackground(new Color(50, 50, 50));
+				setBackground(new Color(176,190,197));
 				lab.setForeground(Color.WHITE);
 				mpl.selNo = labNo;
 				PCV.curLabNo = labNo;
@@ -70,9 +91,14 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				setBackground(new Color(50, 50, 50));
+				setBackground(new Color(176,190,197));
 				lab.setForeground(Color.WHITE);
-				
+				try {
+					imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/white.png"))));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 			

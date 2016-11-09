@@ -16,7 +16,6 @@ import data.DataProcess;
 
 public class MyPanelPerAdd extends JPanel{
 
-	public MyPanelLeft mpl;
 	public JLabel imgLab;
 	public MyPanelMidKindArray midC;
 	public MyPanelMidBottom midB;

@@ -130,8 +130,15 @@ public class SqlServerDao {
 				int lId = Integer.parseInt(sp[0]);
 				int pId = Integer.parseInt(sp[1]);
 				int pNum = Integer.parseInt(sp[2]);
+				int res;
+				if(la[i] + pNum < 0){
+					res = 0;
+				}
+				else{
+					res = la[i] + pNum;
+				}
 				
-				sql = "update ItemToDetails set leave = "+ (la[i] + pNum) + " where perID = "+(pId+1)+" and ItemID = " + (lId+1);
+				sql = "update ItemToDetails set leave = "+ (res) + " where perID = "+(pId+1)+" and ItemID = " + (lId+1);
 				System.out.println(sql);
 				stmt.execute(sql);
 				System.out.println("服务端添加补给成功！");

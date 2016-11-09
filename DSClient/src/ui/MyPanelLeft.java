@@ -157,6 +157,12 @@ public class MyPanelLeft extends JPanel{
 			if(i != selNo){
 				Lip[i].setBackground(new Color(255, 255, 255));
 				Lip[i].lab.setForeground(new Color(50, 50, 50));
+				try {
+					Lip[i].imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/black.png"))));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Lip[i].updateUI();
 			}
 			
@@ -165,14 +171,14 @@ public class MyPanelLeft extends JPanel{
 	
 	public void initSelected(){			//初始化默认选中的左侧列表的条目
 
-		Lip[0].setBackground(new Color(50, 50, 50));
+		Lip[0].setBackground(new Color(176,190,197));
 		Lip[0].lab.setForeground(Color.WHITE);
 		
 	}
 	
 	public void restSelect(){			//刷新后重新选定原先被选中的左侧列表条目
 		
-		Lip[PCV.curLabNo].setBackground(new Color(50, 50, 50));
+		Lip[PCV.curLabNo].setBackground(new Color(176,190,197));
 		Lip[PCV.curLabNo].lab.setForeground(Color.WHITE);
 	}
 	
@@ -296,7 +302,7 @@ public class MyPanelLeft extends JPanel{
 	
 public void addLogoAL(){			//为左上角添加点击事件
 		
-		addMouseListener(new MouseListener() {
+		ltp.addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {

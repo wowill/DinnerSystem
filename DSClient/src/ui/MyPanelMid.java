@@ -3,9 +3,12 @@ package ui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,6 +25,8 @@ public class MyPanelMid extends JPanel{
 	GridBagLayout gbLayout;		//设计布局方式
 	GridBagConstraints s;		//设计布局方式
 	public int curLabNo;		//当前选中左侧列表的序号
+	public JPanel spaP;			//空白面板
+	public JLabel blankLab;		//存放空白图片的标签
 	
 	public MyPanelMid(int perAllNum, int curLabNo) {
 		System.out.println("cyr" + curLabNo);
@@ -51,9 +56,44 @@ public class MyPanelMid extends JPanel{
 			MPP[i] = new MyPanelPer(listm, i, curLabNo);
 			restLayouMidArr(MPP[i], this, i);
 		}
-		
+		if(perAllNum < 9 && perAllNum > 0){
+			
+			if(perAllNum % 9 == 2){
+				addBlank();
+				restLayouMidArr(spaP,this,perAllNum+1);
+			}
+			if(perAllNum % 9 == 1){
+				addBlank();
+				restLayouMidArr(spaP,this,perAllNum+1);
+				addBlank();
+				restLayouMidArr(spaP,this,perAllNum+2);
+			}
+
+		}
 	}
 	
+	public void addBlank(){																//添加空白区域
+		spaP = new JPanel();
+		
+		blankLab = new JLabel();
+		try {
+			blankLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/blank.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		spaP.setSize(175, 160);
+		blankLab = new JLabel();
+		try {
+			blankLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/blank.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		spaP.add(blankLab);
+		spaP.setBackground(Color.WHITE);
+		this.add(spaP);
+	}
 	
 	public void restLayouMidArr(JPanel src, JPanel rel, int i){							//点击切换页面按钮，要重新布局,src要添加到rel面板中
 		

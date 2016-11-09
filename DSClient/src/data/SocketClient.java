@@ -37,7 +37,7 @@ public class SocketClient {
 		
     	
 		try{
-	    	Socket client = new Socket("127.0.0.1", 8979);  
+	    	Socket client = new Socket(PCV.remoteAddr, 8979);  
 			client.setSoTimeout(10000);
 	
 			InputStream is = client.getInputStream();
@@ -69,7 +69,7 @@ public class SocketClient {
         try {
         	PCV.buyList = new ArrayList<>();
         	
-        	Socket client = new Socket("127.0.0.1", 8979);  
+        	Socket client = new Socket(PCV.remoteAddr, 8979);  
 			client.setSoTimeout(10000);
 
 			InputStream is = client.getInputStream();

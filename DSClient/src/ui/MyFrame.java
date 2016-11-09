@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.ConnectException;
 import java.nio.channels.SocketChannel;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.DataProcess;
@@ -37,7 +39,7 @@ public class MyFrame extends JFrame{
 	DataProcess DP;
 	public MyFrame() {
 		
-		client = new SocketClient();
+		getRomoteServ();
 		DP = client.retDP();
 		MPMB = new MyPanelMidBottom();
 		MPMKA = new MyPanelMidKindArray();
@@ -49,6 +51,23 @@ public class MyFrame extends JFrame{
 		
 	}
 
+	public void getRomoteServ(){			//通过输入IP，获取远程服务端的数据
+		
+		while(PCV.remoteAddr == "" || PCV.remoteAddr == null || PCV.strPerDetails == null || PCV.strPerDetails == ""){
+			PCV.remoteAddr = JOptionPane.showInputDialog(null, "请输入服务端IP：", "连接服务器", JOptionPane.PLAIN_MESSAGE);
+			client = new SocketClient();
+			
+			if(PCV.strPerDetails == null || PCV.strPerDetails == ""){
+				int v = JOptionPane.showConfirmDialog(this, "对不起，您输入的IP有误，请重新输入！", "错误提示", JOptionPane.YES_OPTION);
+				if(v == 1){
+					this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				}
+			}
+		}
+		
+		
+	}
+	
 	public void init() {
 		
 		//************窗口居中*******************

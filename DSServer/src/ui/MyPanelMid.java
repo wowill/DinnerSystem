@@ -9,6 +9,7 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import data.DataProcess;
 import data.PCV;
 
 public class MyPanelMid extends JPanel{
@@ -23,9 +24,15 @@ public class MyPanelMid extends JPanel{
 	GridBagConstraints s;		//设计布局方式
 	public int curLabNo;		//当前选中左侧列表的序号
 	public MyPanelPerAdd MPPA;
+	public MyPanelMidBottom midB;
+	public DataProcess DP;
+	public MyPanelMidKindArray midC;
 	
-	public MyPanelMid(int perAllNum, int curLabNo) {
-//		System.out.println("cyr" + curLabNo);
+	public MyPanelMid(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int perAllNum, int curLabNo) {
+//		System.out.println("cyr" + curLabNo)
+		this.midC = midC;
+		this.midB = midB;
+		this.DP = DP;
 		this.curLabNo = curLabNo;
 		this.perAllNum = perAllNum;
 		MPP = new MyPanelPer[perAllNum];
@@ -46,7 +53,7 @@ public class MyPanelMid extends JPanel{
 		listm.addAll( PCV.perDetList.get(curLabNo));
 		//****************************************************************
 		
-
+		System.out.println("curLabNo:"+curLabNo+"    perAllNum :"+perAllNum);
 		for(int i = 0; i < perAllNum; i++){
 			
 			MPP[i] = new MyPanelPer(listm, i, curLabNo);
@@ -54,7 +61,7 @@ public class MyPanelMid extends JPanel{
 		}
 		
 		if(perAllNum < 9 && perAllNum >= 0){
-			MPPA = new MyPanelPerAdd();
+			MPPA = new MyPanelPerAdd(midC,midB,DP,perAllNum, curLabNo);
 			restLayouMidArr(MPPA, this, perAllNum);
 		}
 	}

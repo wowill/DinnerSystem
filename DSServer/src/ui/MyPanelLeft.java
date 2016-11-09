@@ -177,7 +177,7 @@ public class MyPanelLeft extends JPanel{
 		Lip[PCV.curLabNo].lab.setForeground(Color.WHITE);
 	}
 	
-	public void addCPAL(){
+	public void addCPAL(){				//为确认更新面板添加点击事件
 		confimP.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -302,15 +302,17 @@ public class MyPanelLeft extends JPanel{
 		
 		//*******************************
 		
+		//*********更新下方面板***********
 		midB.setCurPage(1);
 		midB.setLabelText();
 		midB.updateUI();
+		//*******************************
 		
 		PCV.buyList = new ArrayList<>();
 //		frame.repaint();
 	}
 	
-public void addLogoAL(){			//为左上角添加点击事件
+	public void addLogoAL(){			//为左上角添加点击事件
 		
 		addMouseListener(new MouseListener() {
 			

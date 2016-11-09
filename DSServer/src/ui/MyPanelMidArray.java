@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import data.DataProcess;
+
 public class MyPanelMidArray extends JPanel{
 	
 	public int panelNum;			//中间区域每一个条目含有几页MPM
@@ -15,28 +17,42 @@ public class MyPanelMidArray extends JPanel{
 	public int indexArr;			//中间显示数据的面板数组的下标
 	public int curAllPN;			//当前选中左侧列表的含有中间面板的数目
 	public int curLabNo;				//当前选中左侧列表的序号
+	public MyPanelMidBottom midB;
+	public DataProcess DP;
+	public MyPanelMidKindArray mpmka;
 	
-	public MyPanelMidArray(int itemAllNum, int curLabNo) {
+	public MyPanelMidArray(MyPanelMidKindArray mpmka,MyPanelMidBottom midB,DataProcess DP,int itemAllNum, int curLabNo) {
 		
+		this.mpmka = mpmka;
+		this.midB = midB;
+		this.DP = DP;
 		this.curLabNo = curLabNo;
-		this.itemAllNum = itemAllNum + 1;
-		this.panelNum = itemAllNum / 9;
+		this.itemAllNum = itemAllNum;
+		this.panelNum = this.itemAllNum / 9;
 		if(this.itemAllNum - this.panelNum * 9 > 0){
 			this.panelNum += 1;
 		}
-		this.itemAllNum -= 1;
+		if(this.itemAllNum == 9){
+			this.panelNum += 1;
+		}
 		
-		this.evePaneNum = new int[panelNum];
+		this.evePaneNum = new int[this.panelNum];
+		
 		MPM = new MyPanelMid[this.panelNum];
 		initEve();
+		if(this.itemAllNum == 9){
+			this.evePaneNum[this.panelNum-1] = 0;
+		}
+		
 		init();
+		
 	}
 
 	public  void init() {
 		indexArr = 0;
 		for(int i = 0; i < panelNum; i++){
 			
-			MPM[i] = new MyPanelMid(evePaneNum[i], curLabNo);
+			MPM[i] = new MyPanelMid(mpmka, midB, DP,evePaneNum[i], curLabNo);
 		}
 		MPM[0].setBackground(Color.WHITE);
 		restLayouMidArr(MPM[0], this);

@@ -38,7 +38,7 @@ public class MyFrame extends JFrame{
 		
 		DP = new DataProcess();
 		MPMB = new MyPanelMidBottom();
-		MPMKA = new MyPanelMidKindArray();
+		MPMKA = new MyPanelMidKindArray(MPMB,DP);
 		MPL = new MyPanelLeft(MPMKA, MPMB, DP);
 		init();
 		initBottomIndex();
@@ -49,7 +49,6 @@ public class MyFrame extends JFrame{
 
 	public void init() {
 		
-//		System.out.println(this.getClass());
 		//************窗口居中*******************
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle rect = ge.getMaximumWindowBounds();
@@ -77,12 +76,6 @@ public class MyFrame extends JFrame{
 		this.add(MPMKA);
 		
 		GridBagConstraints s = new GridBagConstraints();
-		//s.fill = GridBagConstraints.BOTH; // 是用来控制添加进的组件的显示位置
-											// 该方法是为了设置如果组件所在的区域比组件本身要大时的显示情况
-											// NONE：不调整组件大小。
-											// HORIZONTAL：加宽组件，使它在水平方向上填满其显示区域，但是不改变高度。
-											// VERTICAL：加高组件，使它在垂直方向上填满其显示区域，但是不改变宽度。
-											// BOTH：使组件完全填满其显示区域。
 		
 		// ************设置左边区域布局***************
 		s.fill = GridBagConstraints.VERTICAL;

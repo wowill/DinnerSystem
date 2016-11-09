@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import data.DataProcess;
 import data.PCV;
 
 public class MyPanelMidKindArray extends JPanel{
@@ -14,10 +15,13 @@ public class MyPanelMidKindArray extends JPanel{
 	public int kindNum;					//左侧条目的数量
 	int everyKOL[];						//左侧每个条目对应的菜的数目
 	public int curLabNo;				//当前选中左侧列表的序号
-	
+	public MyPanelMidBottom midB;
+	public DataProcess DP;
 
-	public MyPanelMidKindArray() {
+	public MyPanelMidKindArray(MyPanelMidBottom midB,DataProcess DP) {
 		
+		this.midB = midB;
+		this.DP = DP;
 		init();
 	}
 
@@ -34,7 +38,7 @@ public class MyPanelMidKindArray extends JPanel{
 		MPMA = new MyPanelMidArray[kindNum];
 		setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
-			MPMA[i] = new MyPanelMidArray(everyKOL[i], i);
+			MPMA[i] = new MyPanelMidArray(this,midB,DP,everyKOL[i], i);
 		}
 //		MPMA[0].setBackground(Color.WHITE);
 		restLayouMidArr(0, this);
@@ -62,7 +66,7 @@ public class MyPanelMidKindArray extends JPanel{
 		MPMA = new MyPanelMidArray[kindNum];
 		setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
-			MPMA[i] = new MyPanelMidArray(everyKOL[i], i);
+			MPMA[i] = new MyPanelMidArray(this,midB,DP,everyKOL[i], i);
 		}
 //		MPMA[0].setBackground(Color.WHITE);
 		restLayouMidArr(curLabNo, this);

@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -10,13 +12,29 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import data.DataProcess;
+
 public class MyPanelPerAdd extends JPanel{
 
 	public MyPanelLeft mpl;
 	public JLabel imgLab;
-	public MyPanelPerAdd() {
+	public MyPanelMidKindArray midC;
+	public MyPanelMidBottom midB;
+	public DataProcess DP;
+	public int curPerNum;
+	public int curLabNo;
+	public MyDialogAdd MDA;						//添加商品的详细信息的对话框
+	
+	public MyPanelPerAdd(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int curPerNum, int curLabNo) {
+		
+		this.midC = midC; 
+		this.midB = midB;
+		this.DP = DP;
+		this.curPerNum = curPerNum;
+		this.curLabNo = curLabNo;
 		
 		init();
+		addAddPerAL();
 	}
 
 	public void init() {
@@ -31,6 +49,7 @@ public class MyPanelPerAdd extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.setBackground(Color.WHITE);
 		this.add(imgLab);
 	}
 	public void addAddPerAL(){			//为此添加面板添加点击事件
@@ -46,7 +65,8 @@ public class MyPanelPerAdd extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				int n = JOptionPane.showConfirmDialog(null, "请选择要添加的图片", "添加商品", JOptionPane.YES_NO_OPTION);
+				MDA = new MyDialogAdd(curLabNo, curPerNum, midC, midB, DP);
+				MDA.setVisible(true);
 			}
 			
 			@Override
@@ -58,7 +78,7 @@ public class MyPanelPerAdd extends JPanel{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override

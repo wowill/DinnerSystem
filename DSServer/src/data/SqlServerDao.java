@@ -73,7 +73,36 @@ public class SqlServerDao {
 		}
 	}
 	
-	public void serverUpdate(String data) throws SQLException{
+	public void UOIMes(){														//服务端插入新的包含图片的数据，或者更新新的包含图片的数据
+//		updateMes();
+		try {
+			insertMes();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertMes() throws SQLException{													//服务端更新数据，插入新的图片，设置菜名，设置库存
+		createConn();
+		String sql = "";
+		for(int i = 0; i < PCV.buyTotalList.size(); i++){
+			String str = PCV.buyTotalList.get(i);
+			System.out.println(str);
+			sql = "insert into ItemToDetails (name,price,leave,sold,picture,perID,ItemID) values ("+str+")";
+			stmt.execute(sql);
+			
+		}
+		close();
+	}
+	
+	public void updateMes(){													//服务端更新数据，更换新的图片，设置菜名，设置库存
+		createConn();
+		
+		close();
+	}
+	
+	public void serverUpdate(String data) throws SQLException{					//服务端更新数据，只更新库存量变化
 		String sql = "";
 		boolean flag = false;
 		String sa[] = data.split(",");
@@ -93,20 +122,9 @@ public class SqlServerDao {
 				int soldNum = Integer.parseInt(rs.getString(5));
 				la[i] = leaveNum;
 				so[i] = soldNum;
-//				if(leaveNum < Integer.parseInt(pNum)){
-//					PCV.commitStat = "F";
-//					flag = true;
-//					break;
-//				}
-				
 			}
-
-//			if(flag){
-//				break;
-//			}
 		}
 		if(!flag){
-//			PCV.commitStat = "T";
 			for(int i = 0; i < sa.length; i++){
 				String sp[] = sa[i].split(" ");
 				int lId = Integer.parseInt(sp[0]);
@@ -123,7 +141,7 @@ public class SqlServerDao {
 		close();
 	}
 	
-	public void userUpdate(String data) throws NumberFormatException, SQLException{
+	public void userUpdate(String data) throws NumberFormatException, SQLException{		//客户端更新数据
 		String sql = "";
 		boolean flag = false;
 		String sa[] = data.split(",");

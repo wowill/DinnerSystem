@@ -22,5 +22,6 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static int curMPNo = 0;										//当前中间面板所在页码
 	public static String SPLINE = System.getProperty("line.separator");	//换行符
 	public static String sendStrFC;										//服务端补给提示信息
-	public static ArrayList<String> buyList = new ArrayList<>();							//服务端的补给信息 , 格式"条目id 菜id 购买数量"
+	public static ArrayList<String> buyList = new ArrayList<>();		//服务端的补给信息 , 格式"条目id 菜id 购买数量"
+	public static ArrayList<String> buyTotalList = new ArrayList<>();	//添加补给商品，包含图片的信息
 }

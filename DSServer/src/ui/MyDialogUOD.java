@@ -113,6 +113,7 @@ public class MyDialogUOD extends JDialog{
 		cancelBtn.setBounds(260, 300, 100, 40);
 		submitBtn.setContentAreaFilled(false);
 		cancelBtn.setContentAreaFilled(false);
+		deleteBtn.setContentAreaFilled(false);
 		
 		setLabMes();
 		add(imgP);
@@ -127,6 +128,7 @@ public class MyDialogUOD extends JDialog{
 		addImgPanelAL();
 		addSubmitAL();
 		addDeleteAL();
+		addCancelAL();
 		closeDialogAL();
 //		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 	}
@@ -158,6 +160,42 @@ public class MyDialogUOD extends JDialog{
 		});
 		setVisible(false);
 	}
+	
+	public void addCancelAL(){					//为取消按钮添加
+		cancelBtn.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				closeDialogAL();
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
 	public void addDeleteAL(){					//为删除按钮添加点击事件
 		deleteBtn.addMouseListener(new MouseListener() {
 			

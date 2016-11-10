@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.PCV;
@@ -46,7 +47,7 @@ public class LeftItemPanel extends JPanel{
 		sp = new JLabel();
 		sp.setText("     ");
 		try {
-			imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/black.png"))));
+			imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/white.png"))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -106,7 +107,13 @@ public class LeftItemPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(e.getClickCount() == 2){
+					String perItemName = JOptionPane.showInputDialog(null, "请输入新的菜单名：", "菜单更新", JOptionPane.YES_NO_OPTION);
+					if(perItemName != null || perItemName != ""){
+						lab.setText(perItemName);
+						mpl.flushAPS();
+					}
+				}
 			}
 		});
 	}

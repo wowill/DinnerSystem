@@ -33,10 +33,11 @@ public class MyPanelMid extends JPanel{
 	public JPanel spaP;				//空白面板
 	public JLabel blankLab;			//存放空白图片的标签
 	public int itemAllNum;			//左侧每一个条目对应的菜的总数目
+	public int pageNo;				//当前页面是第几页
 	
-	
-	public MyPanelMid(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int perAllNum, int curLabNo,int itemAllNum) {
+	public MyPanelMid(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,int perAllNum, int curLabNo,int itemAllNum, int pageNo) {
 //		System.out.println("cyr" + curLabNo)
+		this.pageNo = pageNo;
 		this.midC = midC;
 		this.midB = midB;
 		this.DP = DP;
@@ -59,12 +60,15 @@ public class MyPanelMid extends JPanel{
 		//***********将每个列表对应条目的每个菜的信息存到一个list***********
 		ArrayList<String> listm = new ArrayList<>();
 		listm.addAll( PCV.perDetList.get(curLabNo));
+		for(int i = 0; i < listm.size(); i++){
+			System.out.println(listm.get(i));
+		}
 		//****************************************************************
 		
 		System.out.println("curLabNo:"+curLabNo+"    perAllNum :"+perAllNum);
 		for(int i = 0; i < perAllNum; i++){
 			
-			MPP[i] = new MyPanelPer(midC,midB,DP,listm, i, curLabNo);
+			MPP[i] = new MyPanelPer(midC,midB,DP,listm, i, curLabNo, pageNo);
 			restLayouMidArr(MPP[i], this, i);
 		}
 		

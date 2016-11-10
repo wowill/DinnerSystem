@@ -40,11 +40,13 @@ public class MyPanelPer extends JPanel{
 	public int curLabNo;				//当前条目编号
 	public int perIndex;				//当前菜的编号
 	public MyDialogUOD MDO;				//修改或删除对话框
+	public int pageNo;					//当前页面是第几页
 	
-	public MyPanelPer(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,ArrayList<String> list, int perIndex, int curLabNo) {
+	public MyPanelPer(MyPanelMidKindArray midC,MyPanelMidBottom midB,DataProcess DP,ArrayList<String> list, int perIndex, int curLabNo, int pageNo) {
 		
 		//************初始化数据********************
-		String str = list.get(perIndex);
+		this.pageNo = pageNo;
+		String str = list.get(perIndex+pageNo*9);
 		String sa[] = str.split(" ");
 		this.midC = midC; 
 		this.midB = midB;
@@ -126,6 +128,7 @@ public class MyPanelPer extends JPanel{
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
 				imgLab.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				imgLab.setToolTipText(perName+"　　" + PCV.SPLINE+"点击修改商品信息");
 			}
 			
 			@Override

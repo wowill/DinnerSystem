@@ -25,7 +25,7 @@ public class MyPanelMidBottom extends JPanel{
 	private int allPageNum;				//页码总数
 	private int curPage;				//当前页码
 	public JLabel spaceLab;				//空白标签
-	public JLabel spaceLab2;				//空白标签
+	public JLabel spaceLab2;			//空白标签
 	public JLabel configLab;			//用来显示连接信息的标签
 	
 	public MyPanelMidBottom()

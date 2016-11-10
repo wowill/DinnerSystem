@@ -131,6 +131,7 @@ public class MyDialogAdd extends JDialog{
 		
 		addImgPanelAL();
 		addSubmitAL();
+		addCancelAL();
 		closeDialogAL();
 //		setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 	}
@@ -147,6 +148,42 @@ public class MyDialogAdd extends JDialog{
 		});
 		setVisible(false);
 	}
+	
+	public void addCancelAL(){					//为取消按钮添加
+		cancelBtn.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				closeDialogAL();
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
 	public void addSubmitAL(){					//未确认提交按钮添加点击事件
 		submitBtn.addMouseListener(new MouseListener() {
 			
@@ -178,7 +215,7 @@ public class MyDialogAdd extends JDialog{
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				submitBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override

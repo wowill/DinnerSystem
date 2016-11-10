@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -58,6 +59,7 @@ public class MyFrame extends JFrame{
 		//**************************************
 //		setResizable(false);
 		setTitle("Ordering   ·þÎñ¶Ë");
+		
 		try {
 			this.setIconImage(ImageIO.read(this.getClass().getResource("/image/dinner.png")));
 		} catch (IOException e) {

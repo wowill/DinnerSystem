@@ -50,6 +50,7 @@ public class MyPanelMidArray extends JPanel{
 
 	public  void init() {
 		indexArr = 0;
+		this.setBackground(Color.WHITE);
 		for(int i = 0; i < panelNum; i++){
 			
 			MPM[i] = new MyPanelMid(mpmka, midB, DP,evePaneNum[i], curLabNo, this.itemAllNum,i);

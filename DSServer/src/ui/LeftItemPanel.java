@@ -108,9 +108,11 @@ public class LeftItemPanel extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				if(e.getClickCount() == 2){
-					String perItemName = JOptionPane.showInputDialog(null, "请输入新的菜单名：", "菜单更新", JOptionPane.YES_NO_OPTION);
-					if(perItemName != null || perItemName != ""){
+					String perItemName = JOptionPane.showInputDialog(null, "请输入新的菜单名：", "菜单更新", JOptionPane.PLAIN_MESSAGE);
+					if(perItemName != null || !perItemName.equals("")){
 						lab.setText(perItemName);
+						String sql = "update LeftItem set name = '"+ perItemName + "' where id = " + (labNo+1);
+						mpl.DP.DAO.update(sql);
 						mpl.flushAPS();
 					}
 				}

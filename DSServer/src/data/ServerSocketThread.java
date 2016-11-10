@@ -38,7 +38,7 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 	@Override
 	public void run() {
 		
-		System.out.println("新线程...");
+//		System.out.println("新线程...");
 		try {
 			InputStream is = client.getInputStream();
 			OutputStream os = client.getOutputStream();
@@ -56,9 +56,9 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			//**********************用来进行客户端刷新和开始初始化运行的部分*************************
 			
 			if(str.equals("String")){
-				System.out.println("服务端接收到传授字符串数据提示："+str);
+//				System.out.println("服务端接收到传授字符串数据提示："+str);
 				dos.writeUTF(PCV.sendSB.toString());
-				System.out.println("字符串数据发送成功");
+//				System.out.println("字符串数据发送成功");
 				
 				//**********发送图片数据***********
 				
@@ -88,7 +88,7 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			}
 			//*********************************************************
 			else if(str.equals("UpdateData")){
-				System.out.println("服务端接收到传授字符串数据提示："+str);
+//				System.out.println("服务端接收到传授字符串数据提示："+str);
 				String dataFC = dis.readUTF();
 				DP.DAO.cAndSUP(dataFC, 1);
 				
@@ -141,7 +141,7 @@ public class ServerSocketThread implements Runnable{			//服务端线程类
 			
 			e.printStackTrace();
 		}
-		System.out.println("线程关闭 !");
+//		System.out.println("线程关闭 !");
 	}
 	
 }

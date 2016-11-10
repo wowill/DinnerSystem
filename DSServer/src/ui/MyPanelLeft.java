@@ -65,7 +65,7 @@ public class MyPanelLeft extends JPanel{
 
 		haveRecL = true;			//暂时将判断条件设为true
 		checkFlushL();
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		initSelected();
 		addCPAL();
 		addLogoAL();
@@ -271,7 +271,7 @@ public class MyPanelLeft extends JPanel{
 	
 	
 	public void afterFlushAP(){				//发送后刷新，重新刷新整个界面的各个组件
-		
+		PCV.buyList = new ArrayList<>();
 		DP.init();
 		//*********更新左侧列表面板********
 		this.removeAll();
@@ -283,6 +283,8 @@ public class MyPanelLeft extends JPanel{
 		//**********更新中间面板**********
 		midC.removeAll();
 		midC.reInit(PCV.curLabNo);
+		midC.MPMA[PCV.curLabNo].removeAll();
+		midC.MPMA[PCV.curLabNo].indexArr = PCV.curMPNo;
 		midC.MPMA[PCV.curLabNo].restLayoutMAOI(PCV.curMPNo);		//重新设置选中的中间面板	
 		
 		//*******************************
@@ -314,7 +316,7 @@ public class MyPanelLeft extends JPanel{
 		midB.updateUI();
 		//*******************************
 		
-		PCV.buyList = new ArrayList<>();
+
 //		frame.repaint();
 	}
 	
@@ -332,7 +334,7 @@ public class MyPanelLeft extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				flushAPS();
-				System.out.println("刷新一次");
+				restBuyMes();
 			}
 			
 			@Override
@@ -350,10 +352,24 @@ public class MyPanelLeft extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(e.getClickCount() == 2){			//双击，清空购物列表，并刷新数据
+					PCV.buyList = new ArrayList<>();
+					flushAPS();	
+				}
 			}
 		});
 	}
+	
+	public void restBuyMes(){			//恢复购物信息
+		
+		for(int i = 0; i < PCV.buyList.size(); i++){
+			String sa[] = PCV.buyList.get(i).split(" ");
+			midC.MPMA[Integer.parseInt(sa[0])].MPM[Integer.parseInt(sa[3])].MPP[Integer.parseInt(sa[1])].p.showNum.setText(sa[2]);
+			midC.MPMA[Integer.parseInt(sa[0])].MPM[Integer.parseInt(sa[3])].MPP[Integer.parseInt(sa[1])].p.updateUI();
+		}
+	}
+
+	
 }
 
 class ConfirmPanel extends JPanel{
@@ -362,8 +378,15 @@ class ConfirmPanel extends JPanel{
 	MyPanelLeft mpl;
 	public ConfirmPanel(MyPanelLeft mpl) {
 		
+		this.setBackground(Color.WHITE);
 		this.mpl = mpl;
-		confLab = new JLabel("确认更新");
+		confLab = new JLabel("   确认更新");
+		try {
+			confLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/shoppingCar.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		confLab.setFont(new Font("微软雅黑", 1, 15));
 		this.add(confLab);
 	}

@@ -233,7 +233,7 @@ public class MyDialogAdd extends JDialog{
 		midC.removeAll();
 		midC.reInit(PCV.curLabNo);
 		midC.MPMA[PCV.curLabNo].restLayoutMAOI(0);		//点击坐上logo刷新，重新设置选中的中间面板	
-		System.out.println(PCV.curLabNo);
+//		System.out.println(PCV.curLabNo);
 		//*******************************
 		
 		//*********更新下方面板***********
@@ -263,7 +263,7 @@ public class MyDialogAdd extends JDialog{
 				int value = chooser.showOpenDialog(null);
 				if(value == JFileChooser.APPROVE_OPTION){
 					imgFileP = chooser.getSelectedFile().getPath();
-					System.out.println("imgFileP : "+imgFileP);
+//					System.out.println("imgFileP : "+imgFileP);
 					imgLab.setIcon(new ImageIcon(imgFileP));
 					imgP.updateUI();
 					

@@ -35,7 +35,7 @@ public class SqlServerDao {
 			conn = DriverManager.getConnection(url, user, pass);
 			stmt = conn.createStatement();
 			
-			System.out.println("数据库连接成功！");
+//			System.out.println("数据库连接成功！");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class SqlServerDao {
 			createConn();
 			
 			stmt.execute(sql);
-			System.out.println("插入成功！");
+//			System.out.println("插入成功！");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -88,7 +88,7 @@ public class SqlServerDao {
 		String sql = "";
 		for(int i = 0; i < PCV.buyTotalList.size(); i++){
 			String str = PCV.buyTotalList.get(i);
-			System.out.println(str);
+//			System.out.println(str);
 			sql = "insert into ItemToDetails (name,price,leave,sold,picture,perID,ItemID) values ("+str+")";
 			stmt.execute(sql);
 			
@@ -139,9 +139,9 @@ public class SqlServerDao {
 				}
 				
 				sql = "update ItemToDetails set leave = "+ (res) + " where perID = "+(pId+1)+" and ItemID = " + (lId+1);
-				System.out.println(sql);
+//				System.out.println(sql);
 				stmt.execute(sql);
-				System.out.println("服务端添加补给成功！");
+//				System.out.println("服务端添加补给成功！");
 			}
 		}
 		
@@ -151,6 +151,7 @@ public class SqlServerDao {
 	public void userUpdate(String data) throws NumberFormatException, SQLException{		//客户端更新数据
 		String sql = "";
 		boolean flag = false;
+		System.out.println(data);
 		String sa[] = data.split(",");
 		int la[] = new int[sa.length];
 		int so[] = new int[sa.length];
@@ -201,7 +202,7 @@ public class SqlServerDao {
 		try {
 			stmt.execute(sql);
 			
-			System.out.println("Update OK !");
+//			System.out.println("Update OK !");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -216,7 +217,7 @@ public class SqlServerDao {
 		try {
 			stmt.execute(sql);
 			
-			System.out.println("delete OK !");
+//			System.out.println("delete OK !");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -239,7 +240,7 @@ public class SqlServerDao {
 				st = st.trim();
 				list.add(st);
 			}
-			System.out.println("slect OK ! ");
+//			System.out.println("slect OK ! ");
 
 		} catch (SQLException e) {
 		
@@ -266,7 +267,7 @@ public class SqlServerDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Close OK!");
+//		System.out.println("Close OK!");
 		
 	}
 	

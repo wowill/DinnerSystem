@@ -36,7 +36,7 @@ public class MyPanelMidKindArray extends JPanel{
 		//****************
 		
 		MPMA = new MyPanelMidArray[kindNum];
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
 			MPMA[i] = new MyPanelMidArray(this,midB,DP,everyKOL[i], i);
 		}
@@ -64,7 +64,7 @@ public class MyPanelMidKindArray extends JPanel{
 		//****************
 		
 		MPMA = new MyPanelMidArray[kindNum];
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
 			MPMA[i] = new MyPanelMidArray(this,midB,DP,everyKOL[i], i);
 		}

@@ -32,7 +32,7 @@ public class ServerSocketProcess {
 			while(flag){
 				
 				client = server.accept();
-				System.out.println("与客户端连接成功！");
+//				System.out.println("与客户端连接成功！");
 				new Thread(new ServerSocketThread(mpl,client, DP)).start();
 				
 			}

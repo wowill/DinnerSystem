@@ -138,7 +138,7 @@ public class MyDialogUOD extends JDialog{
 		a[0] = 2; a[1] = 3; a[2] = 4; a[3] =6;
 		String sql = "select * from ItemToDetails where perID = "+(curPerNo + 1)+" and ItemID = "+(curLabNo+1);
 		String sa[] = DP.DAO.select(sql, a).get(0).split(" ");
-		System.out.println(Arrays.toString(sa));
+//		System.out.println(Arrays.toString(sa));
 		for(int i = 0; i < sa.length; i++){
 			perNameFiled.setText(sa[0]);
 			priceFiled.setText(sa[1]);
@@ -283,7 +283,7 @@ public class MyDialogUOD extends JDialog{
 		midC.removeAll();
 		midC.reInit(PCV.curLabNo);
 		midC.MPMA[PCV.curLabNo].restLayoutMAOI(0);		//点击坐上logo刷新，重新设置选中的中间面板	
-		System.out.println(PCV.curLabNo);
+//		System.out.println(PCV.curLabNo);
 		//*******************************
 		
 		//*********更新下方面板***********
@@ -313,7 +313,7 @@ public class MyDialogUOD extends JDialog{
 				int value = chooser.showOpenDialog(null);
 				if(value == JFileChooser.APPROVE_OPTION){
 					imgFileP = chooser.getSelectedFile().getPath();
-					System.out.println("imgFileP : "+imgFileP);
+//					System.out.println("imgFileP : "+imgFileP);
 					imgLab.setIcon(new ImageIcon(imgFileP));
 					imgP.updateUI();
 					

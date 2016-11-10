@@ -7,7 +7,7 @@ go
 drop table LeftItem
 go
 CREATE TABLE LeftItem(
-id int primary key,
+id int primary key identity(1,1),
 name varchar(50)
 );
 go
@@ -25,18 +25,19 @@ ItemID int
 );
 go
 
-insert into LeftItem values
-(1, '²âÊÔ²Ëµ¥Ò»'),
-(2, '²âÊÔ²Ëµ¥¶þ'),
-(3, '²âÊÔ²Ëµ¥Èý'),
-(4, '²âÊÔ²Ëµ¥ËÄ'),
-(5, '²âÊÔ²Ëµ¥Îå'),
-(6, '²âÊÔ²Ëµ¥Áù'),
-(7, '²âÊÔ²Ëµ¥Æß'),
-(8, '²âÊÔ²Ëµ¥°Ë')
+insert into LeftItem( name )values
+( '²âÊÔ²Ëµ¥Ò»'),
+( '²âÊÔ²Ëµ¥¶þ'),
+( '²âÊÔ²Ëµ¥Èý'),
+( '²âÊÔ²Ëµ¥ËÄ'),
+( '²âÊÔ²Ëµ¥Îå'),
+( '²âÊÔ²Ëµ¥Áù'),
+( '²âÊÔ²Ëµ¥Æß'),
+( '²âÊÔ²Ëµ¥°Ë')
 go
 
-
+select * from LeftItem
+go
 
 insert into ItemToDetails (name,price,leave,sold,picture,perID,ItemID) values
 ('²Ë1-1', 10.05, 50, 30, 'c:/OrderingImages/0001.png',1, 1),

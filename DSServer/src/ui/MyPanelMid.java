@@ -50,7 +50,7 @@ public class MyPanelMid extends JPanel{
 
 	public void init() {
 		
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		//********设计布局方式**********
 		gbLayout = new GridBagLayout();
 		setLayout(gbLayout);
@@ -60,12 +60,12 @@ public class MyPanelMid extends JPanel{
 		//***********将每个列表对应条目的每个菜的信息存到一个list***********
 		ArrayList<String> listm = new ArrayList<>();
 		listm.addAll( PCV.perDetList.get(curLabNo));
-		for(int i = 0; i < listm.size(); i++){
-			System.out.println(listm.get(i));
-		}
+//		for(int i = 0; i < listm.size(); i++){
+//			System.out.println(listm.get(i));
+//		}
 		//****************************************************************
 		
-		System.out.println("curLabNo:"+curLabNo+"    perAllNum :"+perAllNum);
+//		System.out.println("curLabNo:"+curLabNo+"    perAllNum :"+perAllNum);
 		for(int i = 0; i < perAllNum; i++){
 			
 			MPP[i] = new MyPanelPer(midC,midB,DP,listm, i, curLabNo, pageNo);

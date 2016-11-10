@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -70,12 +71,13 @@ public class MyPanelPer extends JPanel{
 		setLayout();
 		imgLab = new JLabel();
 		
-		p = new PerBottom(price, leave, sold, curLabNo, perIndex);
+		p = new PerBottom(price, leave, sold, curLabNo, perIndex, pageNo);
 		
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
+		this.setBorder(BorderFactory.createEtchedBorder());
 	
-			ImageIcon img = new ImageIcon(imgPath);
-			imgLab.setIcon(img);
+		ImageIcon img = new ImageIcon(imgPath);
+		imgLab.setIcon(img);
 	
 		
 		s.gridx = 0;
@@ -155,9 +157,11 @@ class PerBottom extends JPanel{
 	public String perName;				//每一道菜的名字
 	public int curLabNo;				//当前条目编号
 	public int perIndex;				//当前菜的编号
+	public int pageNo;					//当前页面是第几页
 	
-	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex) {
+	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex, int pageNo) {
 		
+		this.pageNo = pageNo;
 		this.perIndex = perIndex;
 		this.price = price;
 		this.leave = leave;
@@ -326,14 +330,14 @@ class PerBottom extends JPanel{
 		
 		boolean flag = false;
 		for(int i = 0; i < PCV.buyList.size(); i++){
-			if(PCV.buyList.get(i).contains(curLabNo+" "+perIndex+"")){
+			if(PCV.buyList.get(i).contains(curLabNo+" "+(perIndex+pageNo*9)+"")){
 				String s[] = PCV.buyList.get(i).split(" ");
-				PCV.buyList.set(i,s[0]+" "+s[1]+ " "+ purches);				
+				PCV.buyList.set(i,s[0]+" "+s[1]+ " "+ purches +" "+pageNo);				
 				flag = true;
 			}
 		}
 		if(!flag){
-			PCV.buyList.add(curLabNo+" "+perIndex+" "+purches);
+			PCV.buyList.add(curLabNo+" "+(perIndex+pageNo*9)+" "+purches+" "+pageNo);
 		}
 	}
 }

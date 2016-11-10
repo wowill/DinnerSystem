@@ -43,7 +43,7 @@ public class MyPanelMid extends JPanel{
 
 	public void init() {
 		
-		setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		//********设计布局方式**********
 		gbLayout = new GridBagLayout();
 		setLayout(gbLayout);

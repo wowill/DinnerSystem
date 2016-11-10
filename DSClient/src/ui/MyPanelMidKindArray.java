@@ -26,7 +26,7 @@ public class MyPanelMidKindArray extends JPanel{
 		kindNum = PCV.AllItemLeft;
 		//*************模拟初始化 everyKOL[],真实数据传入再做修改
 		everyKOL = new int[kindNum];
-		System.out.println(kindNum);
+//		System.out.println(kindNum);
 		for(int i = 0; i < kindNum; i++){
 			everyKOL[i] = PCV.leftItemOfDN.get(i);
 		}
@@ -54,7 +54,7 @@ public class MyPanelMidKindArray extends JPanel{
 		kindNum = PCV.AllItemLeft;
 		//*************模拟初始化 everyKOL[],真实数据传入再做修改
 		everyKOL = new int[kindNum];
-		System.out.println(kindNum);
+//		System.out.println(kindNum);
 		for(int i = 0; i < kindNum; i++){
 			everyKOL[i] = PCV.leftItemOfDN.get(i);
 		}

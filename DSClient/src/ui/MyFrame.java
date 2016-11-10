@@ -53,18 +53,27 @@ public class MyFrame extends JFrame{
 
 	public void getRomoteServ(){			//通过输入IP，获取远程服务端的数据
 		
+		boolean flag = false;
 		while(PCV.remoteAddr == "" || PCV.remoteAddr == null || PCV.strPerDetails == null || PCV.strPerDetails == ""){
-			PCV.remoteAddr = JOptionPane.showInputDialog(null, "请输入服务端IP：", "连接服务器", JOptionPane.PLAIN_MESSAGE);
-			client = new SocketClient();
+			PCV.remoteAddr = JOptionPane.showInputDialog(null, "请输入服务端IP：", "连接服务器", JOptionPane.DEFAULT_OPTION);
+			if(!PCV.remoteAddr.equals("") && PCV.remoteAddr != null){
+				client = new SocketClient();
+			}
 			
-			if(PCV.strPerDetails == null || PCV.strPerDetails == ""){
-				int v = JOptionPane.showConfirmDialog(this, "对不起，您输入的IP有误，请重新输入！", "错误提示", JOptionPane.YES_OPTION);
-				if(v == 1){
-					this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			if(PCV.remoteAddr.equals("")|| PCV.remoteAddr == null || PCV.strPerDetails == null || PCV.strPerDetails.equals("")){
+				int v = JOptionPane.showConfirmDialog(this, "对不起，您输入的IP有误，请重新输入！", "错误提示", JOptionPane.OK_OPTION);
+				if(v != 0){
+					flag = true;
+					break;
 				}
 			}
+			
 		}
+		if(flag){
+			
+			this.dispose();
 		
+		}
 		
 	}
 	
@@ -159,7 +168,7 @@ public class MyFrame extends JFrame{
 				
 				if(tempP.indexArr+1 < tempP.panelNum)
 				{
-					System.out.println(MPMKA.curLabNo+"  ||  "+tempP.indexArr + "   " +tempP.panelNum);
+//					System.out.println(MPMKA.curLabNo+"  ||  "+tempP.indexArr + "   " +tempP.panelNum);
 					tempP.indexArr++;
 					tempP.removeAll();
 					MPMKA.removeAll();

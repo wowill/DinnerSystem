@@ -35,7 +35,7 @@ public class SocketClient {
 	
 	public void updataData(){			//发送给服务端确认购买的数据，并接受服务端返回的数据					
 		
-    	
+    	PCV.buyList = new ArrayList<>();
 		try{
 	    	Socket client = new Socket(PCV.remoteAddr, 8979);  
 			client.setSoTimeout(10000);
@@ -67,7 +67,7 @@ public class SocketClient {
     public void init() {  				
        
         try {
-        	PCV.buyList = new ArrayList<>();
+        	
         	
         	Socket client = new Socket(PCV.remoteAddr, 8979);  
 			client.setSoTimeout(10000);
@@ -137,7 +137,7 @@ public class SocketClient {
 //		}
 //		System.out.println("***************");
 		for(int i = 0; i < PCV.imgPath.size(); i++){
-			System.out.println(PCV.imgPath.get(i));
+//			System.out.println(PCV.imgPath.get(i));
 			
 			FileOutputStream fos = new FileOutputStream(new File(PCV.imgPath.get(i)));
 			byte[] bt = new byte[1024];

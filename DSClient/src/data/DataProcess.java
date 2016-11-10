@@ -67,7 +67,7 @@ public class DataProcess {
 			
 			createNewFiles(PCV.imgPath.get(i));
 		}
-		System.out.println("空白图片创建成功!");
+//		System.out.println("空白图片创建成功!");
 	}
 	
 	public void dataToDiv(){			//把从服务端接收来的字符串数据分配给此客户端
@@ -116,7 +116,7 @@ public class DataProcess {
 			ArrayList<String> slist = new ArrayList<>();
 			slist.addAll(list1);
 			PCV.perDetList.add(slist);
-			System.out.println("list DP :"+PCV.perDetList.get(i-1).toString() +"     size :"+PCV.perDetList.get(i-1).size());
+//			System.out.println("list DP :"+PCV.perDetList.get(i-1).toString() +"     size :"+PCV.perDetList.get(i-1).size());
 			
 		}
 		
@@ -125,8 +125,8 @@ public class DataProcess {
 		
 		//********************************************
 		PCV.initB = true;
-		System.out.println("jieshu :　"+PCV.perDetList.size());
-		System.out.println(PCV.perDetList.get(0));
+//		System.out.println("jieshu :　"+PCV.perDetList.size());
+//		System.out.println(PCV.perDetList.get(0));
 	}
 	
 	public String spTocp(String name){			//把服务端传输来的图片路径转换成客户端的的路径

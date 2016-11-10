@@ -20,7 +20,7 @@ public class PCV {		//此类用于存放全局使用的变量和常量
 	public static ArrayList<Integer> buyPerIdList;					//购买物品的编号列表
 	public static ArrayList<Double> buyNumList;						//购买物品的数量编号
 	public static ArrayList<Integer> buyItemIdList;					//购买物品对应的左侧条目的编号列表
-	public static ArrayList<String> buyList;						//购买物品列表 , 格式"条目id 菜id 购买数量"
+	public static ArrayList<String> buyList = new ArrayList<>();	//购买物品列表 , 格式"条目id 菜id 购买数量"
 	public static int curLabNo = 0;									//当前左侧列表的编号
 	public static int curMPNo = 0;									//当前中间面板所在页码
 	public static String SPLINE = System.getProperty("line.separator");	//换行符

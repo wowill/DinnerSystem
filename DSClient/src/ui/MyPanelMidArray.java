@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import data.PCV;
+
 public class MyPanelMidArray extends JPanel{
 	
 	public int panelNum;			//中间区域每一个条目含有几页MPM
@@ -39,10 +41,13 @@ public class MyPanelMidArray extends JPanel{
 			
 			MPM[i] = new MyPanelMid(evePaneNum[i], curLabNo,i,midB);
 		}
+		this.setBackground(Color.WHITE);
 		MPM[0].setBackground(Color.WHITE);
 		restLayouMidArr(MPM[0], this);
 		
 	}
+	
+	
 	
 	public void initEve(){				//初始化每页存放的菜的数目的面板
 		

@@ -27,9 +27,14 @@ public class MyPanelMid extends JPanel{
 	public int curLabNo;		//当前选中左侧列表的序号
 	public JPanel spaP;			//空白面板
 	public JLabel blankLab;		//存放空白图片的标签
+	public int pageNo;			//当前页面是第几页
+	public MyPanelMidBottom midB;	//下侧面板，主要用来实时更新已购物品价格
 	
-	public MyPanelMid(int perAllNum, int curLabNo) {
-		System.out.println("cyr" + curLabNo);
+	public MyPanelMid(int perAllNum, int curLabNo, int pageNo,MyPanelMidBottom midB) {
+		
+		this.midB = midB;
+		this.pageNo = pageNo;
+//		System.out.println("cyr" + curLabNo);
 		this.curLabNo = curLabNo;
 		this.perAllNum = perAllNum;
 		MPP = new MyPanelPer[perAllNum];
@@ -53,7 +58,7 @@ public class MyPanelMid extends JPanel{
 		
 		for(int i = 0; i < perAllNum; i++){
 			
-			MPP[i] = new MyPanelPer(listm, i, curLabNo);
+			MPP[i] = new MyPanelPer(listm, i, curLabNo, pageNo,midB);
 			restLayouMidArr(MPP[i], this, i);
 		}
 		if(perAllNum < 9 && perAllNum > 0){

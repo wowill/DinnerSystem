@@ -14,10 +14,11 @@ public class MyPanelMidKindArray extends JPanel{
 	public int kindNum;					//左侧条目的数量
 	int everyKOL[];						//左侧每个条目对应的菜的数目
 	public int curLabNo;				//当前选中左侧列表的序号
-	
+	public MyPanelMidBottom midB;		//下侧面板，主要用来实时更新已购物品价格
 
-	public MyPanelMidKindArray() {
+	public MyPanelMidKindArray(MyPanelMidBottom midB) {
 		
+		this.midB = midB;
 		init();
 	}
 
@@ -34,7 +35,7 @@ public class MyPanelMidKindArray extends JPanel{
 		MPMA = new MyPanelMidArray[kindNum];
 		setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
-			MPMA[i] = new MyPanelMidArray(everyKOL[i], i);
+			MPMA[i] = new MyPanelMidArray(everyKOL[i], i,midB);
 		}
 //		MPMA[0].setBackground(Color.WHITE);
 		restLayouMidArr(0, this);
@@ -62,7 +63,7 @@ public class MyPanelMidKindArray extends JPanel{
 		MPMA = new MyPanelMidArray[kindNum];
 		setBackground(Color.WHITE);
 		for(int i = 0; i < kindNum; i++){
-			MPMA[i] = new MyPanelMidArray(everyKOL[i], i);
+			MPMA[i] = new MyPanelMidArray(everyKOL[i], i,midB);
 		}
 //		MPMA[0].setBackground(Color.WHITE);
 		restLayouMidArr(curLabNo, this);

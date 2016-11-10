@@ -42,7 +42,7 @@ public class MyFrame extends JFrame{
 		getRomoteServ();
 		DP = client.retDP();
 		MPMB = new MyPanelMidBottom();
-		MPMKA = new MyPanelMidKindArray();
+		MPMKA = new MyPanelMidKindArray(MPMB);
 		MPL = new MyPanelLeft(MPMKA, MPMB, client);
 		init();
 		initBottomIndex();

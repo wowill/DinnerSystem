@@ -131,14 +131,28 @@ public class DataProcess {
 	
 	public String spTocp(String name){			//把服务端传输来的图片路径转换成客户端的的路径
 		
+		if(name.contains("/")){
+			
+		}
+		else if(name.contains("\\")){
+			name = name.replace("\\", "/");
+			
+		}
 		return  name.replace(name.split("/")[1], "OrderingClient");
 		
 		
 	}
 	
 	public boolean uniquePath(String name){
+		if(name.contains("/")){
+			name = name.split("/")[2];
+		}
+		else if(name.contains("\\")){
+			name = name.replace("\\", "/");
+			name = name.split("/")[2];
+			
+		}
 		
-		name = name.split("/")[2];
 //		System.out.println("name "+name );
 		for(int i = 0; i < PCV.imgPath.size(); i++){
 			if(PCV.imgPath.get(i).split("/")[2].equals(name)){

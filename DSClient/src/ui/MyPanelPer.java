@@ -35,11 +35,15 @@ public class MyPanelPer extends JPanel{
 	public String perName;				//每一道菜的名字
 	public int curLabNo;				//当前条目编号
 	public int perIndex;				//当前菜的编号
+	public int pageNo;					//当前页面是第几页
+	public MyPanelMidBottom midB;		//下侧面板，主要用来实时更新已购物品价格
 	
-	public MyPanelPer(ArrayList<String> list, int perIndex, int curLabNo) {
+	public MyPanelPer(ArrayList<String> list, int perIndex, int curLabNo, int pageNo,MyPanelMidBottom midB) {
 		
 		//************初始化数据********************
-		String str = list.get(perIndex);
+		this.midB = midB;
+		this.pageNo = pageNo;
+		String str = list.get(perIndex+pageNo*9);
 		String sa[] = str.split(" ");
 		
 		this.perIndex = perIndex;
@@ -53,14 +57,48 @@ public class MyPanelPer extends JPanel{
 		//*****************************************
 		
 		init();
+		addImgLabAL();
 	}
-	
+	public void addImgLabAL(){			//为图片标签添加鼠标事件
+		imgLab.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				imgLab.setToolTipText(perName);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 	public void init() {			//初始化每一道菜的面板界面
 		
 		setLayout();
 		imgLab = new JLabel();
 		
-		p = new PerBottom(price, leave, sold, curLabNo, perIndex);
+		p = new PerBottom(price, leave, sold, curLabNo, perIndex,midB);
 		
 		setBackground(Color.WHITE);
 	
@@ -107,9 +145,11 @@ class PerBottom extends JPanel{
 	public String perName;				//每一道菜的名字
 	public int curLabNo;				//当前条目编号
 	public int perIndex;				//当前菜的编号
+	public MyPanelMidBottom midB;		//下侧面板，主要用来实时更新已购物品价格
 	
-	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex) {
+	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex, MyPanelMidBottom midB) {
 		
+		this.midB = midB;
 		this.perIndex = perIndex;
 		this.price = price;
 		this.leave = leave;
@@ -126,7 +166,7 @@ class PerBottom extends JPanel{
 		addNum = new JLabel();
 		showNum = new JTextField(2);
 		soldNum = new JLabel();
-//		leaveNum = new JLabel();
+		leaveNum = new JLabel();
 		setBackground(Color.WHITE);
 		
 		try {
@@ -143,11 +183,11 @@ class PerBottom extends JPanel{
 		
 		soldNum.setFont(new Font("微软雅黑", 0, 10));
 		soldNum.setForeground(new Color(200, 10, 0));
-		soldNum.setText("已售："+sold);
+		soldNum.setText(""+sold);
 		
-//		leaveNum.setFont(new Font("微软雅黑", 0, 10));
-//		leaveNum.setForeground(new Color(200, 10, 0));
-//		leaveNum.setText(leave+"/");
+		leaveNum.setFont(new Font("微软雅黑", 0, 10));
+		leaveNum.setForeground(new Color(200, 10, 0));
+		leaveNum.setText(leave+"/");
 		
 		priceLab.setText("￥"+price); 
 		priceLab.setForeground(new Color(200, 10, 0));
@@ -156,9 +196,11 @@ class PerBottom extends JPanel{
 		add(subNum);
 		add(showNum);
 		add(addNum);
-//		add(leaveNum);
+		add(leaveNum);
 		add(soldNum);
 	}
+	
+	
 	
 	public void goAddNum(){				//直接修改库存量
 		
@@ -212,6 +254,8 @@ class PerBottom extends JPanel{
 				purches++;
 				showNum.setText(purches+"");
 				updateList(curLabNo,perIndex,purches);
+				midB.setPriceLabText();
+				midB.updateUI();
 			}
 			
 			@Override
@@ -252,7 +296,8 @@ class PerBottom extends JPanel{
 					purches--;
 					showNum.setText(purches+"");					
 					updateList(curLabNo, perIndex,purches);
-
+					midB.setPriceLabText();
+					midB.updateUI();
 				}
 			}
 			

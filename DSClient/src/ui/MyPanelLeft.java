@@ -200,6 +200,8 @@ public class MyPanelLeft extends JPanel{
 				
 				if(n == 0){
 					afterFlushAP();						//重新刷新整个界面
+					midB.curAPriceLab.setText(String.format("已消费：￥%4.2f", 0.0));
+					midB.curAPriceLab.setForeground(Color.RED);
 				}
 			}
 			
@@ -331,8 +333,7 @@ public void addLogoAL(){			//为左上角添加点击事件
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				flushAPS();
-				System.out.println("刷新一次");
+			
 			}
 		});
 	}

@@ -14,10 +14,12 @@ public class MyPanelMidArray extends JPanel{
 	public int[] evePaneNum;		//每一页存放的菜的数目
 	public int indexArr;			//中间显示数据的面板数组的下标
 	public int curAllPN;			//当前选中左侧列表的含有中间面板的数目
-	public int curLabNo;				//当前选中左侧列表的序号
+	public int curLabNo;			//当前选中左侧列表的序号
+	public MyPanelMidBottom midB;	//下侧面板，主要用来实时更新已购物品价格
 	
-	public MyPanelMidArray(int itemAllNum, int curLabNo) {
+	public MyPanelMidArray(int itemAllNum, int curLabNo,MyPanelMidBottom midB) {
 		
+		this.midB = midB;
 		this.curLabNo = curLabNo;
 		this.itemAllNum = itemAllNum;
 		this.panelNum = itemAllNum / 9;
@@ -35,7 +37,7 @@ public class MyPanelMidArray extends JPanel{
 		indexArr = 0;
 		for(int i = 0; i < panelNum; i++){
 			
-			MPM[i] = new MyPanelMid(evePaneNum[i], curLabNo);
+			MPM[i] = new MyPanelMid(evePaneNum[i], curLabNo,i,midB);
 		}
 		MPM[0].setBackground(Color.WHITE);
 		restLayouMidArr(MPM[0], this);

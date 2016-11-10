@@ -46,7 +46,7 @@ public class LeftItemPanel extends JPanel{
 		sp = new JLabel();
 		sp.setText("     ");
 		try {
-			imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/black.png"))));
+			imgLab.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/image/white.png"))));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -199,7 +199,7 @@ public class MyDialogAdd extends JDialog{
 				int leaveNum = Integer.parseInt(leaveField.getText());
 				String perName = perNameFiled.getText();
 				double price = Double.parseDouble(priceFiled.getText());
-				PCV.buyTotalList.add("'"+perName+"',"+" "+price+", "+leaveNum+", "+"0,"+" "+"'"+ imgFileP +"',"+" "+(itemAllNum+1)+", "+(curLabNo+1));
+				PCV.buyTotalList.add("'"+perName+"',"+" "+price+", "+leaveNum+", "+"0,"+" "+"'"+ imgFileP +"',"+" "+(getLastPerNo()+1)+", "+(curLabNo+1));
 				DP.DAO.UOIMes();
 				flushMidCB();
 				closeDialogAL();
@@ -224,6 +224,19 @@ public class MyDialogAdd extends JDialog{
 				
 			}
 		});
+	}
+	public int getLastPerNo(){				////获取最后的每道菜的编号
+		int maxV = 0;
+		
+		int a[] = {7};
+		
+	
+		String	sql = "select * from ItemToDetails where ItemID = "+(curLabNo+1);
+		ArrayList<String> list = DP.DAO.select(sql, a);
+		maxV = Integer.parseInt(list.get(list.size()-1));
+			
+		System.out.println("last "+maxV);
+		return maxV;
 	}
 	public void flushMidCB(){				//刷新中间面板和底部面板
 		

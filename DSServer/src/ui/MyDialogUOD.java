@@ -138,7 +138,7 @@ public class MyDialogUOD extends JDialog{
 		a[0] = 2; a[1] = 3; a[2] = 4; a[3] =6;
 		String sql = "";
 		String sa[] = null;
-		sql = "select * from ItemToDetails where perID = "+(getMaxPerNo())+" and ItemID = "+(curLabNo+1);
+		sql = "select * from ItemToDetails where perID = "+(getCurPerNoT())+" and ItemID = "+(curLabNo+1);
 		sa = DP.DAO.select(sql, a).get(0).split(" ");
 
 		for(int i = 0; i < sa.length; i++){
@@ -212,7 +212,7 @@ public class MyDialogUOD extends JDialog{
 				// TODO Auto-generated method stub
 				String sql = "";
 				
-				sql = "delete from ItemToDetails where perID = "+(getMaxPerNo()) +" and ItemID = "+(curLabNo+1);
+				sql = "delete from ItemToDetails where perID = "+(getCurPerNoT()) +" and ItemID = "+(curLabNo+1);
 				System.out.println("***"+sql);
 				DP.DAO.delete(sql);
 				flushMidCB();
@@ -263,7 +263,26 @@ public class MyDialogUOD extends JDialog{
 		
 	}
 	
-	
+	public int getCurPerNoT(){				//通过点击的面板的编号，推算出是第几个面板
+		
+		int maxV = 0;
+		int cpn = curPerNo + 1;
+		int a[] = {7};
+		int j = 0, k = cpn;
+		ArrayList<String> list = new ArrayList<>();
+		String	tsql = "select * from ItemToDetails where ItemID = "+(curLabNo+1);
+		list = DP.DAO.select(tsql, a);
+		
+		if(list.size() > cpn-1){
+			
+			maxV = Integer.parseInt(list.get(cpn-1));
+		}
+		
+		
+		System.out.println("max "+maxV);
+		return maxV;
+		
+	}
 	
 	public void addSubmitAL(){					//未确认提交按钮添加点击事件
 		submitBtn.addMouseListener(new MouseListener() {
@@ -281,7 +300,7 @@ public class MyDialogUOD extends JDialog{
 				String perName = perNameFiled.getText();
 				double price = Double.parseDouble(priceFiled.getText());
 				String sql = "update ItemToDetails set name = "+"'"+perName+"' , price = "+price+" , "+"leave = "+leaveNum
-						+" , picture = '"+imgFileP+"' where perID = "+(getMaxPerNo()) +" and ItemID = "+(curLabNo+1);     
+						+" , picture = '"+imgFileP+"' where perID = "+(getCurPerNoT()) +" and ItemID = "+(curLabNo+1);     
 				DP.DAO.update(sql);
 				flushMidCB();
 				closeDialogAL();

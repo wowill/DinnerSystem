@@ -71,7 +71,7 @@ public class MyPanelPer extends JPanel{
 		setLayout();
 		imgLab = new JLabel();
 		
-		p = new PerBottom(price, leave, sold, curLabNo, perIndex, pageNo);
+		p = new PerBottom(price, leave, sold, curLabNo, perIndex, pageNo, DP);
 		
 		this.setBackground(Color.WHITE);
 		this.setBorder(BorderFactory.createEtchedBorder());
@@ -158,9 +158,11 @@ class PerBottom extends JPanel{
 	public int curLabNo;				//当前条目编号
 	public int perIndex;				//当前菜的编号
 	public int pageNo;					//当前页面是第几页
+	public DataProcess DP;
 	
-	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex, int pageNo) {
+	public PerBottom(double price, int leave, int sold, int curLabNo, int perIndex, int pageNo, DataProcess DP) {
 		
+		this.DP = DP;
 		this.pageNo = pageNo;
 		this.perIndex = perIndex;
 		this.price = price;
@@ -330,14 +332,19 @@ class PerBottom extends JPanel{
 		
 		boolean flag = false;
 		for(int i = 0; i < PCV.buyList.size(); i++){
-			if(PCV.buyList.get(i).contains(curLabNo+" "+(perIndex+pageNo*9)+"")){
+			
+			DP.DAO.createConn();
+			if(PCV.buyList.get(i).contains(curLabNo+" "+(DP.DAO.getCurPerNoT(perIndex+pageNo*9, curLabNo)-1)+"")){
 				String s[] = PCV.buyList.get(i).split(" ");
 				PCV.buyList.set(i,s[0]+" "+s[1]+ " "+ purches +" "+pageNo);				
 				flag = true;
 			}
+			DP.DAO.close();
 		}
 		if(!flag){
-			PCV.buyList.add(curLabNo+" "+(perIndex+pageNo*9)+" "+purches+" "+pageNo);
+			DP.DAO.createConn();
+			PCV.buyList.add(curLabNo+" "+(DP.DAO.getCurPerNoT(perIndex+pageNo*9, curLabNo)-1)+" "+purches+" "+pageNo);
+			DP.DAO.close();
 		}
 	}
 }

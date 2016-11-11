@@ -158,9 +158,9 @@ public class SqlServerDao {
 		for(int i = 0; i < sa.length; i++){
 			String sp[] = sa[i].split(" ");
 			int lId = Integer.parseInt(sp[0]);
-			int pId = Integer.parseInt(sp[1]);
+			int pId = getCurPerNoT(Integer.parseInt(sp[1]), lId);
 			int pNum = Integer.parseInt(sp[2]);
-			sql = "select * from ItemToDetails where perID = "+(pId+1)+" and ItemID = " + (lId+1);
+			sql = "select * from ItemToDetails where perID = "+(pId)+" and ItemID = " + (lId+1);
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				
@@ -185,10 +185,10 @@ public class SqlServerDao {
 			for(int i = 0; i < sa.length; i++){
 				String sp[] = sa[i].split(" ");
 				int lId = Integer.parseInt(sp[0]);
-				int pId = Integer.parseInt(sp[1]);
+				int pId = getCurPerNoT(Integer.parseInt(sp[1]), lId);
 				int pNum = Integer.parseInt(sp[2]);
 				
-				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", sold = "+ (so[i] + pNum)+" where perID = "+(pId+1)+" and ItemID = " + (lId+1);
+				sql = "update ItemToDetails set leave = "+ (la[i] - pNum) + ", sold = "+ (so[i] + pNum)+" where perID = "+(pId)+" and ItemID = " + (lId+1);
 				stmt.execute(sql);
 			}
 		}
@@ -196,6 +196,41 @@ public class SqlServerDao {
 		close();
 	}
 	
+	public int getCurPerNoT(int curPerNo, int curLabNo){				//通过点击的面板的编号，推算出是第几个面板
+		
+		int maxV = 0;
+		int cpn = curPerNo + 1;
+		int a[] = {7};
+		int j = 0, k = cpn;
+		ArrayList<String> list = new ArrayList<>();
+		String	tsql = "select * from ItemToDetails where ItemID = "+(curLabNo+1);
+
+		try {
+			rs = stmt.executeQuery(tsql);
+			while(rs.next()){
+				
+				String st = "";
+				for(int i = 0; i < a.length; i++){
+					st += rs.getString(a[i])+" ";
+				}
+				st = st.trim();
+				list.add(st);
+			}
+		}catch(SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
+		if(list.size() > cpn-1){
+			
+			maxV = Integer.parseInt(list.get(cpn-1));
+		}
+		
+		
+		System.out.println("max sql "+maxV);
+		return maxV;
+		
+	}
 	public void update(String sql){				//修改数据
 		
 		createConn();

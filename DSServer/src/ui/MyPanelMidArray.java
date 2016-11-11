@@ -35,7 +35,9 @@ public class MyPanelMidArray extends JPanel{
 		if(this.itemAllNum == 9){
 			this.panelNum += 1;
 		}
-		
+		if(this.panelNum <= 0){
+			this.panelNum = 1;
+		}
 		this.evePaneNum = new int[this.panelNum];
 		
 		MPM = new MyPanelMid[this.panelNum];

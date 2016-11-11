@@ -233,7 +233,13 @@ public class MyDialogAdd extends JDialog{
 	
 		String	sql = "select * from ItemToDetails where ItemID = "+(curLabNo+1);
 		ArrayList<String> list = DP.DAO.select(sql, a);
-		maxV = Integer.parseInt(list.get(list.size()-1));
+		if(list.size() > 0){
+			maxV = Integer.parseInt(list.get(list.size()-1));
+		}
+		else{
+			maxV = 0;
+		}
+		
 			
 		System.out.println("last "+maxV);
 		return maxV;

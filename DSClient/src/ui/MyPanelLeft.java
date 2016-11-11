@@ -252,9 +252,11 @@ public class MyPanelLeft extends JPanel{
 			
 			sum += pNum * perPrice;
 			PCV.sendStrFC += PCV.buyList.get(i).trim() + ",";
+			
 		}
 		sb.append("×Ü¼Æ½ð¶î£º"+"                "+"£¤"+String.format("%.2f", sum)+PCV.SPLINE);
 		PCV.sendStrFC = PCV.sendStrFC.trim();
+		System.out.println("PCV.sendStrFC:"+PCV.sendStrFC);
 		return sb.toString();
 		
 	}

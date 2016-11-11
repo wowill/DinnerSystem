@@ -34,8 +34,7 @@ public class SocketClient {
 	}
 	
 	public void updataData(){			//发送给服务端确认购买的数据，并接受服务端返回的数据					
-		
-    	PCV.buyList = new ArrayList<>();
+		PCV.buyList = new ArrayList<>();
 		try{
 	    	Socket client = new Socket(PCV.remoteAddr, 8979);  
 			client.setSoTimeout(10000);

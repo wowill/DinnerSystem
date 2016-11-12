@@ -1,3 +1,6 @@
+drop database DinnerDB
+go
+
 CREATE DATABASE DinnerDB;
 go
 

@@ -54,10 +54,15 @@ public class MyFrame extends JFrame{
 	public void getRomoteServ(){			//通过输入IP，获取远程服务端的数据
 		
 		boolean flag = false;
+		PCV.remoteAddr = null;
 		while(PCV.remoteAddr == "" || PCV.remoteAddr == null || PCV.strPerDetails == null || PCV.strPerDetails == ""){
 			PCV.remoteAddr = JOptionPane.showInputDialog(null, "请输入服务端IP：", "连接服务器", JOptionPane.DEFAULT_OPTION);
 			if(!PCV.remoteAddr.equals("") && PCV.remoteAddr != null){
 				client = new SocketClient();
+			}
+			else{
+				flag = true;
+				break;
 			}
 			
 			if(PCV.remoteAddr.equals("")|| PCV.remoteAddr == null || PCV.strPerDetails == null || PCV.strPerDetails.equals("")){
